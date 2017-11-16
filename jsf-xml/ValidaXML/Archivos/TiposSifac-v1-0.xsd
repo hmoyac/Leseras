@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://extranet.siss.cl/sinar/sifac/" targetNamespace="http://extranet.siss.cl/sinar/sifac/" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" id="SIFAC-TIPOS">
+	<xsd:simpleType name="StringType">
+		<xsd:annotation>
+			<xsd:documentation>String que remplaza caracteres retorno de carro, tabs y espacios repetidos por un espacio</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AnioType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:pattern value="(20\d{2})(12)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PeriodoType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:pattern value="(20\d{2})(0[1-9]|1[0-2])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NumeroClienteType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="99999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NumeroClienteNoCeroType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minExclusive value="0"/>
+			<xsd:maxInclusive value="99999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PorcentajeType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="5"/>
+			<xsd:fractionDigits value="2"/>
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PorcentajeNoCeroType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="5"/>
+			<xsd:fractionDigits value="2"/>
+			<xsd:minExclusive value="0"/>
+			<xsd:maxInclusive value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="11"/>
+			<xsd:fractionDigits value="3"/>
+			<xsd:maxExclusive value="100000000"/>
+			<xsd:minInclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoNoCeroType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="11"/>
+			<xsd:fractionDigits value="3"/>
+			<xsd:maxExclusive value="100000000"/>
+			<xsd:minExclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoNegativoNoCeroType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="11"/>
+			<xsd:fractionDigits value="3"/>
+			<xsd:maxExclusive value="0"/>
+			<xsd:minExclusive value="-100000000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoAnualNoCeroType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="12"/>
+			<xsd:fractionDigits value="3"/>
+			<xsd:maxExclusive value="1000000000"/>
+			<xsd:minExclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TarifaType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="7"/>
+			<xsd:fractionDigits value="2"/>
+			<xsd:maxExclusive value="100000"/>
+			<xsd:minInclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TarifaNoCeroType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="7"/>
+			<xsd:fractionDigits value="2"/>
+			<xsd:maxExclusive value="100000"/>
+			<xsd:minExclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ProduccionType">
+		<xsd:annotation>
+			<xsd:documentation>1 = Subterránea ; 2 = Superficial</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ServicioType">
+		<xsd:annotation>
+			<xsd:documentation>1 = Solo Agua Potable ; 2 = Solo Alcantarillado ; 3 = Agua Potable y Alcantarillado ; 5 = Agua Potable y Alcantarillado con Pozo</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:pattern value="[1235]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ContratoType">
+		<xsd:annotation>
+			<xsd:documentation>1 = Medido ; 2 = Tarifa Fija</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ClienteType">
+		<xsd:annotation>
+			<xsd:documentation>1 = Residencial ; 2 = Comercial ; 3 = Industrial ; 4 = Institucional ; 5 = No Asociado a Inmueble</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="LimiteType">
+		<xsd:annotation>
+			<xsd:documentation>3 = Fuera Territorio Operacional - Dentro Límite Urbano ; 6 = 52 BIS ; 7 = Dentro Territorio Operacional</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:pattern value="[367]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ConexionType">
+		<xsd:annotation>
+			<xsd:documentation>4 = Sin conexión a Red AP pero frente a Red ; 5 = Sin conexión a Red AP pero no frente a Red ; 6 = Sin conexión a Red AS pero frente a Colector ; 7 = Sin conexión a Red AS pero no frente a Colector</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="4"/>
+			<xsd:maxInclusive value="7"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PrestadorType">
+		<xsd:annotation>
+			<xsd:documentation>1 = Prestador ; 2 = Cliente</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RangoType">
+		<xsd:annotation>
+			<xsd:documentation>1 = 0 ; 2 = 1-10 ; 3 = 11-15 ; 4 = 16-20 ; 5 = 21-30 ; 6 = 31-40 ; 7 = 41-50 ; 8 = 51-60 ; 9 = 61-70 ; 10 = 71-80 ; 11 = 81-120 ; 12 = 121-160 ; 13 = 161-200 ; 14 = 201-240 ; 15 = 241-280 ; 16 = 281-300 ; 17 = >300 ; 18 = No Clasificado</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="18"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ServicioPrestadoType">
+		<xsd:annotation>
+			<xsd:documentation>1 = Producción ; 2 = Distribución ; 3 = Recolección ; 4 = Disposición</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NoRequeridoType">
+		<xsd:annotation>
+			<xsd:documentation>Cuando dato no sea obligatorio</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoOpcionalType">
+		<xsd:union memberTypes="MetroCubicoType NoRequeridoType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoNoCeroOpcionalType">
+		<xsd:union memberTypes="MetroCubicoNoCeroType NoRequeridoType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="NumeroClienteNoCeroOpcionalType">
+		<xsd:union memberTypes="NumeroClienteNoCeroType NoRequeridoType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoAceptaNegativoNoCeroType">
+		<xsd:union memberTypes="MetroCubicoNoCeroType MetroCubicoNegativoNoCeroType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="MetroCubicoAceptaNegativoOpcionalType">
+		<xsd:union memberTypes="MetroCubicoType MetroCubicoNegativoNoCeroType NoRequeridoType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="CodigoCortoType">
+		<xsd:restriction base="StringType">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CodigoLargoType">
+		<xsd:restriction base="StringType">
+			<xsd:maxLength value="200"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CiiuType">
+		<xsd:restriction base="StringType">
+			<xsd:maxLength value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MesType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

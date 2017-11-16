@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+RIM-COD-Module-Name: AppBB
+RIM-COD-Module-Dependencies: net_rim_cldc
+MIDlet-Jar-Size: 2693
+MIDlet-1: HelloWorldDemo,,com.rim.samples.device.helloworlddemo
+RIM-COD-Creation-Time: 1303305074
+MIDlet-Jar-URL: AppBB.jar
+RIM-COD-URL: AppBB.cod
+RIM-COD-SHA1: 0a bb 6d a3 24 5f e4 df f0 78 86 e3 81 78 ef d9 3b ec 81 92
+RIM-COD-Size: 2712
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Version: 1.0.0
+MIDlet-Name: AppBB
+MIDlet-Vendor: Vendor
+MicroEdition-Profile: MIDP-2.0
+RIM-MIDlet-Flags-1: 0

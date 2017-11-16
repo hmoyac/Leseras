@@ -1,0 +1,2196 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Sinar codigoArchivo="9" codigoProceso="r">
+<Empresa periodo="2010034" rut="69070900">
+<Limite codigoLimite="7">
+<Localidad codigoLocalidad="151" codigoComuna="13119">
+<Cliente tipoCliente="1">
+<Servicio tipoServicio="7">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>-5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>1255</MetrosCubicosAP>
+<MetrosCubicosAS>1255</MetrosCubicosAS>
+<CantidadClientes>9999999999999</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>2637</MetrosCubicosAP>
+<MetrosCubicosAS>2637</MetrosCubicosAS>
+<CantidadClientes>0</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>2926</MetrosCubicosAP>
+<MetrosCubicosAS>2926.98546</MetrosCubicosAS>
+<CantidadClientes>164</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>3481</MetrosCubicosAP>
+<MetrosCubicosAS>3481</MetrosCubicosAS>
+<CantidadClientes>144</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>1360</MetrosCubicosAP>
+<MetrosCubicosAS>1360</MetrosCubicosAS>
+<CantidadClientes>40</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>86</MetrosCubicosAP>
+<MetrosCubicosAS>86</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>59</MetrosCubicosAP>
+<MetrosCubicosAS>59</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>88</MetrosCubicosAP>
+<MetrosCubicosAS>88</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="2">
+<Servicio tipoServicio="3">
+<Rango codigoRango="4">
+<MetrosCubicosAP>17</MetrosCubicosAP>
+<MetrosCubicosAS>17</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+</Localidad>
+
+<Localidad codigoLocalidad="176" codigoComuna="13119">
+<Cliente tipoCliente="1">
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>74</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>2697</MetrosCubicosAP>
+<MetrosCubicosAS>2697</MetrosCubicosAS>
+<CantidadClientes>419</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>4011</MetrosCubicosAP>
+<MetrosCubicosAS>4011</MetrosCubicosAS>
+<CantidadClientes>313</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>3448</MetrosCubicosAP>
+<MetrosCubicosAS>3448</MetrosCubicosAS>
+<CantidadClientes>195</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>4134</MetrosCubicosAP>
+<MetrosCubicosAS>4134</MetrosCubicosAS>
+<CantidadClientes>170</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>1356</MetrosCubicosAP>
+<MetrosCubicosAS>1356</MetrosCubicosAS>
+<CantidadClientes>40</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>393</MetrosCubicosAP>
+<MetrosCubicosAS>393</MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>108</MetrosCubicosAP>
+<MetrosCubicosAS>108</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>157</MetrosCubicosAP>
+<MetrosCubicosAS>157</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+</Localidad>
+
+<Localidad codigoLocalidad="189" codigoComuna="13102">
+<Cliente tipoCliente="1">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>37</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>27</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>68</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>47</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>205</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>87</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>197</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>324</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>756</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>31227</MetrosCubicosAP>
+<MetrosCubicosAS>31227</MetrosCubicosAS>
+<CantidadClientes>4778</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>48985</MetrosCubicosAP>
+<MetrosCubicosAS>48985</MetrosCubicosAS>
+<CantidadClientes>3767</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>58614</MetrosCubicosAP>
+<MetrosCubicosAS>58614</MetrosCubicosAS>
+<CantidadClientes>3281</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>102945</MetrosCubicosAP>
+<MetrosCubicosAS>102945</MetrosCubicosAS>
+<CantidadClientes>4130</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>64524</MetrosCubicosAP>
+<MetrosCubicosAS>64524</MetrosCubicosAS>
+<CantidadClientes>1845</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>31746</MetrosCubicosAP>
+<MetrosCubicosAS>31746</MetrosCubicosAS>
+<CantidadClientes>709</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>15788</MetrosCubicosAP>
+<MetrosCubicosAS>15788</MetrosCubicosAS>
+<CantidadClientes>289</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>7954</MetrosCubicosAP>
+<MetrosCubicosAS>7954</MetrosCubicosAS>
+<CantidadClientes>122</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>5185</MetrosCubicosAP>
+<MetrosCubicosAS>5185</MetrosCubicosAS>
+<CantidadClientes>69</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>8582</MetrosCubicosAP>
+<MetrosCubicosAS>8582</MetrosCubicosAS>
+<CantidadClientes>92</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>3843</MetrosCubicosAP>
+<MetrosCubicosAS>3843</MetrosCubicosAS>
+<CantidadClientes>28</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>3435</MetrosCubicosAP>
+<MetrosCubicosAS>3435</MetrosCubicosAS>
+<CantidadClientes>19</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>1620</MetrosCubicosAP>
+<MetrosCubicosAS>1620</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>2117</MetrosCubicosAP>
+<MetrosCubicosAS>2117</MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>15273</MetrosCubicosAP>
+<MetrosCubicosAS>15273</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="2">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>15</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>17</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>18</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>37</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>95</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>210</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>282</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>9544</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="2">
+<Rango codigoRango="17">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>2995</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>52</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>446</MetrosCubicosAP>
+<MetrosCubicosAS>446</MetrosCubicosAS>
+<CantidadClientes>86</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>502</MetrosCubicosAP>
+<MetrosCubicosAS>502</MetrosCubicosAS>
+<CantidadClientes>37</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>528</MetrosCubicosAP>
+<MetrosCubicosAS>528</MetrosCubicosAS>
+<CantidadClientes>30</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>1672</MetrosCubicosAP>
+<MetrosCubicosAS>1672</MetrosCubicosAS>
+<CantidadClientes>68</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>1692</MetrosCubicosAP>
+<MetrosCubicosAS>1692</MetrosCubicosAS>
+<CantidadClientes>48</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>1090</MetrosCubicosAP>
+<MetrosCubicosAS>1090</MetrosCubicosAS>
+<CantidadClientes>24</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>1132</MetrosCubicosAP>
+<MetrosCubicosAS>1132</MetrosCubicosAS>
+<CantidadClientes>21</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>659</MetrosCubicosAP>
+<MetrosCubicosAS>659</MetrosCubicosAS>
+<CantidadClientes>10</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>310</MetrosCubicosAP>
+<MetrosCubicosAS>310</MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>1588</MetrosCubicosAP>
+<MetrosCubicosAS>1588</MetrosCubicosAS>
+<CantidadClientes>16</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>1280</MetrosCubicosAP>
+<MetrosCubicosAS>1280</MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>914</MetrosCubicosAP>
+<MetrosCubicosAS>914</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>1485</MetrosCubicosAP>
+<MetrosCubicosAS>1485</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>1808</MetrosCubicosAP>
+<MetrosCubicosAS>1808</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>287</MetrosCubicosAP>
+<MetrosCubicosAS>287</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>48746</MetrosCubicosAP>
+<MetrosCubicosAS>48746</MetrosCubicosAS>
+<CantidadClientes>26</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="3">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>5</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>56</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>255</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>490</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="2">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>10</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>55</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>61631</MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>33</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>47</MetrosCubicosAP>
+<MetrosCubicosAS>47</MetrosCubicosAS>
+<CantidadClientes>12</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>148</MetrosCubicosAP>
+<MetrosCubicosAS>148</MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>33</MetrosCubicosAP>
+<MetrosCubicosAS>33</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>137</MetrosCubicosAP>
+<MetrosCubicosAS>137</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>252</MetrosCubicosAP>
+<MetrosCubicosAS>252</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>370</MetrosCubicosAP>
+<MetrosCubicosAS>370</MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>276</MetrosCubicosAP>
+<MetrosCubicosAS>276</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>201</MetrosCubicosAP>
+<MetrosCubicosAS>201</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>454</MetrosCubicosAP>
+<MetrosCubicosAS>454</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>2538</MetrosCubicosAP>
+<MetrosCubicosAS>2538</MetrosCubicosAS>
+<CantidadClientes>27</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>3734</MetrosCubicosAP>
+<MetrosCubicosAS>3734</MetrosCubicosAS>
+<CantidadClientes>27</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>3838</MetrosCubicosAP>
+<MetrosCubicosAS>3838</MetrosCubicosAS>
+<CantidadClientes>21</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>4242</MetrosCubicosAP>
+<MetrosCubicosAS>4242</MetrosCubicosAS>
+<CantidadClientes>19</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>3647</MetrosCubicosAP>
+<MetrosCubicosAS>3647</MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>2034</MetrosCubicosAP>
+<MetrosCubicosAS>2034</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>115413</MetrosCubicosAP>
+<MetrosCubicosAS>115413</MetrosCubicosAS>
+<CantidadClientes>110</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="4">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>283</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>66</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>12</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="30">
+<MetrosCubicosAP>42</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>149</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>415</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>16</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>516</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>15</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>6208</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>125</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>768</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>1068</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>16</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>769</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>10</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>4305</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>44</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>2532</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>18</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>1791</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>10</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>1928</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>2097</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>43346</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>48</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>16</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>30</MetrosCubicosAP>
+<MetrosCubicosAS>30</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>55</MetrosCubicosAP>
+<MetrosCubicosAS>55</MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>73</MetrosCubicosAP>
+<MetrosCubicosAS>73</MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>185</MetrosCubicosAP>
+<MetrosCubicosAS>185</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>108</MetrosCubicosAP>
+<MetrosCubicosAS>108</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>93</MetrosCubicosAP>
+<MetrosCubicosAS>93</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>164</MetrosCubicosAP>
+<MetrosCubicosAS>164</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>151</MetrosCubicosAP>
+<MetrosCubicosAS>151</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>303</MetrosCubicosAP>
+<MetrosCubicosAS>303</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>419</MetrosCubicosAP>
+<MetrosCubicosAS>419</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>673</MetrosCubicosAP>
+<MetrosCubicosAS>673</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>822</MetrosCubicosAP>
+<MetrosCubicosAS>822</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>37354</MetrosCubicosAP>
+<MetrosCubicosAS>37354</MetrosCubicosAS>
+<CantidadClientes>32</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+</Localidad>
+
+<Localidad codigoLocalidad="189" codigoComuna="13106">
+<Cliente tipoCliente="1">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>6</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>31</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>85</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>150</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>488</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>26051</MetrosCubicosAP>
+<MetrosCubicosAS>26051</MetrosCubicosAS>
+<CantidadClientes>4069</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>38706</MetrosCubicosAP>
+<MetrosCubicosAS>38706</MetrosCubicosAS>
+<CantidadClientes>2983</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>46861</MetrosCubicosAP>
+<MetrosCubicosAS>46861</MetrosCubicosAS>
+<CantidadClientes>2620</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>72113</MetrosCubicosAP>
+<MetrosCubicosAS>72113</MetrosCubicosAS>
+<CantidadClientes>2913</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>36887</MetrosCubicosAP>
+<MetrosCubicosAS>36887</MetrosCubicosAS>
+<CantidadClientes>1064</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>16172</MetrosCubicosAP>
+<MetrosCubicosAS>16172</MetrosCubicosAS>
+<CantidadClientes>364</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>7530</MetrosCubicosAP>
+<MetrosCubicosAS>7530</MetrosCubicosAS>
+<CantidadClientes>137</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>3153</MetrosCubicosAP>
+<MetrosCubicosAS>3153</MetrosCubicosAS>
+<CantidadClientes>49</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>2101</MetrosCubicosAP>
+<MetrosCubicosAS>2101</MetrosCubicosAS>
+<CantidadClientes>28</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>2324</MetrosCubicosAP>
+<MetrosCubicosAS>2324</MetrosCubicosAS>
+<CantidadClientes>25</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>1777</MetrosCubicosAP>
+<MetrosCubicosAS>1777</MetrosCubicosAS>
+<CantidadClientes>13</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>1365</MetrosCubicosAP>
+<MetrosCubicosAS>1365</MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>644</MetrosCubicosAP>
+<MetrosCubicosAS>644</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>526</MetrosCubicosAP>
+<MetrosCubicosAS>526</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>21530</MetrosCubicosAP>
+<MetrosCubicosAS>21530</MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="2">
+<Servicio tipoServicio="1">
+<Rango codigoRango="15">
+<MetrosCubicosAP>258</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>26</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>367</MetrosCubicosAP>
+<MetrosCubicosAS>367</MetrosCubicosAS>
+<CantidadClientes>61</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>342</MetrosCubicosAP>
+<MetrosCubicosAS>342</MetrosCubicosAS>
+<CantidadClientes>26</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>405</MetrosCubicosAP>
+<MetrosCubicosAS>405</MetrosCubicosAS>
+<CantidadClientes>22</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>924</MetrosCubicosAP>
+<MetrosCubicosAS>924</MetrosCubicosAS>
+<CantidadClientes>37</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>654</MetrosCubicosAP>
+<MetrosCubicosAS>654</MetrosCubicosAS>
+<CantidadClientes>19</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>631</MetrosCubicosAP>
+<MetrosCubicosAS>631</MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>492</MetrosCubicosAP>
+<MetrosCubicosAS>492</MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>266</MetrosCubicosAP>
+<MetrosCubicosAS>266</MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>144</MetrosCubicosAP>
+<MetrosCubicosAS>144</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>1060</MetrosCubicosAP>
+<MetrosCubicosAS>1060</MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>841</MetrosCubicosAP>
+<MetrosCubicosAS>841</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>550</MetrosCubicosAP>
+<MetrosCubicosAS>550</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>216</MetrosCubicosAP>
+<MetrosCubicosAS>216</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>784</MetrosCubicosAP>
+<MetrosCubicosAS>784</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>286</MetrosCubicosAP>
+<MetrosCubicosAS>286</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>3591</MetrosCubicosAP>
+<MetrosCubicosAS>3591</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="3">
+<Servicio tipoServicio="2">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>9</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>40</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>62</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>2937</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>37</MetrosCubicosAP>
+<MetrosCubicosAS>37</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>13</MetrosCubicosAP>
+<MetrosCubicosAS>13</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>38</MetrosCubicosAP>
+<MetrosCubicosAS>38</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>73</MetrosCubicosAP>
+<MetrosCubicosAS>73</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>38</MetrosCubicosAP>
+<MetrosCubicosAS>38</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>84</MetrosCubicosAP>
+<MetrosCubicosAS>84</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>106</MetrosCubicosAP>
+<MetrosCubicosAS>106</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>70</MetrosCubicosAP>
+<MetrosCubicosAS>70</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>153</MetrosCubicosAP>
+<MetrosCubicosAS>153</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>908</MetrosCubicosAP>
+<MetrosCubicosAS>908</MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>553</MetrosCubicosAP>
+<MetrosCubicosAS>553</MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>340</MetrosCubicosAP>
+<MetrosCubicosAS>340</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>638</MetrosCubicosAP>
+<MetrosCubicosAS>638</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>754</MetrosCubicosAP>
+<MetrosCubicosAS>754</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>293</MetrosCubicosAP>
+<MetrosCubicosAS>293</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>22888</MetrosCubicosAP>
+<MetrosCubicosAS>22888</MetrosCubicosAS>
+<CantidadClientes>19</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="4">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>198</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>18</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>11</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>467</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>16</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>204</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>6127</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>123</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>166</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>405</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>75</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>636</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>431</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>871</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>470</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>508</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>20760</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>19</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>45</MetrosCubicosAP>
+<MetrosCubicosAS>45</MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>26</MetrosCubicosAP>
+<MetrosCubicosAS>26</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>70</MetrosCubicosAP>
+<MetrosCubicosAS>70</MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>122</MetrosCubicosAP>
+<MetrosCubicosAS>122</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>64</MetrosCubicosAP>
+<MetrosCubicosAS>64</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>88</MetrosCubicosAP>
+<MetrosCubicosAS>88</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>173</MetrosCubicosAP>
+<MetrosCubicosAS>173</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>132</MetrosCubicosAP>
+<MetrosCubicosAS>132</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>103</MetrosCubicosAP>
+<MetrosCubicosAS>103</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>542</MetrosCubicosAP>
+<MetrosCubicosAS>542</MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>177</MetrosCubicosAP>
+<MetrosCubicosAS>177</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>452</MetrosCubicosAP>
+<MetrosCubicosAS>452</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>784</MetrosCubicosAP>
+<MetrosCubicosAS>784</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>298</MetrosCubicosAP>
+<MetrosCubicosAS>298</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>32970</MetrosCubicosAP>
+<MetrosCubicosAS>32970</MetrosCubicosAS>
+<CantidadClientes>22</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+</Localidad>
+
+<Localidad codigoLocalidad="189" codigoComuna="13119">
+<Cliente tipoCliente="1">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>26</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>136</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>10</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>132</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>373</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>391</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>404</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>337</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>252</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>152</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>1267</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>13</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>684</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>357</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>202</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>504</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>292</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>5289</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3516</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>215741</MetrosCubicosAP>
+<MetrosCubicosAS>215741</MetrosCubicosAS>
+<CantidadClientes>32680</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>369950</MetrosCubicosAP>
+<MetrosCubicosAS>369950</MetrosCubicosAS>
+<CantidadClientes>28403</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>473665</MetrosCubicosAP>
+<MetrosCubicosAS>473665</MetrosCubicosAS>
+<CantidadClientes>26440</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>785616</MetrosCubicosAP>
+<MetrosCubicosAS>785616</MetrosCubicosAS>
+<CantidadClientes>31665</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>398837</MetrosCubicosAP>
+<MetrosCubicosAS>398837</MetrosCubicosAS>
+<CantidadClientes>11509</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>169541</MetrosCubicosAP>
+<MetrosCubicosAS>169541</MetrosCubicosAS>
+<CantidadClientes>3806</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>74822</MetrosCubicosAP>
+<MetrosCubicosAS>74822</MetrosCubicosAS>
+<CantidadClientes>1371</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>33659</MetrosCubicosAP>
+<MetrosCubicosAS>33659</MetrosCubicosAS>
+<CantidadClientes>519</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>22667</MetrosCubicosAP>
+<MetrosCubicosAS>22667</MetrosCubicosAS>
+<CantidadClientes>302</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>29752</MetrosCubicosAP>
+<MetrosCubicosAS>29752</MetrosCubicosAS>
+<CantidadClientes>316</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>10584</MetrosCubicosAP>
+<MetrosCubicosAS>10584</MetrosCubicosAS>
+<CantidadClientes>77</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>6628</MetrosCubicosAP>
+<MetrosCubicosAS>6628</MetrosCubicosAS>
+<CantidadClientes>37</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>4159</MetrosCubicosAP>
+<MetrosCubicosAS>4159</MetrosCubicosAS>
+<CantidadClientes>19</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>3656</MetrosCubicosAP>
+<MetrosCubicosAS>3656</MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>580</MetrosCubicosAP>
+<MetrosCubicosAS>580</MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>133916</MetrosCubicosAP>
+<MetrosCubicosAS>133916</MetrosCubicosAS>
+<CantidadClientes>91</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="2">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>21</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>10</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>12</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>33</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>112</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>190</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>113</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>68</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>154</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>282</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>418</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>168</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>209</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>280</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>588</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>20685</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>24</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="2">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>412</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>3074</MetrosCubicosAP>
+<MetrosCubicosAS>3074</MetrosCubicosAS>
+<CantidadClientes>643</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>2353</MetrosCubicosAP>
+<MetrosCubicosAS>2353</MetrosCubicosAS>
+<CantidadClientes>182</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>2375</MetrosCubicosAP>
+<MetrosCubicosAS>2375</MetrosCubicosAS>
+<CantidadClientes>134</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>5229</MetrosCubicosAP>
+<MetrosCubicosAS>5229</MetrosCubicosAS>
+<CantidadClientes>208</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>4477</MetrosCubicosAP>
+<MetrosCubicosAS>4477</MetrosCubicosAS>
+<CantidadClientes>126</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>3249</MetrosCubicosAP>
+<MetrosCubicosAS>3249</MetrosCubicosAS>
+<CantidadClientes>72</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>2543</MetrosCubicosAP>
+<MetrosCubicosAS>2543</MetrosCubicosAS>
+<CantidadClientes>46</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>1901</MetrosCubicosAP>
+<MetrosCubicosAS>1901</MetrosCubicosAS>
+<CantidadClientes>29</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>1794</MetrosCubicosAP>
+<MetrosCubicosAS>1794</MetrosCubicosAS>
+<CantidadClientes>24</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>6684</MetrosCubicosAP>
+<MetrosCubicosAS>6684</MetrosCubicosAS>
+<CantidadClientes>70</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>6999</MetrosCubicosAP>
+<MetrosCubicosAS>6999</MetrosCubicosAS>
+<CantidadClientes>50</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>4999</MetrosCubicosAP>
+<MetrosCubicosAS>4999</MetrosCubicosAS>
+<CantidadClientes>28</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>3739</MetrosCubicosAP>
+<MetrosCubicosAS>3739</MetrosCubicosAS>
+<CantidadClientes>17</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>3409</MetrosCubicosAP>
+<MetrosCubicosAS>3409</MetrosCubicosAS>
+<CantidadClientes>13</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>1739</MetrosCubicosAP>
+<MetrosCubicosAS>1739</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>108848</MetrosCubicosAP>
+<MetrosCubicosAS>108848</MetrosCubicosAS>
+<CantidadClientes>102</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="3">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>4</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>88</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>67</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>216</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>573</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>219</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>275</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>3776</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="2">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>12</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>66</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS>159842</MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>22</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>32</MetrosCubicosAP>
+<MetrosCubicosAS>32</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>60</MetrosCubicosAP>
+<MetrosCubicosAS>60</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>87</MetrosCubicosAP>
+<MetrosCubicosAS>87</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>182</MetrosCubicosAP>
+<MetrosCubicosAS>182</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>213</MetrosCubicosAP>
+<MetrosCubicosAS>213</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>228</MetrosCubicosAP>
+<MetrosCubicosAS>228</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>174</MetrosCubicosAP>
+<MetrosCubicosAS>174</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>332</MetrosCubicosAP>
+<MetrosCubicosAS>332</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>457</MetrosCubicosAP>
+<MetrosCubicosAS>457</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>1426</MetrosCubicosAP>
+<MetrosCubicosAS>1426</MetrosCubicosAS>
+<CantidadClientes>13</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>1237</MetrosCubicosAP>
+<MetrosCubicosAS>1237</MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>1404</MetrosCubicosAP>
+<MetrosCubicosAS>1404</MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>2228</MetrosCubicosAP>
+<MetrosCubicosAS>2228</MetrosCubicosAS>
+<CantidadClientes>10</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>2054</MetrosCubicosAP>
+<MetrosCubicosAS>2054</MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>853</MetrosCubicosAP>
+<MetrosCubicosAS>853</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>137798</MetrosCubicosAP>
+<MetrosCubicosAS>137798</MetrosCubicosAS>
+<CantidadClientes>102</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+
+<Cliente tipoCliente="4">
+<Servicio tipoServicio="1">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>48</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>128</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>22</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>147</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>11</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>277</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>15</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>937</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>36</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>832</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>23</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>1977</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>43</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>1382</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>25</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>1319</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>20</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>1877</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>25</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>4469</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>45</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>4629</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>34</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>2676</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>15</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>2156</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>10</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>2046</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>8</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>593</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>2</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>17316</MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>30</CantidadClientes>
+</Rango>
+</Servicio>
+
+<Servicio tipoServicio="3">
+<Rango codigoRango="1">
+<MetrosCubicosAP></MetrosCubicosAP>
+<MetrosCubicosAS></MetrosCubicosAS>
+<CantidadClientes>44</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="2">
+<MetrosCubicosAP>157</MetrosCubicosAP>
+<MetrosCubicosAS>157</MetrosCubicosAS>
+<CantidadClientes>36</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="3">
+<MetrosCubicosAP>143</MetrosCubicosAP>
+<MetrosCubicosAS>143</MetrosCubicosAS>
+<CantidadClientes>12</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="4">
+<MetrosCubicosAP>177</MetrosCubicosAP>
+<MetrosCubicosAS>177</MetrosCubicosAS>
+<CantidadClientes>10</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="5">
+<MetrosCubicosAP>496</MetrosCubicosAP>
+<MetrosCubicosAS>496</MetrosCubicosAS>
+<CantidadClientes>19</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="6">
+<MetrosCubicosAP>506</MetrosCubicosAP>
+<MetrosCubicosAS>506</MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="7">
+<MetrosCubicosAP>612</MetrosCubicosAP>
+<MetrosCubicosAS>612</MetrosCubicosAS>
+<CantidadClientes>13</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="8">
+<MetrosCubicosAP>397</MetrosCubicosAP>
+<MetrosCubicosAS>397</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="9">
+<MetrosCubicosAP>458</MetrosCubicosAP>
+<MetrosCubicosAS>458</MetrosCubicosAS>
+<CantidadClientes>7</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="10">
+<MetrosCubicosAP>376</MetrosCubicosAP>
+<MetrosCubicosAS>376</MetrosCubicosAS>
+<CantidadClientes>5</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="11">
+<MetrosCubicosAP>1957</MetrosCubicosAP>
+<MetrosCubicosAS>1957</MetrosCubicosAS>
+<CantidadClientes>20</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="12">
+<MetrosCubicosAP>1202</MetrosCubicosAP>
+<MetrosCubicosAS>1202</MetrosCubicosAS>
+<CantidadClientes>9</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="13">
+<MetrosCubicosAP>2544</MetrosCubicosAP>
+<MetrosCubicosAS>2544</MetrosCubicosAS>
+<CantidadClientes>14</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="14">
+<MetrosCubicosAP>1339</MetrosCubicosAP>
+<MetrosCubicosAS>1339</MetrosCubicosAS>
+<CantidadClientes>6</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="15">
+<MetrosCubicosAP>780</MetrosCubicosAP>
+<MetrosCubicosAS>780</MetrosCubicosAS>
+<CantidadClientes>3</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="16">
+<MetrosCubicosAP>288</MetrosCubicosAP>
+<MetrosCubicosAS>288</MetrosCubicosAS>
+<CantidadClientes>1</CantidadClientes>
+</Rango>
+
+<Rango codigoRango="17">
+<MetrosCubicosAP>52194</MetrosCubicosAP>
+<MetrosCubicosAS>52194</MetrosCubicosAS>
+<CantidadClientes>55</CantidadClientes>
+</Rango>
+</Servicio>
+</Cliente>
+</Localidad>
+</Limite>
+</Empresa>
+</Sinar>

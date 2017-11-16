@@ -1,0 +1,12 @@
+<div  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/template/layoutBotones.xhtml">
+        <!-- Header -->
+        <ui:define name="botones">
+            <ui:include src="/template/botones.xhtml">
+                <ui:param name="botones" value="#{botones}"/>
+                <ui:param name="texto" value="#{texto}"/>
+            </ui:include>
+        </ui:define>
+    </ui:composition>
+</div>

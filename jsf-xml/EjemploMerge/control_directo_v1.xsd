@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mstns="http://extranet.siss.cl/sinar/cd/" xmlns="http://extranet.siss.cl/sinar/cd/" targetNamespace="http://extranet.siss.cl/sinar/cd/" elementFormDefault="qualified">
+	<xsd:element name="Sinar">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Laboratorio"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigo_proceso" type="xsd:integer" use="required"/>
+			<xsd:attribute name="codigo_archivo" type="xsd:integer" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Laboratorio">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Industria" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="rut_laboratorio" type="xsd:integer" use="required"/>
+			<xsd:attribute name="id_laboratorio" type="xsd:integer" use="required"/>
+			<xsd:attribute name="periodo" type="TipoPeriodo" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="uk_industria">
+			<xsd:selector xpath="mstns:Industria"/>
+			<xsd:field xpath="@rut_industria"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Industria">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AE" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="rut_industria" type="xsd:integer" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="uk_ae">
+			<xsd:selector xpath="mstns:AE"/>
+			<xsd:field xpath="@codigo_ae"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="AE">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Punto" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigo_ae" type="xsd:integer" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="uk_punto">
+			<xsd:selector xpath="mstns:Punto"/>
+			<xsd:field xpath="@codigo_punto"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Punto">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Muestra" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigo_punto" type="xsd:integer" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="uk_muestra">
+			<xsd:selector xpath="mstns:Muestra"/>
+			<xsd:field xpath="@fecha_muestra"/>
+			<xsd:field xpath="@hora_muestra"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Muestra">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Parametro" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="fecha_muestra" type="dateISO" use="required"/>
+			<xsd:attribute name="hora_muestra" type="TipoHora" default="00:00"/>
+		</xsd:complexType>
+		<xsd:unique name="uk_parametro">
+			<xsd:selector xpath="mstns:Parametro"/>
+			<xsd:field xpath="@codigo_parametro"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Parametro">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="valor" type="DEC15.5"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigo_parametro" type="Parametros" use="required"/>
+			<xsd:attribute name="signo" type="Signos" default="="/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:simpleType name="Parametros">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="A Y G"/>
+			<xsd:enumeration value="ACIDOS GRA"/>
+			<xsd:enumeration value="ACIDOS RES"/>
+			<xsd:enumeration value="ACT. ALFA"/>
+			<xsd:enumeration value="ACT. BASE"/>
+			<xsd:enumeration value="ACT. BETA"/>
+			<xsd:enumeration value="Ag"/>
+			<xsd:enumeration value="Al"/>
+			<xsd:enumeration value="AOX"/>
+			<xsd:enumeration value="As"/>
+			<xsd:enumeration value="B"/>
+			<xsd:enumeration value="Ba"/>
+			<xsd:enumeration value="Be"/>
+			<xsd:enumeration value="BENCENO"/>
+			<xsd:enumeration value="BROMODICLO"/>
+			<xsd:enumeration value="CAUDAL MAX"/>
+			<xsd:enumeration value="Cd"/>
+			<xsd:enumeration value="CF"/>
+			<xsd:enumeration value="Cl-"/>
+			<xsd:enumeration value="CLORATOS"/>
+			<xsd:enumeration value="CLORO LIBR"/>
+			<xsd:enumeration value="CLOROFENOL"/>
+			<xsd:enumeration value="CLOROFILA"/>
+			<xsd:enumeration value="CN"/>
+			<xsd:enumeration value="Co"/>
+			<xsd:enumeration value="COLOR"/>
+			<xsd:enumeration value="COLOR APAR"/>
+			<xsd:enumeration value="COLOR REAL"/>
+			<xsd:enumeration value="COLOR VERD"/>
+			<xsd:enumeration value="CONDUC"/>
+			<xsd:enumeration value="Cr"/>
+			<xsd:enumeration value="Cr+6"/>
+			<xsd:enumeration value="CT"/>
+			<xsd:enumeration value="Cu"/>
+			<xsd:enumeration value="Cu Filt"/>
+			<xsd:enumeration value="DBO CON AL"/>
+			<xsd:enumeration value="DBO5"/>
+			<xsd:enumeration value="DDT+DDD+DD"/>
+			<xsd:enumeration value="DEMANDA DE"/>
+			<xsd:enumeration value="DETERGENTE"/>
+			<xsd:enumeration value="DIBROMOCLO"/>
+			<xsd:enumeration value="DQO"/>
+			<xsd:enumeration value="E-COLI"/>
+			<xsd:enumeration value="F-"/>
+			<xsd:enumeration value="Fe"/>
+			<xsd:enumeration value="Fe Dis"/>
+			<xsd:enumeration value="Fe Filt"/>
+			<xsd:enumeration value="FENOL"/>
+			<xsd:enumeration value="FENOLES"/>
+			<xsd:enumeration value="HCF"/>
+			<xsd:enumeration value="HCL"/>
+			<xsd:enumeration value="HCP"/>
+			<xsd:enumeration value="HCT"/>
+			<xsd:enumeration value="HCV"/>
+			<xsd:enumeration value="Hg"/>
+			<xsd:enumeration value="INDICE DE "/>
+			<xsd:enumeration value="Li"/>
+			<xsd:enumeration value="LINDANO"/>
+			<xsd:enumeration value="METOXICLOR"/>
+			<xsd:enumeration value="Mg"/>
+			<xsd:enumeration value="Mn"/>
+			<xsd:enumeration value="Mn Filt"/>
+			<xsd:enumeration value="Mo"/>
+			<xsd:enumeration value="MONOCLORAM"/>
+			<xsd:enumeration value="N"/>
+			<xsd:enumeration value="Na"/>
+			<xsd:enumeration value="N-AMONIACO"/>
+			<xsd:enumeration value="NH3"/>
+			<xsd:enumeration value="Ni"/>
+			<xsd:enumeration value="NITRITOS M"/>
+			<xsd:enumeration value="NO2-"/>
+			<xsd:enumeration value="NO3-"/>
+			<xsd:enumeration value="N ORG"/>
+			<xsd:enumeration value="NTK"/>
+			<xsd:enumeration value="OLOR"/>
+			<xsd:enumeration value="P"/>
+			<xsd:enumeration value="P SOLUBLE"/>
+			<xsd:enumeration value="Pb"/>
+			<xsd:enumeration value="PENTACLORO"/>
+			<xsd:enumeration value="PESORGCLO"/>
+			<xsd:enumeration value="PEST ORGP"/>
+			<xsd:enumeration value="PH"/>
+			<xsd:enumeration value="PODER ESPU"/>
+			<xsd:enumeration value="R. NO3/NO2"/>
+			<xsd:enumeration value="RA226"/>
+			<xsd:enumeration value="RECUENTO H"/>
+			<xsd:enumeration value="SAAM"/>
+			<xsd:enumeration value="SABOR"/>
+			<xsd:enumeration value="SD INORG"/>
+			<xsd:enumeration value="SD ORG"/>
+			<xsd:enumeration value="SDT"/>
+			<xsd:enumeration value="Se"/>
+			<xsd:enumeration value="Sn"/>
+			<xsd:enumeration value="SO4-2"/>
+			<xsd:enumeration value="SO4 CO"/>
+			<xsd:enumeration value="SR90"/>
+			<xsd:enumeration value="SS"/>
+			<xsd:enumeration value="SS INORG"/>
+			<xsd:enumeration value="SS ORG"/>
+			<xsd:enumeration value="SST"/>
+			<xsd:enumeration value="SST CON AL"/>
+			<xsd:enumeration value="S-2"/>
+			<xsd:enumeration value="T°"/>
+			<xsd:enumeration value="TETRACLORO"/>
+			<xsd:enumeration value="TOLUENO"/>
+			<xsd:enumeration value="TOX"/>
+			<xsd:enumeration value="TRIBROMOME"/>
+			<xsd:enumeration value="TRICLOROME"/>
+			<xsd:enumeration value="TRIHALOMET"/>
+			<xsd:enumeration value="TURBIEDAD"/>
+			<xsd:enumeration value="Va"/>
+			<xsd:enumeration value="VDD"/>
+			<xsd:enumeration value="XILENO"/>
+			<xsd:enumeration value="Zn"/>
+			<xsd:enumeration value="2,4 - D"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TipoString">
+		<xsd:annotation>
+			<xsd:documentation>String que remplaza caracteres retorno de carro, tabs y espacios repetidos por un espacio</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TipoPeriodo">
+		<xsd:restriction base="xsd:integer">
+			<xsd:pattern value="(20\d{2})(0[1-9]|1[0-2])"/>
+			<xsd:pattern value="d{6}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TipoHora">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(([0-1][0-9])|2[0-4])[:]([0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Signos">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="="/>
+			<xsd:enumeration value="-"/>
+			<xsd:enumeration value="+"/>
+			<xsd:enumeration value="*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DEC15.5">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="15"/>
+			<xsd:fractionDigits value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dateISO">
+	  <xsd:restriction base="xsd:date">
+		<xsd:pattern value="[^:Z]*"/>
+	  </xsd:restriction>
+	</xsd:simpleType>	
+</xsd:schema>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:c="http://java.sun.com/jstl/core"
+     xmlns:ice="http://www.icesoft.com/icefaces/component"
+     xmlns:ui="http://java.sun.com/jsf/facelets">
+
+      <!--[if !IE]>-->
+      <object classid="java:localfile.class"
+              type="application/x-java-applet"
+              archive="Applets/AppletTest.jar,Applets/DtoPTI.jar"
+              height="300" width="450" >
+        <!-- Konqueror browser needs the following param -->
+        <param name="archive" value="Applets/AppletTest.jar,Applets/DtoPTI.jar" />
+      <!--<![endif]-->
+        <object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+                height="300" width="450" >
+          <param name="code" value="localfile" />
+          <param name="archive" value="Applets/AppletTest.jar,Applets/DtoPTI.jar" />
+        </object>
+      <!--[if !IE]>-->
+      </object>
+      <!--<![endif]-->
+
+    <ice:outputHtml>
+        <ice:outputHead>
+            <title>Facelets</title>
+        </ice:outputHead>
+        <ice:outputBody>
+
+            <ice:form>
+                <ice:outputText value="#{test}" />
+                <ice:outputText value="#{popup.paramApplet}" />
+            </ice:form>
+            
+        </ice:outputBody>
+    </ice:outputHtml>
+
+ </div>

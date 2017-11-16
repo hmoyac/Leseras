@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<div xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+<ui:composition template="/template.xhtml">
+
+    <ui:define name="title">
+        <ui:include src="/page1.xhtml">
+            <ui:param name="test" value="Si se puede!!!"/>
+        </ui:include>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:view>
+            <ice:outputHtml>
+                <ice:outputHead>
+                    <title>Facelets</title>
+                </ice:outputHead>
+                <ice:outputBody>
+                    <ice:form>
+                        <ice:outputText value="Welcome to ICEfaces with Facelets" />
+                        <ice:inputText value="#{popup.mensaje}" />
+                        <ice:commandButton type="submit" actionListener="#{popup.openClose}" value="mostrar" />
+                    </ice:form>
+                </ice:outputBody>
+            </ice:outputHtml>
+
+            <!-- Modal Panel Popup -->
+            <ice:form>
+            <ice:panelPopup draggable="false" modal="true"
+                            visible="#{popup.visible}"
+                            autoCentre="true"
+                            styleClass="corePopup">
+                <f:facet name="header">
+                    <ice:panelGroup styleClass="popupHeaderWrapper">
+                        <ice:outputText value="Header" />
+                    </ice:panelGroup>
+                </f:facet>
+                <f:facet name="body">
+                    <ice:panelGroup styleClass="popupBody">
+                        <ice:outputText value="#{popup.mensaje}" />
+                            <ice:commandButton type="submit"
+                                               value="Cerrar"
+                                               actionListener="#{popup.openClose}"/>
+                    </ice:panelGroup>
+                </f:facet>
+            </ice:panelPopup>
+            </ice:form>
+
+        </f:view>
+    </ui:define>
+
+</ui:composition>
+
+</div>

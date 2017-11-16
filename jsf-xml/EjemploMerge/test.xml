@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<merge xmlns="http://informatik.hu-berlin.de/merge">
+   <file1>file1.xml</file1>
+   <file2>file2.xml</file2>
+</merge>

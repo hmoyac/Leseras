@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="molWsRes" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="molWsRes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="molWsRes">
+      <s:element name="UltimosResultados">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Contrato" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Canal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UltimosResultadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UltimosResultadosResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UltimosResultadosText">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Contrato" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Canal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UltimosResultadosTextResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UltimosResultadosTextResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEquiposCanales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEquiposCanalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosEquiposCanalesResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEquiposCanalesText">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEquiposCanalesTextResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosEquiposCanalesTextResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UltimosResultadosSoapIn">
+    <wsdl:part name="parameters" element="tns:UltimosResultados" />
+  </wsdl:message>
+  <wsdl:message name="UltimosResultadosSoapOut">
+    <wsdl:part name="parameters" element="tns:UltimosResultadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="UltimosResultadosTextSoapIn">
+    <wsdl:part name="parameters" element="tns:UltimosResultadosText" />
+  </wsdl:message>
+  <wsdl:message name="UltimosResultadosTextSoapOut">
+    <wsdl:part name="parameters" element="tns:UltimosResultadosTextResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosEquiposCanalesSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosEquiposCanales" />
+  </wsdl:message>
+  <wsdl:message name="DatosEquiposCanalesSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosEquiposCanalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosEquiposCanalesTextSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosEquiposCanalesText" />
+  </wsdl:message>
+  <wsdl:message name="DatosEquiposCanalesTextSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosEquiposCanalesTextResponse" />
+  </wsdl:message>
+  <wsdl:portType name="molWsSoap">
+    <wsdl:operation name="UltimosResultados">
+      <wsdl:input message="tns:UltimosResultadosSoapIn" />
+      <wsdl:output message="tns:UltimosResultadosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UltimosResultadosText">
+      <wsdl:input message="tns:UltimosResultadosTextSoapIn" />
+      <wsdl:output message="tns:UltimosResultadosTextSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosEquiposCanales">
+      <wsdl:input message="tns:DatosEquiposCanalesSoapIn" />
+      <wsdl:output message="tns:DatosEquiposCanalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosEquiposCanalesText">
+      <wsdl:input message="tns:DatosEquiposCanalesTextSoapIn" />
+      <wsdl:output message="tns:DatosEquiposCanalesTextSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="molWsSoap" type="tns:molWsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UltimosResultados">
+      <soap:operation soapAction="molWsRes/UltimosResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UltimosResultadosText">
+      <soap:operation soapAction="molWsRes/UltimosResultadosText" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEquiposCanales">
+      <soap:operation soapAction="molWsRes/DatosEquiposCanales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEquiposCanalesText">
+      <soap:operation soapAction="molWsRes/DatosEquiposCanalesText" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="molWsSoap12" type="tns:molWsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UltimosResultados">
+      <soap12:operation soapAction="molWsRes/UltimosResultados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UltimosResultadosText">
+      <soap12:operation soapAction="molWsRes/UltimosResultadosText" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEquiposCanales">
+      <soap12:operation soapAction="molWsRes/DatosEquiposCanales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEquiposCanalesText">
+      <soap12:operation soapAction="molWsRes/DatosEquiposCanalesText" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="molWs">
+    <wsdl:port name="molWsSoap" binding="tns:molWsSoap">
+      <soap:address location="http://190.13.76.82/molws/molws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="molWsSoap12" binding="tns:molWsSoap12">
+      <soap12:address location="http://190.13.76.82/molws/molws.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

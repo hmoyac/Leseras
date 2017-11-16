@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition template="/template.xhtml">
+
+            This text will not be displayed.
+
+            <ui:define name="title">
+                Facelets
+            </ui:define>
+
+            This text will also not be displayed.
+
+            <ui:define name="body">
+                <a href="http://localhost:8080/WebApplication1/myowncert.crt">Certificado</a>
+                <a href="http://localhost:8080/WebApplication2/template-client.iface">Hector Moya</a>
+            </ui:define>
+
+            This text will not be displayed.
+
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>
+

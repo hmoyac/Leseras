@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mstns="http://extranet.siss.cl/sinar/sifac/" xmlns="http://extranet.siss.cl/sinar/sifac/" targetNamespace="http://extranet.siss.cl/sinar/sifac/" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" id="SINAR-P03A09">
+	<xsd:include schemaLocation="TiposSifac-v1-0.xsd"/>
+	<xsd:element name="Sinar">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Empresa"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigoProceso" type="xsd:integer" use="required"/>
+			<xsd:attribute name="codigoArchivo" type="xsd:integer" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Empresa">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Limite" maxOccurs="3"/>
+			</xsd:sequence>
+			<xsd:attribute name="rut" type="xsd:integer" use="required"/>
+			<xsd:attribute name="periodo" type="PeriodoType" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="LimiteUK">
+			<xsd:selector xpath="mstns:Limite"/>
+			<xsd:field xpath="@codigoLimite"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Limite">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Localidad" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigoLimite" type="LimiteType" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="LocalidadUK">
+			<xsd:selector xpath="mstns:Localidad"/>
+			<xsd:field xpath="@codigoLocalidad"/>
+			<xsd:field xpath="@codigoComuna"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Localidad">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Cliente" maxOccurs="5"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigoLocalidad" type="xsd:integer" use="required"/>
+			<xsd:attribute name="codigoComuna" type="StringType" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="ClienteUK">
+			<xsd:selector xpath="mstns:Cliente"/>
+			<xsd:field xpath="@tipoCliente"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Cliente">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Servicio" maxOccurs="4"/>
+			</xsd:sequence>
+			<xsd:attribute name="tipoCliente" type="ClienteType" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="ServicioUK">
+			<xsd:selector xpath="mstns:Servicio"/>
+			<xsd:field xpath="@tipoServicio"/>
+		</xsd:unique>
+	</xsd:element>
+	<xsd:element name="Servicio">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Rango" maxOccurs="18"/>
+			</xsd:sequence>
+			<xsd:attribute name="tipoServicio" type="ServicioType" use="required"/>
+		</xsd:complexType>
+		<xsd:unique name="RangoUK">
+			<xsd:selector xpath="mstns:Rango"/>
+			<xsd:field xpath="@codigoRango"/>
+		</xsd:unique>
+    </xsd:element>
+	<xsd:element name="Rango">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="MetrosCubicosAP" type="MetroCubicoAceptaNegativoOpcionalType"/>
+				<xsd:element name="MetrosCubicosAS" type="MetroCubicoAceptaNegativoOpcionalType"/>
+				<xsd:element name="CantidadClientes" type="NumeroClienteNoCeroType"/>
+			</xsd:sequence>
+			<xsd:attribute name="codigoRango" type="RangoType" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

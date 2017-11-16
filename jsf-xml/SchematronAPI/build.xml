@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<project name="SchematronAPI" default="all" basedir=".">
+
+   <property name="classes" value="classes" />
+   <property name="src" value="src" />
+   <property name="doc" value="doc" />
+   <property name="preprocessor" value="schematron/preprocessor.xslt" />
+
+   <path id="cp">
+      <fileset dir="lib">
+         <include name="*.jar" />
+      </fileset>
+   </path>
+
+   <target name="all" depends="init, compile" />
+
+   <target name="init" depends="dep, mkclasses, mkpreprocessor" />
+
+   <!-- Determine dependencies -->
+   <target name="dep">
+      <available property="doc.available" file="${doc}" />
+      <available property="classes.available" file="${classes}" />
+      <uptodate property="preprocessor.uptodate" 
+                targetfile="${classes}/${preprocessor}">
+         <srcfiles dir="${src}" includes="${preprocessor}" />
+      </uptodate>
+   </target>
+
+   <!-- create doc directory -->
+   <target name="mkdoc" unless="doc.available">
+      <mkdir dir="${doc}/api" />
+      <mkdir dir="${doc}/apiPrivate" />
+   </target>
+
+   <target name="mkclasses" unless="classes.available">
+      <mkdir dir="${classes}" />
+   </target>
+
+   <target name="mkpreprocessor" unless="preprocessor.available">
+      <copy file="${src}/${preprocessor}" todir="${classes}/schematron" />
+   </target>
+
+   <!-- compile java classes -->
+   <target name="compile" depends="init">
+      <javac srcdir="src" destdir="${classes}" classpathref="cp" />
+   </target>
+
+   <!-- generate documentation: api (javadoc) and cpl -->
+   <target name="javadoc" depends="init,mkdoc">
+      <echo>Public Javadoc</echo>
+      <javadoc sourcepath="src" destdir="${doc}/api" 
+               packagenames="schematron"
+               classpathref="cp" 
+               doctitle="&lt;h1&gt;Schematron API&lt;/h1&gt;"
+               windowtitle="Schematron API Documentation" />
+               <!-- overview="...." -->
+      <echo>Private Javadoc</echo>
+      <javadoc sourcepath="src" destdir="${doc}/apiPrivate" 
+               packagenames="schematron"
+               classpathref="cp" private="true" author="true" 
+               version="true"
+               doctitle="&lt;h1&gt;Schematron API&lt;/h1&gt;"
+               windowtitle="Schematron API Documentation (private)" />
+   </target>
+
+   <target name="doc" depends="javadoc" />
+
+   <!-- jar: generate an archive file -->
+   <target name="jar" depends="all">
+      <jar jarfile="schematron.jar" basedir="${classes}" />
+   </target>
+
+   <!-- clean: remove all generated files and dirs -->
+   <target name="real.clean" depends="clean, doc.clean" />
+
+   <target name="clean">
+      <delete dir="${classes}" />
+      <delete>
+         <fileset dir="." includes="**/*.class" />
+      </delete>
+   </target>
+
+   <target name="doc.clean">
+      <delete dir="${doc}" />
+   </target>
+
+   <!-- help -->
+   <target name="help">
+      <echo>ant</echo>
+      <echo>   compiles all classes</echo>
+      <echo>ant jar</echo>
+      <echo>   generates schematron.jar</echo>
+      <echo>ant javadoc</echo>
+      <echo>   generates Java API documentation</echo>
+      <echo>ant doc</echo>
+      <echo>   ant javadoc cpldoc</echo>
+      <echo>ant clean</echo>
+      <echo>   removes all class files</echo>
+      <echo>ant doc.clean</echo>
+      <echo>   removes generated documentation</echo>
+      <echo>ant real.clean</echo>
+      <echo>   ant clean doc.clean</echo>
+   </target>
+
+</project>

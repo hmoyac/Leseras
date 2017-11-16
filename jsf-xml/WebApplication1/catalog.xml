@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/D:/Usuarios/Desarrollo/Java/Taller/WebApplication1/web/EstadisticasSolicitudesService.wsdl" uri="src/conf/xml-resources/web-services/EstadisticasSolicitudes/wsdl/EstadisticasSolicitudesService.wsdl"/>
+    <system systemId="file:/D:/Usuarios/Desarrollo/Java/Taller/WebApplication1/web/EstadisticasSolicitudesService_schema1.xsd" uri="src/conf/xml-resources/web-services/EstadisticasSolicitudes/wsdl/EstadisticasSolicitudesService_schema1.xsd"/>
+</catalog>

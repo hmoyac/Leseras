@@ -1,0 +1,13 @@
+Genera llave
+C:\Archivos de programa\Java\jre6\bin>keytool -genkey -keyalg rsa -alias myownkey
+
+Genera certificado
+C:\Archivos de programa\Java\jre6\bin>keytool -export -alias myownkey -file c:\myowncert.crt
+
+Firma Jar (Applet)
+C:\Archivos de programa\Java\jdk1.6.0_11\bin>jarsigner c:\AppletTest.jar myownkey
+
+Para pruebas en mi equipo (llave usada "myownkey", contraseña usada "sinar2009")
+Para pruebas consultores (llave usada "sinarkey", contraseña usada "sinar2009")
+Para pruebas XAdES (llave usada "duke", contraseña usada "duke2009")
+Otros (llave usada "sisskey", contraseña usada "s.i.s.s.2009")

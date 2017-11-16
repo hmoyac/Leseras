@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://ws.test.siss.com/" xmlns:tns="http://ws.test.siss.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="operation" type="tns:operation"/>
+
+  <xs:element name="operationResponse" type="tns:operationResponse"/>
+
+  <xs:complexType name="operation">
+    <xs:sequence>
+      <xs:element name="sgs_estadistica" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="operationResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:transaccion" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="transaccion">
+    <xs:sequence>
+      <xs:element name="id_entidad" type="xs:string" minOccurs="0"/>
+      <xs:element name="sgs_estadistica" type="tns:sgsEstadistica" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sgsEstadistica">
+    <xs:sequence>
+      <xs:element name="id_estado" type="xs:int"/>
+      <xs:element name="id_tramo" type="xs:int"/>
+      <xs:element name="cantidad" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

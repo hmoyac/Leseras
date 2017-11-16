@@ -1,0 +1,23 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:c="http://java.sun.com/jstl/core">
+    <f:view>
+        <h:form id="formBotones">
+            <c:choose>
+                <c:when test="#{botones == '0'}">
+                    <!-- Insertar imágen -->
+                </c:when>
+                <c:otherwise>
+                    <table width="97%" align="left">
+                        <tr>
+                            <td class="tituloSistema" align="right">
+                                <h:outputText value="#{texto}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </h:form>
+    </f:view>
+</div>

@@ -1,0 +1,61 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="cabecera">
+            <ui:include src="/template/cabecera.xhtml">
+                <ui:param name="botones" value="1"/>
+                <ui:param name="texto" value="#{bundle.TituloSISS}"/>
+            </ui:include>
+        </ui:define>
+
+        <ui:define name="navegacion">
+            <ui:include src="/template/navegacion.xhtml">
+                <ui:param name="titulo" value=""/>
+                <ui:param name="pretitulo" value=""/>
+                <ui:param name="preMenu" value="#{bundle.Inicio}"/>
+            </ui:include>
+        </ui:define>
+
+        <ui:define name="cuerpo">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+                <h:form id="formAdministrador">
+                    <h2 align="center">
+                        <h:outputText value="#{bundle.TituloCuerpo}"/>
+                    </h2>
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <table width="100%"  border="0">
+                                    <tr>
+                                        <td width="153" align="center">
+                                            <img src="#{utilWeb.contexto}/images/imagenLogin1.jpg" width="153" height="229"/>
+                                        </td>
+                                        <td>
+                                            ¡Sistema en mantención! Disculpe las molestias
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td background="#{utilWeb.contexto}/images/separacion2.gif"><img src="#{utilWeb.contexto}/images/separacion2.gif" width="3" height="11"/></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </div>
+        </ui:define>
+
+        <ui:define name="pie">
+            <ui:include src="/template/pie.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</div>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Sinar codigo_archivo="1" codigo_proceso="1">
+    <Empresa periodo="200805" rut="1">
+        <Servicio codigo_servicio="1">
+            <Sector codigo_sector="1">
+                <Muestra codigo_muestra="1">
+                    <fecha_muestra>2008-05-02</fecha_muestra>
+                    <Parametro codigo_parametro="PH">
+                        <unidad_medida/>
+                        <valor>2</valor>
+                    </Parametro>
+                </Muestra>
+            </Sector>
+        </Servicio>
+    </Empresa>
+</Sinar>

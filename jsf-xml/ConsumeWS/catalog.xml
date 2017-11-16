@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://extranetdesa.siss.cl/wsArchivos/Service.asmx?WSDL" uri="xml-resources/web-service-references/Service/wsdl/extranetdesa.siss.cl/wsArchivos/Service.asmx.wsdl"/>
+    <system systemId="file:/C:/Users/econtreras/Desktop/CanalesEquipos.xsd" uri="xml-resources/jaxb/canalesEquiposLink/CanalesEquipos.xsd"/>
+    <system systemId="file:/C:/Users/econtreras/Desktop/hidrosan-v1-0.xsd" uri="xml-resources/jaxb/hidrosanLink/hidrosan-v1-0.xsd"/>
+    <system systemId="http://190.13.76.82/molws/molws.asmx?wsdl" uri="xml-resources/web-service-references/molws/wsdl/190.13.76.82/molws/molws.asmx.wsdl"/>
+    <system systemId="file:/C:/Users/econtreras/Desktop/canalesEquipos-v1-0.xsd" uri="xml-resources/jaxb/canalesEquiposLink/canalesEquipos-v1-0.xsd"/>
+</catalog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

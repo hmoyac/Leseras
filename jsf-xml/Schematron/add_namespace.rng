@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" 
+datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" 
+ns="http://www.topologi.com/add">
+    <sch:ns prefix="t" uri="http://www.topologi.com/add" xmlns:sch="http://www.ascc.net/xml/schematron"/>
+    <start>
+        <element name="add">
+            <sch:pattern name="Check math" xmlns:sch="http://www.ascc.net/xml/schematron">
+                <sch:rule context="t:add">
+					<sch:assert test="@sum = sum(t:item)"
+						>The value of the sum attribute should be the sum of all the values in the item child elements.</sch:assert>
+                </sch:rule>
+            </sch:pattern>
+        	<oneOrMore>
+            	<element name="item">
+            		<data type="integer"/>
+	            </element>
+        	</oneOrMore>
+            <attribute name="sum">
+           		<data type="integer"/>
+            </attribute>
+        </element>
+    </start>
+</grammar>

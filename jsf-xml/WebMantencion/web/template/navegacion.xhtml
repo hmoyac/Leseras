@@ -1,0 +1,100 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:c="http://java.sun.com/jstl/core">
+
+    <h:form id="userForm">
+        <table width="100%">
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr valign="bottom">
+                            <td width="100%" background="#{utilWeb.contexto}/images/relleno_aplicacion.jpg" bgcolor="109ABC" class="tituloSistema">
+                                <table>
+                                    <tr valign="bottom">
+                                        <td align="right">
+                                            <c:if test="#{!empty preMenu}">
+                                                <h:commandLink value="${preMenu}" styleClass="preMenu" action="#" immediate="true"/>
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="226"><img src="#{utilWeb.contexto}/images/barra_informacion2.jpg" width="226" height="36"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <c:set var="separador" value=" | "/>
+                    <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table width="99%" align="center" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="left" class="Menu">
+                                            <c:if test="#{!empty menu.rutaXmlMenu}">
+                                                <c:forEach var="item" items="#{menu.menu}">
+                                                    <c:choose>
+                                                        <c:when test="${item.accion == 'a.link'}">
+                                                            <h:outputLink styleClass="Menu" value="${item.target}">
+                                                                <h:outputText value="${item.texto}"/>
+                                                            </h:outputLink>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <h:commandLink value="${item.texto}" styleClass="Menu"
+                                                                           actionListener="#{menu.actionListener}"
+                                                                           immediate="true">
+                                                                <f:attribute name="menu" value="${item.accion}"/>
+                                                                <f:attribute name="xml" value="${item.xml}"/>
+                                                                <f:attribute name="target" value="${item.target}"/>
+                                                                <f:attribute name="pagina" value="${item.pagina}"/>
+                                                            </h:commandLink>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <h:outputText styleClass="textoMenu" value="${separador}" />
+                                                </c:forEach>
+                                            </c:if>
+                                            <c:if test="${login == 'true'}">
+                                                <h:commandLink value="Volver" styleClass="Menu"
+                                                               actionListener="#{menu.actionListener}"
+                                                               immediate="true">
+                                                    <f:attribute name="menu" value="main"/>
+                                                    <f:attribute name="xml" value=""/>
+                                                    <f:attribute name="target" value=""/>
+                                                    <f:attribute name="pagina" value="login"/>
+                                                </h:commandLink>
+                                                <h:outputText styleClass="textoMenu" value="${separador}" />
+                                            </c:if>
+                                        </td>
+                                        <td align="right">
+                                            <c:if test="${menu.logeado == 'true'}">
+                                                <c:if test="#{!empty pretitulo}">
+                                                    <h:outputText styleClass="textoMenu" value="#{pretitulo}#{userBean.user.nombreUsuario}"/>
+                                                </c:if>
+                                                <h:outputText styleClass="textoMenu" value="${separador}" />
+                                                <h:commandLink value="#{bundle.CerrarSesion}" styleClass="Menu" action="#{userBean.logout}"/>
+                                            </c:if>
+                                            <h:outputText styleClass="textoMenu" value="${separador}" />
+                                            <h:commandLink value="#{bundle.Ayuda}" styleClass="Menu" action="#" immediate="true"/>
+                                            <h:outputText styleClass="textoMenu" value="${separador}" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td background="#{utilWeb.contexto}/images/separacion1.gif"><img src="#{utilWeb.contexto}/images/separacion1.gif" width="2" height="2"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </h:form>
+
+</div>

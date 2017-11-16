@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+<faces-config version="1.2"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+    <!-- ========== Características de Aplicación ================================ -->
+
+    <application>
+        <el-resolver>com.siss.web.EnumResolver</el-resolver>
+        <message-bundle>com.siss.web.WebMessages</message-bundle>
+        <resource-bundle>
+            <base-name>com.siss.web.WebMessages</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>es</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
+    </application>
+
+    <!-- ========== Managed Beans ============================================ -->
+
+    <managed-bean>
+        <managed-bean-name>utilWeb</managed-bean-name>
+        <managed-bean-class>com.siss.web.UtileriaWebBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <!-- ========== Componentes ========================================= -->
+
+    <!-- ========== Navigation Rules ========================================= -->
+
+    <!-- ========== Life Cycle ========================================= -->
+
+</faces-config>

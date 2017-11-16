@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://ws.gedesys.com/" xmlns:tns="http://ws.gedesys.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="getOpcion" type="tns:getOpcion"/>
+
+  <xs:element name="getOpcionResponse" type="tns:getOpcionResponse"/>
+
+  <xs:element name="login" type="tns:login"/>
+
+  <xs:element name="loginResponse" type="tns:loginResponse"/>
+
+  <xs:complexType name="getOpcion">
+    <xs:sequence>
+      <xs:element name="opcionId" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getOpcionResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="login">
+    <xs:sequence>
+      <xs:element name="usuario" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loginResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

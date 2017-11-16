@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CanalesEquipos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="Datos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdContrato" type="xs:unsignedByte" />
+                    <xs:element name="EiCanalId" type="xs:unsignedByte" />
+                    <xs:element name="NomCanal" type="xs:string" />
+                    <xs:element name="EIEquip" type="xs:unsignedShort" />
+                    <xs:element name="EIEquipName" type="xs:string" />
+                    <xs:element name="UniMedDlar" type="xs:string" />
+                    <xs:element name="UniMedDCor" type="xs:string" />
+                    <xs:element name="EICliente" type="xs:unsignedInt" />
+                    <xs:element name="EIFechaContr" type="xs:dateTime" />
+                    <xs:element name="EIFechaFin" type="xs:dateTime" />
+                    <xs:element name="EIDirInst" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
