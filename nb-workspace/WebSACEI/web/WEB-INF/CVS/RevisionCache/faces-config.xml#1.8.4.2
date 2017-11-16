@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+<faces-config version="1.2"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+    <!-- ========== Características de Aplicación ================================ -->
+    <application>
+        <el-resolver>com.siss.web.EnumResolver</el-resolver>
+        <message-bundle>com.siss.web.resource.WebMessages</message-bundle>
+        <resource-bundle>
+            <base-name>com.siss.web.resource.WebMessages</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>es</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
+    </application>
+
+    <!-- ========== Ciclo de vida ============================================ -->
+    <lifecycle>
+        <phase-listener>com.siss.web.MenuPhaseListener</phase-listener>
+    </lifecycle>
+
+    <!-- ========== Managed Beans ============================================ -->
+    <managed-bean>
+        <managed-bean-name>msgBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.MensajesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>date</managed-bean-name>
+        <managed-bean-class>com.siss.web.DateHelper</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>navigation</managed-bean-name>
+        <managed-bean-class>com.siss.web.NavigationEnumBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>menu</managed-bean-name>
+        <managed-bean-class>com.siss.web.MenuBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>rol</property-name>
+            <value>SACEI_Usuarios;SACEI_Administradores</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>userBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.UserBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>utilWeb</managed-bean-name>
+        <managed-bean-class>com.siss.web.UtileriaWebBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <!-- MANAGED BEANS DE FISCALIZADOR-->
+    <managed-bean>
+        <managed-bean-name>fiscalEIBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.bean.FiscalizadorEIBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>Cronograma Industria</description>
+        <managed-bean-name>cronogramaBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.bean.CronogramaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>Informacion General Industria</description>
+        <managed-bean-name>infoGeneralIndustriaBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.bean.InformacionGeneralIndustriaBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>certifBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.bean.CertificadosBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>reporteCumplimientoBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.bean.CumplimientoGeneralBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>reporteParametroBean</managed-bean-name>
+        <managed-bean-class>com.siss.web.bean.ParametrosBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+
+    <!-- ========== Componentes ========================================= -->
+    <component>
+        <component-type>com.siss.web.FormBasedLogin</component-type>
+        <component-class>com.siss.web.FormBasedLoginComponent</component-class>
+    </component>
+    <component>
+        <component-type>com.siss.web.FormMes</component-type>
+        <component-class>com.siss.web.FormMesComponent</component-class>
+    </component>
+    <component>
+        <component-type>com.siss.web.FormCrypto</component-type>
+        <component-class>com.siss.web.FormCryptoComponent</component-class>
+    </component>
+
+    <!-- NAVEGACION AL PRINCIPAL-->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/default.jsp</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <!-- NAVEGACION PARA FISCALIZADOR-->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>fiscal</from-outcome>
+            <to-view-id>/fiscalizador/mainFiscalizador.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fiscalizadorIndustrias</from-outcome>
+            <to-view-id>/fiscalizador/industria/fiscalizadorIndustrias.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fiscalizadorCertificados</from-outcome>
+            <to-view-id>/fiscalizador/certificados.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fiscalizadorReportes</from-outcome>
+            <to-view-id>/fiscalizador/reportes/mainReportes.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fiscalizadorCumplimientoGeneral</from-outcome>
+            <to-view-id>/fiscalizador/reportes/cumplimientoGeneral.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fiscalizadorParametro</from-outcome>
+            <to-view-id>/fiscalizador/reportes/informeParametro.iface</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

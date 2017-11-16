@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <context-param>
+        <param-name>com.icesoft.faces.connectionLostRedirectURI</param-name>
+        <param-value>/default.jsp</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.sessionExpiredRedirectURI</param-name>
+        <param-value>/default.jsp</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.concurrentDOMViews</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.debugDOMUpdate</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.validateXml</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.verifyObjects</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.uploadMaxFileSize</param-name>
+        <param-value>4048576</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.synchronousUpdate</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.DEVELOPMENT</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>ETAPA_DESARROLLO</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>com.siss.web.WebMessages</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>/WEB-INF/sissExtranet.taglib.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.uploadDirectory</param-name>
+        <param-value>upload</param-value>
+    </context-param>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>ldap/intranet</realm-name>
+        <form-login-config>
+            <form-login-page>/login/login.iface</form-login-page>
+            <form-error-page>/login/login.iface?error=1</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>Administrador</description>
+        <role-name>SACEI_Administradores</role-name>
+    </security-role>
+    <security-role>
+        <description>Fiscalizador</description>
+        <role-name>SACEI_Usuarios</role-name>
+    </security-role>
+    <security-constraint>
+        <display-name>Fiscalización</display-name>
+        <web-resource-collection>
+            <web-resource-name>Protected Pages</web-resource-name>
+            <description/>
+            <url-pattern>/fiscalizador/mainFiscalizador.iface</url-pattern>
+            <url-pattern>/fiscalizador/certificados.iface</url-pattern>
+            <url-pattern>/fiscalizador/industria/cronograma.iface</url-pattern>
+            <url-pattern>/fiscalizador/industria/fiscalizadorIndustrias.iface</url-pattern>
+            <url-pattern>/fiscalizador/industria/informacionGeneral.iface</url-pattern>
+            <url-pattern>/fiscalizador/reportes/cumplimientoGeneral.iface</url-pattern>
+            <url-pattern>/fiscalizador/reportes/informeParametro.iface</url-pattern>
+            <url-pattern>/fiscalizador/reportes/mainReportes.iface</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>SACEI_Usuarios</role-name>
+            <role-name>SACEI_Administradores</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <error-page>
+        <exception-type>com.icesoft.faces.webapp.http.core.SessionExpiredException</exception-type>
+        <location>/login/login.iface?error=2</location>
+    </error-page>
+
+    <servlet>
+        <servlet-name>Persistent Faces Servlet</servlet-name>
+        <servlet-class>com.icesoft.faces.webapp.xmlhttp.PersistentFacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>Blocking Servlet</servlet-name>
+        <servlet-class>com.icesoft.faces.webapp.xmlhttp.BlockingServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>uploadServlet</servlet-name>
+        <servlet-class>com.icesoft.faces.component.inputfile.FileUploadServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CertificadoServlet</servlet-name>
+        <servlet-class>com.siss.web.servlet.CertificadoServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ExportExcelServlet</servlet-name>
+        <servlet-class>com.siss.web.servlet.ExportExcelServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertificadoServlet</servlet-name>
+        <url-pattern>/_e8A42bF0g</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExportExcelServlet</servlet-name>
+        <url-pattern>/_e8A42aF0g</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Persistent Faces Servlet</servlet-name>
+        <url-pattern>/xmlhttp/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Persistent Faces Servlet</servlet-name>
+        <url-pattern>*.iface</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Persistent Faces Servlet</servlet-name>
+        <url-pattern>*.jspx</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Blocking Servlet</servlet-name>
+        <url-pattern>/block/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>uploadServlet</servlet-name>
+        <url-pattern>/uploadHtml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file/>
+    </welcome-file-list>
+
+    <context-param>
+        <param-name>com.icesoft.faces.blockingRequestHandlerContext</param-name>
+        <param-value>push-server</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.localAddress</param-name>
+        <param-value>appin.siss.cl</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.localPort</param-name>
+        <param-value>80</param-value>
+    </context-param>
+    <context-param>
+        <param-name>DEFAULT_CONTEXT</param-name>
+	<param-value>http://testin.siss.cl</param-value>
+    </context-param>
+    <context-param>
+        <param-name>RESOURCE_CONTEXT</param-name>
+        <param-value>http://testin.siss.cl/common-resources</param-value>
+    </context-param>
+</web-app>

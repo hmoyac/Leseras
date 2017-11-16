@@ -1,0 +1,102 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:c="http://java.sun.com/jstl/core">
+
+    <ice:form id="formMainPopup">
+        
+        <ice:panelPopup
+            id="pnMessages"
+            visible="#{!empty facesContext.maximumSeverity}"
+            autoCentre="true"
+            modal="true"
+            styleClass="topFrontPopup">
+            <f:facet name="header" >
+                <ice:panelGroup>
+                    <table width="100%">
+                        <colgroup class="colMensIzq"/>
+                        <colgroup class="colMensCen"/>
+                        <colgroup class="colMensDer"/>
+                        <tr>
+                            <td align="left">
+                                <img src="#{initParam['RESOURCE_CONTEXT']}/images/iconos/#{msgBean.imagen}" alt="#{msgBean.titulo}" class="Img16x16" />
+                            </td>
+                            <td align="left">
+                                <ice:outputText value="#{msgBean.titulo}" styleClass="titulo3"/>
+                            </td>
+                            <td align="right">
+                                <ice:commandButton alt="#{bundle.Cerrar}" type="button" styleClass="PanelBoton" image="#{initParam['RESOURCE_CONTEXT']}/css/rime/css-images/cal_off.gif" actionListener="#{msgBean.hidePopupRecurso}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </ice:panelGroup>
+            </f:facet>
+            <f:facet name="body">
+                <ice:panelGroup>
+                    <table width="#{msgBean.widthPanel}">
+                        <tr>
+                            <td align="left" class="textoGeneral">
+                                <ice:messages id="messages" showSummary="true" showDetail="false"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <br/>
+                                <ice:commandButton styleClass="Boton" actionListener="#{msgBean.hidePopupRecurso}" value="#{bundle.Cerrar}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </ice:panelGroup>
+            </f:facet>
+        </ice:panelPopup>
+        
+        <c:if test="#{ingresarBean.base.visiblePopupValidacion}">
+            <ice:panelPopup
+                visible="#{ingresarBean.base.visiblePopupValidacion}"
+                autoCentre="true"
+                id="mensajeValidacion1"
+                modal="true">
+                <f:facet name="header" >
+                    <ice:panelGroup>
+                        <table width="700px">
+                            <colgroup class="colMensIzq"/>
+                            <colgroup class="colMensCen"/>
+                            <colgroup class="colMensDer"/>
+                            <tr>
+                                <td align="left">
+                                    <img src="#{initParam['RESOURCE_CONTEXT']}/images/iconos/informationVista_16.PNG" alt="#{bundle.IngresoAtenciones}" title="#{bundle.IngresoAtenciones}" class="Img16x16" />
+                                </td>
+                                <td align="left">
+                                    <ice:outputText value="#{bundle.Validacion}" styleClass="titulo3"/>
+                                </td>
+                                <td align="right">
+                                    <ice:commandButton alt="#{bundle.Cerrar}" image="#{initParam['RESOURCE_CONTEXT']}/css/rime/css-images/cal_off.gif" actionListener="#{ingresarBean.base.closePopupValidacion}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </ice:panelGroup>
+                </f:facet>
+                <f:facet name="body">
+                    <ice:panelGroup>
+                        <table width="100%">
+                            <colgroup width="90%"/>
+                            <tr>
+                                <td align="left">
+                                    <ice:outputText value="&lt;html>#{ingresarBean.base.outputValidacion}&lt;/html>" escape="false" styleClass="textoGeneral"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <ice:commandButton
+                                        styleClass="Boton"
+                                        actionListener="#{ingresarBean.closePopupValidacion}"
+                                        value="#{bundle.Cerrar}" />
+                                </td>
+                            </tr>
+                        </table>
+                    </ice:panelGroup>
+                </f:facet>
+            </ice:panelPopup>
+        </c:if>
+    </ice:form>
+
+</f:view>

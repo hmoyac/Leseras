@@ -1,0 +1,473 @@
+/**
+ *
+ * @author hmoya
+ *
+ * Bean que permite la busqueda de empresas con los filtros de región y comuna, para luego
+ * poder manipular la información general o cronogramas de una empresa seleccionada.
+ */
+package com.siss.web.bean;
+
+import com.siss.dto.amb.PtoDescarga;
+import com.siss.entity.mae.Region;
+import com.siss.exception.EntityException;
+import com.siss.web.resource.WebConstants;
+import com.siss.web.FacesUtil;
+import com.siss.web.MensajesBean;
+import com.siss.web.UserBean;
+import com.siss.web.Util;
+import com.siss.web.util.UtilListas;
+import com.siss.web.delegate.amb.ActividadEconomicaDelegate;
+import com.siss.web.delegate.mae.FuncionariosDelegate;
+import com.siss.web.delegate.mae.RegionesDelegate;
+import com.siss.web.model.ModeloExcel;
+import com.siss.web.servlet.ExportExcelServlet;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+
+
+public class FiscalizadorEIBean {
+
+    /**
+     * Constante que representa al nombre del bean de industria.
+     */
+    public static final String REPORTE_INDUSTRIA = "REPORTE_INDUSTRIA";
+    /**
+     * Lista con el modelo necesesario para desplegar la lista con las empresas obtenidas luego de
+     * aplicar los filtros de busqueda.
+     */
+    private List<PtoDescarga> listaIndustrias = new ArrayList<PtoDescarga>(); //hmoya
+    /**
+     * Lista con los elementos de menú asociados la las regiones.
+     */
+    private List<SelectItem> regiones = new ArrayList<SelectItem>();
+    /**
+     * Entero asociado al identificador de la región seleccionada.
+     */
+    private Integer region = null;
+    /**
+     * Lista con los elementos de menú asociados la las comunas.
+     */
+    private List<SelectItem> comunas = new ArrayList<SelectItem>();
+    /**
+     * Lista asociada a los identificadores de las comunas seleccionadas.
+     */
+    private List<Integer> comuna = null;
+    /**
+     * String que almacena la concatenación de los identificadores de las comunas. ej: 21,25,36,54
+     */
+    private String combinacionComunas;
+    /**
+     * Instancia al bean que maneja los mensajes.
+     */
+    private MensajesBean mensajes;
+    /**
+     * Lista con la regiones.
+     */
+    private List<Region> listaRegiones = new ArrayList<Region>();
+
+    /**
+     * Nombre de columna a ordenar anterior.
+     */
+    private String oldSort = WebConstants.STRING_VACIO;
+    /**
+     * Tipo de ordenamiento anterior.
+     */
+    private boolean oldAscending = false;
+    /**
+     * Nombre de la columna por la cual se desea realizar el oredenamiento.
+     */
+    private String sortColumnName = WebConstants.STRING_VACIO;
+    /**
+     * Tipo de ordenamiento. True, si es ascendente.
+     */
+    private boolean ascending;
+    /**
+     * Constexto web de la aplicación.
+     */
+    private FacesContext ctx;
+
+    /**
+     * Constructor de la clase.
+     * Se inicializan el contexto web, la carga de las regiones y el bean de mensajes.
+     */
+    public FiscalizadorEIBean() {
+        ctx = FacesContext.getCurrentInstance();
+        cargarRegiones("1");        
+        mensajes = (MensajesBean)FacesUtil.getManagedBeanExpression(ctx, WebConstants.BEAN_MENSAJES, MensajesBean.class);
+    }
+
+    /**
+     * Acción que realiza la búsqueda de las empresas filtradas por región y comunas.
+     * @return String vacío.
+     */
+    public String buscarIndustriasAsignadas() {
+        this.setListaIndustrias(llenaTabla());
+        gererarReporteExcelIndustria();
+        return WebConstants.STRING_VACIO;
+    }
+
+    /**
+     * Método encargado de llenar la tabla con los resultados de la búsqueda, aplicando los filtros de región, y comunas seleccionadas,
+     * además se aplica el filtro del usuario fiscalizador.
+     * @return Lista con los datos necesarios para mostrar la tabla, y asociar la información general y cronogramas a cada empresa.
+     */
+    public List<PtoDescarga> llenaTabla() {
+        List<PtoDescarga> tabla = new ArrayList<PtoDescarga>();
+        try {
+            UserBean uBean = (UserBean)FacesUtil.getManagedBeanExpression(ctx, WebConstants.BEAN_USUARIOS, UserBean.class);
+            Integer idUsuario = FuncionariosDelegate.getInstance().getUsuarioId(uBean.getNombreUsuario());
+            tabla = ActividadEconomicaDelegate.getInstance().getEIAsignadosPorComuna(idUsuario, combinacionComunas);
+            if (tabla == null || tabla.size() <= 0) {
+                listaIndustrias.clear();
+                Util.mostrarMensaje(Util.getString(ctx, "BusquedaNoResultado"));
+                setComuna(null);
+                setCombinacionComunas(WebConstants.STRING_VACIO);
+            }
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return tabla;
+    }
+
+    public void gererarReporteExcelIndustria() {
+        ModeloExcel modeloExcel = new ModeloExcel();
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            if (!getListaIndustrias().isEmpty()) {
+                Integer regionId = getRegion();
+                String fecha = formato.format(Calendar.getInstance().getTime());
+                modeloExcel.setTitulo(FiscalizadorEIBean.REPORTE_INDUSTRIA);
+                modeloExcel.setFecha(fecha);
+                String strRegion = ExportExcelServlet.getDescripcionRegion(regionId, getListaRegiones().iterator());
+                modeloExcel.setRegion(strRegion);
+                modeloExcel.setIndustrias(getListaIndustrias());
+            }
+            ExportarExcelBean exportarExcelBean = (ExportarExcelBean)FacesUtil.getManagedBeanExpression(FacesContext.getCurrentInstance(), "#{exportarExcelBean}", ExportarExcelBean.class);
+            if (exportarExcelBean != null) {
+                exportarExcelBean.setModeloExcel(modeloExcel);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ExportarExcelBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Método de ordenamiento de una lista, el ordenamiento se produce dado un nombre de campo FechaVencimiento,
+     * y un boolean indicando si es ascendente o descendente.
+     * @param lista Lista a ordenar.
+     * @param ascending boolean true si es un ordenamiento ascendente.
+     * @return Lista ordenada según los critérios.
+     * @see PtoDescarga
+     * @see Comparator
+     * @see Collections#sort(java.util.List, java.util.Comparator)
+     */
+    protected List<PtoDescarga> sort(List<PtoDescarga> lista, final boolean ascending) {
+        try {
+            Comparator comparator = new Comparator() {
+
+                @Override
+                public int compare(Object o1, Object o2) {
+                    String norma = Util.getString(ctx, "Norma");
+                    String cuerpoReceptor = Util.getString(ctx, "CuerpoReceptor");
+                    String actividadEconomica = Util.getString(ctx, "Industria");
+                    String comuna = Util.getString(ctx, "Comuna");
+                    String correo = Util.getString(ctx, "Correo");
+                    String telefono = Util.getString(ctx, "Telefono");
+
+                    PtoDescarga c1 = (PtoDescarga) o1;
+                    PtoDescarga c2 = (PtoDescarga) o2;
+                    if (sortColumnName == null) {
+                        return 0;
+                    }
+                    if (sortColumnName.equals(norma)) {
+                        return ascending ? c1.getNorma().compareTo(c2.getNorma()) : c2.getNorma().compareTo(c1.getNorma());
+                    } else if (sortColumnName.equals(cuerpoReceptor)) {
+                        return ascending ? c1.getCuerpoReceptor().compareTo(c2.getCuerpoReceptor()) : c2.getCuerpoReceptor().compareTo(c1.getCuerpoReceptor());
+                    } else if (sortColumnName.equals(actividadEconomica)) {
+                        return ascending ? c1.getActividadEconomica().compareTo(c2.getActividadEconomica()) : c2.getActividadEconomica().compareTo(c1.getActividadEconomica());
+                    } else if (sortColumnName.equals(comuna)) {
+                        return ascending ? c1.getComuna().compareTo(c2.getComuna()) : c2.getComuna().compareTo(c1.getComuna());
+                    } else if (sortColumnName.equals(correo)) {
+                        return ascending ? c1.getCorreo().compareTo(c2.getCorreo()) : c2.getCorreo().compareTo(c1.getCorreo());
+                    } else if (sortColumnName.equals(telefono)) {
+                        if (c1.getTelefono() == null) { 
+                            c1.setTelefono("");
+                        }
+                        if (c2.getTelefono() == null) {
+                            c2.setTelefono(WebConstants.STRING_VACIO);
+                        }
+                        return ascending ? c1.getTelefono().compareTo(c2.getTelefono()) : c2.getTelefono().compareTo(c1.getTelefono());
+                    } else {
+                        return 0;
+                    }
+                }
+            };
+            Collections.sort(lista, comparator);
+        } catch (Exception ex) {
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene todas las comunas que pertenecen a la región seleccionada.
+     * @param idRegion Número con el identificador de la región.
+     * @return VERDADERO, si se cargaron las comunas, y FALSO, si no se cargaron.
+     */
+    private boolean cargarComunas(int idRegion) {
+        boolean res = false;
+        try {
+            setComunas(UtilListas.cargarComunas(RegionesDelegate.getInstance().getComunasByRegion(idRegion)));
+            res = true;
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todas las regiones que pertenecen a la región seleccionada.
+     * @param pais Número con el identificador de la región.
+     * @return VERDADERO, si se cargaron las comunas, y FALSO, si no se cargaron.
+     */
+    private boolean cargarRegiones(String pais) {
+        boolean res = false;
+        try {
+            region = null;
+            listaRegiones.clear();
+            listaRegiones = RegionesDelegate.getInstance().getRegionesByPais(Short.parseShort(pais));
+            setRegiones(UtilListas.cargarRegiones(listaRegiones));
+            res = true;
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(FiscalizadorEIBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de la región.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeRegion(ValueChangeEvent vce) {
+        int regionChange = (Integer) vce.getNewValue();
+        region = regionChange;
+        if (cargarComunas(region)) {
+            listaIndustrias.clear();
+            setComuna(null);
+            setCombinacionComunas(WebConstants.STRING_VACIO);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de las comunas.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeComuna(ValueChangeEvent vce) {
+        List<Integer> comunaChange = (List<Integer>) vce.getNewValue();
+        if (comunaChange != null && comunaChange.size() > 0) {
+            comuna = comunaChange;
+            this.combinacionComunas = UtilListas.arrayToString(comunaChange.iterator());
+        } else {
+            setCombinacionComunas(WebConstants.STRING_VACIO);
+        }
+        listaIndustrias.clear();
+    }
+
+    /**
+     * Retorna la concatenación con las comunas seleccionadas.
+     * @return La concatenación con las comunas seleccionadas.
+     */
+    public String getCombinacionComunas() {
+        return combinacionComunas;
+    }
+
+    /**
+     * Setea la concatenación con las comunas seleccionadas.
+     * @param combinacionComunas Concatenación con las comunas seleccionadas.
+     */
+    public void setCombinacionComunas(String combinacionComunas) {
+        this.combinacionComunas = combinacionComunas;
+    }
+
+    /**
+     * Obtiene la lista con las comunas seleccionadas.
+     * @return Lista con los identificadores de las comunas seleccionadas.
+     */
+    public List<Integer> getComuna() {
+        return comuna;
+    }
+
+    /**
+     * Setea la lista con los identificadores de las comunas seleccionadas.
+     * @param comuna Lista con los identificadores de las comunas seleccionadas
+     */
+    public void setComuna(List<Integer> comuna) {
+        this.comuna = comuna;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las comunas.
+     * @return Lista con los elementos de menú correspondiente a las comunas.
+     */
+    public List<SelectItem> getComunas() {
+        return comunas;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a las comunas.
+     * @param comunas Lista con los elementos de menú correspondientes a las comunas.
+     */
+    public void setComunas(List<SelectItem> comunas) {
+        this.comunas = comunas;
+    }
+
+    /**
+     * Obtiene el identificador de la región seleccionada.
+     * @return Identificador de la región seleccionada.
+     */
+    public Integer getRegion() {
+        return region;
+    }
+
+    /**
+     * Setea el identificador de la región seleccionada.
+     * @param region Nuevo identificador de la región seleccionada.
+     */
+    public void setRegion(Integer region) {
+        this.region = region;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las regiones.
+     * @return Lista con los elementos de menú correspondiente a las regiones.
+     */
+    public List<SelectItem> getRegiones() {
+        return regiones;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a las regiones.
+     * @param regiones Lista con los elementos de menú correspondientes a las regiones.
+     */
+    public void setRegiones(List<SelectItem> regiones) {
+        this.regiones = regiones;
+    }
+
+    /**
+     * Retorna la lista con las empresas obtenidas.
+     * @return Lista con las empresas obtenidas.
+     */
+    public List<PtoDescarga> getListaIndustrias() {
+        if (!oldSort.equals(sortColumnName) ||
+            oldAscending != ascending) {
+            listaIndustrias = sort(listaIndustrias, ascending);
+            oldSort = sortColumnName;
+            oldAscending = ascending;
+        }
+        return listaIndustrias;
+    }
+
+    /**
+     * Setea la lista con las empresas obtenidas.
+     * @param listaIndustrias lista con las empresas obtenidas.
+     */
+    public void setListaIndustrias(List<PtoDescarga> listaIndustrias) {
+        this.listaIndustrias = listaIndustrias;
+    }
+
+    /**
+     * Retorna la lista con las regiones.
+     * @return lista con las regiones.
+     */
+    public List<Region> getListaRegiones() {
+        return listaRegiones;
+    }
+
+    /**
+     * Setea la lista con las regiones.
+     * @param listaRegiones lista con las regiones.
+     */
+    public void setListaRegiones(List<Region> listaRegiones) {
+        this.listaRegiones = listaRegiones;
+    }
+
+    /**
+     * Retorna true si el tipo de ordenamiento es ascendente.
+     * @return boolean Si el tipo de ordenamiento es ascendente.
+     */
+    public boolean isAscending() {
+        return ascending;
+    }
+
+    /**
+     * Setea el tipo de ordenamiento.
+     * @param ascending Tipo de ordenamiento. si TRUE se ordena de forma ascendente.
+     */
+    public void setAscending(boolean ascending) {
+        this.ascending = ascending;
+    }
+
+    /**
+     * Retorna el nombre de la columna que se desea oredenar la lista.
+     * @return Nombre de la columna que se desea oredenar la lista.
+     */
+    public String getSortColumnName() {
+        return sortColumnName;
+    }
+
+    /**
+     * Setea el nombre de la columna que se desea oredenar la lista.
+     * @param sortColumnName Nombre de la columna que se desea oredenar la lista.
+     */
+    public void setSortColumnName(String sortColumnName) {
+        this.sortColumnName = sortColumnName;
+    }
+
+}

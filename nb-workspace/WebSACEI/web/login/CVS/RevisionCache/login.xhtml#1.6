@@ -1,0 +1,58 @@
+<!--
+    Document   : login
+    Created on : 18-nov-2008, 12:38:03
+    Author     : hmoya
+-->
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:c="http://java.sun.com/jstl/core"
+     xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="cabecera">
+            <ui:include src="/template/cabecera.xhtml">
+                <ui:param name="botones" value="1"/>
+                <ui:param name="texto" value="#{bundle.SACEI}"/>
+            </ui:include>
+        </ui:define>
+
+        <ui:define name="navegacion">
+            <ui:include src="/template/navegacion.xhtml">
+                <ui:param name="login" value="true"/>
+                <ui:param name="titulo" value="Inicio de Sesión"/>
+                <ui:param name="preMenu" value="#{bundle.Inicio} - #{bundle.Login}"/>
+            </ui:include>
+        </ui:define>
+
+        <ui:define name="cuerpo">
+            <div xmlns:siss="http://siss.cl/products/jsf" align="center" style="background-color:#FFFFFF">
+                
+                <script type="text/javascript">
+                    var a = document.getElementById("userForm:preMenu");
+                    var txt = document.referrer;
+                    if (a) {
+                        if (txt.indexOf("Administrador") > 0) {
+                            a.textContent = a.textContent + " Administrador";
+                        } else {
+                            if (txt.indexOf("Fiscalizador") > 0) {
+                                a.textContent = a.textContent + " Fiscalizador";
+                            }
+                        }
+                    }
+                </script>
+                
+                <ice:outputText value="#{msgBean.loginError}"/>
+                <siss:formBasedLogin/>
+            </div>
+        </ui:define>
+
+        <ui:define name="pie">
+            <br/>
+            <ui:include src="/template/pie.xhtml"/>
+        </ui:define>
+
+        <ui:define name="mensaje">
+            <ui:include src="/template/mensaje.xhtml"/>
+        </ui:define>
+
+    </ui:composition>
+</div>

@@ -1,0 +1,149 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <h:form id="userForm">
+        <table class="rellenoAplicacion" width="100%" border="0" cellpadding="5" cellspacing="0">
+            <tr>
+                <td align="left">
+                    <c:if test="#{!empty preMenu}">
+                        <h:outputText styleClass="nombreAplicacion" value="${preMenu}"/>
+                    </c:if>
+                </td>
+                <td class="barraInformacion"/>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan="2" class="separacion1"/>
+            </tr>
+        </table>
+        <c:if test="#{loginBean.logon}">
+            <table class="rellenoNavegacion" width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left">
+                        <table>
+                            <tr>
+                                <td>
+                                    <ul id="nav">
+                                        <li class="top"><a href="#nogo1" class="top_link"><span>#{bundle.MenuNuevoDocumento}</span></a>
+                                            <ul class="sub">
+                                                <li class="mid">
+                                                    <h:commandLink id="Ingresos1" value="#{bundle.TipoDocMemorandum}" actionListener="#{ingresarBean.base.actionListener}">
+                                                        <f:attribute name="menu" value="ingDocumento"/>
+                                                        <f:attribute name="tipoDocumento" value="#{bundle.TipoDocMemorandum}"/>
+                                                        <f:setPropertyActionListener target="#{userBean.tipoDocumento}" value="#{bundle.TipoDocMemorandum}"/>
+                                                        <f:attribute name="bean" value="#{ingresarBean}"/>
+                                                    </h:commandLink>
+                                                </li>
+                                                <!--
+                                                <li class="mid">
+                                                    <h:commandLink id="Ingresos2" value="#{bundle.TipoDocOficio}" actionListener="#{ingresarBean.base.actionListener}">
+                                                        <f:attribute name="menu" value="ingDocumento"/>
+                                                        <f:attribute name="tipoDocumento" value="#{bundle.TipoDocOficio}"/>
+                                                        <f:setPropertyActionListener target="#{userBean.tipoDocumento}" value="#{bundle.TipoDocOficio}"/>
+                                                        <f:attribute name="bean" value="#{ingresarBean}"/>
+                                                    </h:commandLink>
+                                                </li>
+                                                -->
+                                                <li class="mid">
+                                                    <h:commandLink id="Ingresos3" value="#{bundle.TipoDocOficioRegional}" actionListener="#{ingresarBean.base.actionListener}">
+                                                        <f:attribute name="menu" value="ingDocumento"/>
+                                                        <f:attribute name="tipoDocumento" value="#{bundle.TipoDocOficioRegional}"/>
+                                                        <f:setPropertyActionListener target="#{userBean.tipoDocumento}" value="#{bundle.TipoDocOficioRegional}"/>
+                                                        <f:attribute name="bean" value="#{ingresarBean}"/>
+                                                    </h:commandLink>
+                                                </li>    
+                                                <!--
+                                                <li class="mid">
+                                                    <h:commandLink id="Ingresos4" value="#{bundle.TipoDocResolucionExenta}" actionListener="#{ingresarBean.base.actionListener}">
+                                                        <f:attribute name="menu" value="ingDocumento"/>
+                                                        <f:attribute name="tipoDocumento" value="#{bundle.TipoDocResolucionExenta}"/>
+                                                        <f:setPropertyActionListener target="#{userBean.tipoDocumento}" value="#{bundle.TipoDocResolucionExenta}"/>
+                                                        <f:attribute name="bean" value="#{ingresarBean}"/>
+                                                    </h:commandLink>
+                                                </li>    
+                                                <li class="mid">
+                                                    <h:commandLink id="Ingresos5" value="#{bundle.TipoDocResolucionTomaRazon}" actionListener="#{ingresarBean.base.actionListener}">
+                                                        <f:attribute name="menu" value="ingDocumento"/>
+                                                        <f:attribute name="tipoDocumento" value="#{bundle.TipoDocResolucionTomaRazon}"/>
+                                                        <f:setPropertyActionListener target="#{userBean.tipoDocumento}" value="#{bundle.TipoDocResolucionTomaRazon}"/>
+                                                        <f:attribute name="bean" value="#{ingresarBean}"/>
+                                                    </h:commandLink>
+                                                </li>
+                                                -->
+                                            </ul>
+                                        </li>
+
+                                        <li class="top">
+                                            <span>
+                                                <h:commandLink id="Busqueda1" value="#{bundle.MenuBusquedaDocumento}" actionListener="#{buscarBean.base.actionListener}" styleClass="top_link">
+                                                    <f:attribute name="menu" value="busquedaDocumento"/>
+                                                    <f:attribute name="bean" value="#{buscarBean}"/>
+                                                </h:commandLink>
+                                            </span>
+                                        </li>
+
+                                        <li class="top"><a href="#nogo1" class="top_link"><span>#{bundle.MenuFlujoDocumento}</span></a>
+                                            <ul class="sub">
+                                                <li class="mid">
+                                                    <h:commandLink id="a" value="#{bundle.MenuFlujoDocumentoAprobar}" actionListener="#{aprobarBean.base.actionListener}">
+                                                        <f:attribute name="menu" value="porAprobar"/>
+                                                        <f:attribute name="bean" value="#{aprobarBean}"/>
+                                                    </h:commandLink>
+                                                </li>    
+                                                <li class="mid">
+                                                    <span>
+                                                        <h:commandLink id="b" value="#{bundle.MenuFlujoDocumentoFirmar}" actionListener="#{firmarBean.base.actionListener}">
+                                                            <f:attribute name="menu" value="porFirmar"/>
+                                                            <f:attribute name="bean" value="#{firmarBean}"/>
+                                                        </h:commandLink>
+                                                    </span>
+                                                </li>    
+                                            </ul>
+                                        </li>
+
+                                        <li class="top">
+                                            <span>
+                                                <h:commandLink id="Autor" value="#{bundle.MenuAutor}" actionListener="#{autorBean.base.actionListener}" styleClass="top_link">
+                                                    <f:attribute name="menu" value="documentoMod"/>
+                                                    <f:attribute name="bean" value="#{autorBean}"/>
+                                                </h:commandLink>
+                                            </span>
+                                        </li>
+
+                                        <li class="top">
+                                            <span>
+                                                <h:commandLink id="DocumentosSISS" value="#{bundle.MenuDocumentosSISS}" actionListener="#{vistaBean.base.actionListener}" styleClass="top_link">
+                                                    <f:attribute name="menu" value="vistaDocumento"/>
+                                                    <f:attribute name="bean" value="#{vistaBean}"/>
+                                                </h:commandLink>
+                                            </span>
+                                        </li>
+
+                                    </ul>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td align="right">
+                        <table>
+                            <tr>
+                                <td>
+                                    <ul id="nav">
+                                        <li class="top">
+                                            <h:commandLink rendered="#{loginBean.logon}" value="#{bundle.CerrarSesion}" action="#{userBean.logout}" styleClass="top_link"/>
+                                        </li>                                        
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </c:if>
+    </h:form>
+
+</f:view>

@@ -1,0 +1,73 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ice:outputDeclaration doctypeRoot="html" doctypePublic="-//W3C//DTD XHTML 1.0 Transitional//EN" doctypeSystem="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+    <html>
+
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	    <f:loadBundle basename="com.siss.web.resource.WebMessages" var="bundle"/>
+            <title>#{bundle.GlosaSacei}</title>
+	    <ice:outputStyle href="#{utilWeb.resourceContext}/css/rime/rime.css"/>
+	    <link href="#{utilWeb.resourceContext}/css/siss.css" rel="stylesheet" type="text/css"/>
+
+	    <script type="text/javascript" language="Javascript">
+		document.oncontextmenu = function(){return false}
+	    </script>
+	    <!-- <script type="text/javascript">
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-4124605-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	    </script> -->
+        </head>
+
+        <body>
+	    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr class="fondoCuerpo">
+                    <td>
+			<ui:insert name="cabecera"/>
+		    </td>
+                </tr>
+                <tr class="fondoCuerpo">
+                    <td>
+                        <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                            <tr>
+                                <td>
+				    <ui:insert name="navegacion"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td>
+				    <ui:insert name="cuerpo"/>
+                                    <ice:outputText value="#{msgBean.loginError}"/>
+				    <ui:insert name="acciones"/>
+				</td>
+			    </tr>
+			</table>
+		    </td>
+		</tr>
+		<tr>
+		    <td align="center" class="bodyStyle">
+			<ui:insert name="pie"/>
+		    </td>
+		</tr>
+		<tr>
+		    <td align="center" class="bodyStyle">
+                        <ui:include src="/template/mensaje.xhtml"/>
+		    </td>
+		</tr>
+	    </table>
+
+        </body>
+    </html>
+</f:view>

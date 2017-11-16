@@ -1,0 +1,68 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <h:form id="userForm">
+        <table class="rellenoAplicacion" width="100%" border="0" cellpadding="5" cellspacing="0">
+            <tr>
+                <td align="left">
+                    <c:if test="#{!empty preMenu}">
+                        <h:outputText styleClass="nombreAplicacion" value="${preMenu}"/>
+                    </c:if>
+                </td>
+                <td class="barraInformacion"/>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan="2" class="separacion1"/>
+            </tr>
+        </table>
+        <table class="rellenoNavegacion" width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="left">
+                    <table>
+                        <tr>
+                            <td>
+                                <ice:menuBar id="menuBar" orientation="horizontal" keyboardNavigationEnabled="true">
+                                    <c:if test="#{!empty menu.rutaXmlMenu}">
+                                        <c:forEach var="item" items="#{menu.menu}">
+                                            <c:choose>
+                                                <c:when test="${item.accion == 'a.link'}">
+                                                    <ice:menuItem value="${item.texto}" link="${item.target}" immediate="true"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <ice:menuItem value="${item.texto}" actionListener="#{menu.actionListener}" immediate="true">
+                                                        <f:attribute name="menu" value="${item.accion}"/>
+                                                        <f:attribute name="xml" value="${item.xml}"/>
+                                                        <f:attribute name="target" value="${item.target}"/>
+                                                        <f:attribute name="pagina" value="${item.pagina}"/>
+                                                    </ice:menuItem>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:if>
+                                </ice:menuBar>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="right">
+                    <table>
+                        <tr>
+                            <td>
+                                <ice:menuBar id="menuCerrarSesion" orientation="horizontal" keyboardNavigationEnabled="true">
+                                    <c:if test="${menu.logon == 'true'}">
+                                        <ice:menuItem value="#{bundle.CerrarSesion}" action="#{userBean.logout}" immediate="true"/>
+                                    </c:if>
+                                </ice:menuBar>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </h:form>
+
+</f:view>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    Document   : configNavegacion.xml
+    Created on : 04 de febrero de 2009, 9:42
+    Author     : hmoya
+    Description:
+        Purpose of the document follows.
+-->
+<configNavegacion>
+    <navegacion nombre="menu">
+        <item pagina="/fiscalizador/mainFiscalizador.xhtml" xml="/fiscalizador/menu.xml" target="fiscalizador"/>
+        <item pagina="/fiscalizador/industria/fiscalizadorIndustrias.xhtml" xml="/fiscalizador/menu.xml" target="fiscalizador"/>
+        <item pagina="/fiscalizador/certificados.xhtml" xml="/fiscalizador/menu.xml" target="fiscalizador"/>
+        <item pagina="/fiscalizador/reportes/mainReportes.xhtml" xml="/fiscalizador/menu.xml" target="reportes"/>
+        <item pagina="/fiscalizador/reportes/cumplimientoGeneral.xhtml" xml="/fiscalizador/menu.xml" target="reportes"/>
+        <item pagina="/fiscalizador/reportes/informeParametro.xhtml" xml="/fiscalizador/menu.xml" target="reportes"/>
+    </navegacion>
+
+</configNavegacion>

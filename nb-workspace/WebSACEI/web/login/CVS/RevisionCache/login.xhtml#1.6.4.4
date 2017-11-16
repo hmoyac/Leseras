@@ -1,0 +1,37 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="cabecera">
+            <ui:include src="/template/cabecera.xhtml">
+                <ui:param name="botones" value="1"/>               
+            </ui:include>
+        </ui:define>
+
+        <ui:define name="navegacion">
+            <ui:include src="/template/navegacion.xhtml">
+                <ui:param name="login" value="true"/>
+                <ui:param name="pretitulo" value="Inicio de sesión"/>
+                <ui:param name="preMenu" value="#{bundle.Login}"/>
+            </ui:include>
+        </ui:define>
+
+	<ui:define name="cuerpo">
+            <div xmlns:siss="http://siss.cl/products/jsf" class="center">
+                <siss:formBasedLogin/>
+            </div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="separacion2"/>
+                </tr>
+            </table>
+        </ui:define>
+
+        <ui:define name="pie">
+            <ui:include src="/template/pie.xhtml"/>
+        </ui:define>
+
+    </ui:composition>
+
+</f:view>

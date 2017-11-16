@@ -1,0 +1,73 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core">
+
+    <h:form id="userForm">
+        <table class="rellenoAplicacion" width="100%" border="0" cellpadding="5" cellspacing="0">
+            <tr>
+                <td align="left">
+                    <c:if test="#{!empty preMenu}">
+                        <h:outputText styleClass="nombreAplicacion" value="${preMenu}"/>
+                    </c:if>
+                </td>
+                <td class="barraInformacion"/>
+            </tr>
+        </table>
+        <c:set var="separador" value=" | "/>
+        <table class="rellenoNavegacion" width="100%" border="0" cellpadding="5" cellspacing="0">
+            <tr>
+                <td colspan="2" class="separacion1"/>
+            </tr>
+            <tr>
+                <td align="left">
+                    <c:if test="#{!empty menu.rutaXmlMenu}">
+                        <c:forEach var="item" items="#{menu.menu}">
+                            <c:choose>
+                                <c:when test="${item.accion == 'a.link'}">
+                                    <h:outputLink styleClass="Menu" value="${item.target}">
+                                        <h:outputText value="${item.texto}"/>
+                                    </h:outputLink>
+                                </c:when>
+                                <c:otherwise>
+                                    <h:commandLink value="${item.texto}" styleClass="Menu"
+                                           actionListener="#{menu.actionListener}"
+                                           immediate="true">
+                                        <f:attribute name="menu" value="${item.accion}"/>
+                                        <f:attribute name="xml" value="${item.xml}"/>
+                                        <f:attribute name="target" value="${item.target}"/>
+                                        <f:attribute name="pagina" value="${item.pagina}"/>
+                                    </h:commandLink>
+                                </c:otherwise>
+                            </c:choose>
+                            <h:outputText styleClass="textoMenu" value="${separador}" />
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${login == 'true'}">
+                        <h:commandLink value="Volver" styleClass="Menu"
+                                   actionListener="#{menu.actionListener}"
+                                   immediate="true">
+                            <f:attribute name="menu" value="main"/>
+                            <f:attribute name="xml" value=""/>
+                            <f:attribute name="target" value=""/>
+                            <f:attribute name="pagina" value="login"/>
+                        </h:commandLink>
+                        <h:outputText styleClass="textoMenu" value="${separador}" />
+                    </c:if>
+                </td>
+                <td align="right">
+                    <c:if test="${menu.logeado == 'true'}">
+                        <c:if test="#{!empty pretitulo}">
+			    <h:outputText styleClass="textoMenu" value="#{pretitulo}#{userBean.nombreUsuario}"/>
+                        </c:if>
+                        <h:outputText styleClass="textoMenu" value="${separador}" />
+                        <h:commandLink value="#{bundle.CerrarSesion}" styleClass="Menu" action="#{userBean.logout}"/>
+                    </c:if>
+                    <h:outputText styleClass="textoMenu" value="${separador}" />
+                    <h:commandLink value="#{bundle.Ayuda}" styleClass="Menu" action="#" immediate="true"/>
+                    <h:outputText styleClass="textoMenu" value="${separador}" />
+                </td>
+            </tr>
+        </table>
+    </h:form>
+
+</f:view>

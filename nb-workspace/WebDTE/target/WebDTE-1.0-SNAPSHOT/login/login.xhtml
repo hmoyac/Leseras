@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" 
+                template="../resources/template/mainTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+        <h:form>
+            <p:outputLabel for="advanced" value="Advanced:"  />
+            <p:selectOneMenu id="advanced" value="#{selectOneMenuView.theme}" converter="themeConverter" panelStyle="width:180px"
+                             effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                <f:selectItems value="#{selectOneMenuView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+
+                <!--                <p:column style="width:10%">
+                                    <h:outputText styleClass="ui-theme ui-theme-{t.name}" />
+                                </p:column>
+                
+                                <p:column>
+                                    <h:outputText value="{t.displayName}" />
+                                </p:column>-->
+            </p:selectOneMenu>
+        </h:form>
+    </ui:define>
+
+    <!--    <ui:define name="left">
+            
+        </ui:define>-->
+
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="msgs" showDetail="true" />
+
+            <p:panel id="basic" header="Inicio Sesión" style="margin-bottom:20px; width:400px" >
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:outputLabel for="usuarioLogin" value="Usuario:" />
+                    <p:inputText id="usuarioLogin" 
+                                 value="#{passwordView.username}" 
+                                 required="true"
+                                 requiredMessage="Debe ingresar un nombre de usuario."/>
+                    <p:outputLabel for="nonFeedbackClave" value="Clave:" />
+                    <p:password id="nonFeedbackClave" 
+                                value="#{passwordView.password1}" 
+                                required="true" 
+                                requiredMessage="Debe ingresar una clave."/>
+                    <p:commandLink value="¿Olvidaste la contraseña?"/>
+                    <p:commandButton value="Iniciar Sesión"/>
+                </h:panelGrid>                
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="bottom">
+        <h:form>            
+            <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
+                <p:graphicImage name="/demo/images/login.png" />
+            </h:outputLink>
+
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+            <p:dialog header="Login" widgetVar="dlg" resizable="false">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Username:" />
+                    <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
+
+                    <h:outputLabel for="password" value="Password:" />
+                    <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Login" update="growl" actionListener="#{userLoginView.login}"
+                                         oncomplete="handleLoginRequest(xhr, status, args)" />
+                    </f:facet>  
+                </h:panelGrid>
+            </p:dialog>
+            
+            
+        </h:form>
+        
+        <form action="j_security_check">
+            <p:panel header="Login1" widgetVar="dlg1" >
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Username:" />
+                    <p:inputText id="j_username" value="#{userLoginView.username}" required="true" label="username" />
+
+                    <h:outputLabel for="password" value="Password:" />
+                    <p:password id="j_password" value="#{userLoginView.password}" required="true" label="password" />
+
+                   
+                    <input type="submit" value="Login" />
+                   
+                </h:panelGrid>
+            </p:panel>
+        </form>
+            
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed || !args.loggedIn) {
+                    PF('dlg').jq.effect("shake", {times: 5}, 100);
+                } else {
+                    PF('dlg').hide();
+                    $('#loginLink').fadeOut();
+                }
+            }
+        </script>
+    </ui:define>
+
+</ui:composition>
+

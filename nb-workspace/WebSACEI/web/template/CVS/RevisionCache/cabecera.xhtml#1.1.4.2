@@ -1,0 +1,16 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/layoutBotones.xhtml">
+
+        <!-- Header -->
+        <ui:define name="botones">
+            <ui:include src="/template/botones.xhtml">
+                <ui:param name="botones" value="#{botones}"/>
+                <ui:param name="texto" value="#{bundle.SACEI}"/>
+            </ui:include>
+        </ui:define>
+
+    </ui:composition>
+
+</f:view>

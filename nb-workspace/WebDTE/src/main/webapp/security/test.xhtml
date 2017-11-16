@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" 
+                template="../resources/template/mainTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+        
+    </ui:define>
+
+    <!--    <ui:define name="left">
+            
+        </ui:define>-->
+
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="msgs" showDetail="true" />
+
+            <p:panel id="basic" header="Inicio Sesión" style="margin-bottom:20px; width:400px" >
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:outputLabel for="usuarioLogin" value="Usuario:" />
+                    <p:inputText id="usuarioLogin" 
+                                 value="#{passwordView.username}" 
+                                 required="true"
+                                 requiredMessage="Debe ingresar un nombre de usuario."/>
+                    <p:outputLabel for="nonFeedbackClave" value="Clave:" />
+                    <p:password id="nonFeedbackClave" 
+                                value="#{passwordView.password1}" 
+                                required="true" 
+                                requiredMessage="Debe ingresar una clave."/>
+                    <p:commandLink value="¿Olvidaste la contraseña?"/>
+                    <p:commandButton value="Iniciar Sesión"/>
+                </h:panelGrid>                
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="bottom">
+        
+    </ui:define>
+
+</ui:composition>
+

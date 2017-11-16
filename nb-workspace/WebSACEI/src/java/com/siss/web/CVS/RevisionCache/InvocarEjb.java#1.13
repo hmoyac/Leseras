@@ -1,0 +1,671 @@
+package com.siss.web;
+
+import com.siss.dto.amb.ActividadEconomica;
+import com.siss.dto.amb.Certificado;
+import com.siss.dto.amb.PtoDescarga;
+import com.siss.dto.amb.ReporteCumplimiento;
+import com.siss.dto.amb.ReporteParametro;
+import com.siss.entity.amb.CronogramaAE;
+import com.siss.entity.amb.Parametro;
+import com.siss.entity.mae.Comuna;
+import com.siss.entity.mae.Funcionario;
+import com.siss.entity.mae.Region;
+import com.siss.entity.riles.HorarioDescarga;
+import com.siss.exception.EntityException;
+import com.siss.ifacade.mae.FuncionariosFacadeRemote;
+import com.siss.ifacade.mae.RegionesFacadeRemote;
+import com.siss.ifacade.amb.ActividadEconomicaFacadeRemote;
+import com.siss.ifacade.riles.EnvioRilesFacadeRemote;
+import com.siss.web.util.locator.ServiceLocator;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import javax.ejb.EJBException;
+import javax.naming.NamingException;
+
+/**
+ *
+ * @author hmoya
+ *
+ * Esta clase implementa el patrón de singleon, y es la encargada de realizar
+ * la llamada a los métodos de los ejb, por medio del {@link com.siss.web.util.locator.ServiceLocator Servicelocator}
+ * y retornar los resultados.
+ */
+public class InvocarEjb {
+
+    /**
+     * {@link com.siss.web.util.locator.ServiceLocator ver Servicelocator}
+     */
+    private ServiceLocator servicio;
+    /**
+     * Instancia del singleton
+     */
+    private static InvocarEjb me;
+
+    static {
+        me = new InvocarEjb();
+    }
+
+    /**
+     * Constructor de la clase
+     */
+    private InvocarEjb() {
+        servicio = ServiceLocator.getInstance();
+    }
+
+    /**
+     * Implementacion singleton.
+     * @return Instancia de la clase.
+     */
+    public static InvocarEjb getInstance() {
+        return me;
+    }
+
+    /**
+     * Obtiene los reportes de parámetros informados para las empresas especificadas,
+     * dentro de un rango de período y los parámetros deseados.
+     * @param empresas String con los idEmpresa1@idActividadEconomica1, idEmpresa2@idActividadEconomica2, etc.
+     * @param parametros String concatenando los idParametro. ej: 123,456,789
+     * @param periodos
+     * @see com.siss.dto.amb.ReporteParametro
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return List<{@link com.siss.dto.amb.ReporteParametro ReporteParametro}> necesario para elaborar el reporte de parámetros informados.
+     */
+    public List<ReporteParametro> getReporteParametrosInformados(
+            String empresas, String parametros, String periodos) {
+        List<ReporteParametro> lista = new ArrayList<ReporteParametro>();
+        try {
+            lista = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getReporteParametrosInformados(empresas, parametros, periodos);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Recupera la lista con todos los parámetros existentes.
+     * @see com.siss.entity.amb.Parametro
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return Lista con los parámetros.
+     */
+    public List<Parametro> getParametrosMuestreadosByAll() {
+        List<Parametro> lista = new ArrayList<Parametro>();
+        try {
+            lista = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getParametrosMuestreadosByAll();
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene los reportes de cumplimiento de las empresas especificadas,
+     * dentro de un rango de período y los parámetros deseados.
+     * @param empresas String con los idEmpresa1
+     * @param periodos
+     * @see com.siss.dto.amb.ReporteCumplimiento
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return List<{@link com.siss.dto.amb.ReporteCumplimiento ReporteCumplimiento}> necesario para elaborar el reporte de cumplimiento de la empresa.
+     */
+    public List<ReporteCumplimiento> getReporteCumplimiento(String empresas, String periodos) {
+        List<ReporteCumplimiento> lista = new ArrayList<ReporteCumplimiento>();
+        try {
+            lista = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getReporteCumplimiento(empresas, periodos);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Retorna un esquema de Funcionario a partir del nombre de usuario LDAP.
+     * @param usuario nombre del usuario LDAP.
+     * @see com.siss.entity.mae.Funcionario
+     * @see com.siss.ifacade.mae.FuncionariosFacadeRemote
+     * @return El ID del {@link com.siss.entity.mae.Funcionario Funcionario}
+     */
+    public Integer getUsuarioId(String usuario) {
+        Integer id = null;
+        try {
+            Funcionario user = ((FuncionariosFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_FUNCIONARIOS, FuncionariosFacadeRemote.class)).getFuncionarioByLdap(usuario);
+            id = user.getFuncionarioId();
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return id;
+    }
+
+    //Actualiza
+    /**
+     * Actualiza la información de un horario de descarga asociado a una determinada empresa.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomicaId Identifiador de la actividad económica.
+     * @param mes Mes de la actualización.
+     * @param monitoreo Duración del monitoreo.
+     * @param horario Descripción de horario. ej:Lunes a Viernes de 08:00 a 14:30
+     * @see com.siss.entity.riles.HorarioDescarga
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return El modelo de {@link com.siss.entity.riles.HorarioDescarga HorarioDescarga} con la informacón actualizada.
+     */
+    public HorarioDescarga updateHorarioDescarga(long rut, long actividadEconomicaId, short mes, short monitoreo, String horario) {
+        HorarioDescarga horarioDescarga = new HorarioDescarga();
+        try {
+            horarioDescarga = ((EnvioRilesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_RILES, EnvioRilesFacadeRemote.class)).updateHorarioDescarga(rut, actividadEconomicaId, mes, monitoreo, horario);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return horarioDescarga;
+    }
+
+    /**
+     * Obtiene un HorarioDescarga a partir de la empresa y mes.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @param mes Numerico short correspondiente al mes. [1-12].
+     * @see com.siss.entity.riles.HorarioDescarga
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return El modelo de {@link com.siss.entity.riles.HorarioDescarga HorarioDescarga} asociado a la empresa y mes.
+     */
+    public HorarioDescarga getHorarioDescargaByRutByActividadEconomicaByMes(long rut, long actividadEconomicaId, short mes) {
+        HorarioDescarga horarioDescarga = new HorarioDescarga();
+        try {
+            horarioDescarga = ((EnvioRilesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_RILES, EnvioRilesFacadeRemote.class)).getHorarioDescargaByRutByActividadEconomicaByMes(rut, actividadEconomicaId, mes);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return horarioDescarga;
+    }
+
+    /**
+     * Obtiene los HorarioDescarga para todo el año (uno mensual) a partir de la empresa.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @see com.siss.entity.riles.HorarioDescarga
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return Lista de {@link com.siss.entity.riles.HorarioDescarga HorarioDescarga} asociado a la empresa.
+     */
+    public List<HorarioDescarga> getHorarioDescargaByRutByActividadEconomica(long rut, long actividadEconomicaId) {
+        List<HorarioDescarga> horarioDescarga = new ArrayList<HorarioDescarga>();
+        try {
+            horarioDescarga = ((EnvioRilesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_RILES, EnvioRilesFacadeRemote.class)).getHorarioDescargaByRutByActividadEconomica(rut, actividadEconomicaId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        }
+        return horarioDescarga;
+    }
+
+    /**
+     * Crea un cronograma que se guarda en la lista de cronogramas de la empresa en una fecha determinada.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomica Identificador de la actividad económica.
+     * @param descripcion Descripcion de Hito.
+     * @param fechaTermino Fecha de término del Hito,
+     * después de esta fecha el hito no puede ser modificado o eliminado.
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     */
+    public void createCronogramaAE(long rut, long actividadEconomica, String descripcion, Date fechaTermino) {
+        try {
+            ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).createCronogramaAE(rut, actividadEconomica, descripcion, fechaTermino);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * Borra un cronograma de la empresa por el identificador del cronograma.
+     * @param cronogramaId Identificador del cronograma.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomica Identificador de la actividad económica.
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     */
+    public void deleteCronogramaAE(int cronogramaId, long rut, long actividadEconomica) {
+        try {
+            ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).deleteCronogramaAE(cronogramaId, rut, actividadEconomica);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * Actualiza los datos de un cronograma para una empresa.
+     * @param cronogramaId Identificador del cronograma.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @param descripcion descripción del cronograma.
+     * @param fechaTermino fecha de término para el cronograma.
+     * @see com.siss.entity.amb.CronogramaAE
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return El modelo {@link com.siss.entity.amb.CronogramaAE CronogramaAE} con los datos actualizaados.
+     */
+    public CronogramaAE updateCronogramaAE(int cronogramaId, long rut, long actividadEconomicaId, String descripcion, Date fechaTermino) {
+        CronogramaAE cronogramaAe = new CronogramaAE();
+        try {
+            cronogramaAe = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).updateCronogramaAE(cronogramaId, rut, actividadEconomicaId, descripcion, fechaTermino);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return cronogramaAe;
+    }
+
+    /**
+     * Obtiene todos los cronogramas asociados a la empresa.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @see com.siss.entity.amb.CronogramaAE
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return Lista con todos los cronogramas asociados a la empresa.
+     */
+    public List<CronogramaAE> getCronogramaAEByRutByActividadEconomica(long rut, long actividadEconomicaId) {
+        List<CronogramaAE> cronogramaAE = new ArrayList<CronogramaAE>();
+        try {
+            cronogramaAE = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getCronogramaAEByRutByActividadEconomica(rut, actividadEconomicaId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return cronogramaAE;
+    }
+
+    /**
+     * Obtiene un cronograma asociado a una empresa.
+     * @param cronogramaId Identificador del cronograma.
+     * @param rut Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @see com.siss.entity.amb.CronogramaAE
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return El modelo {@link com.siss.entity.amb.CronogramaAE CronogramaAE} con los datos cargados.
+     */
+    public CronogramaAE getCronogramaAefindByCronogramaIdByRutByActividadEconomicaId(int cronogramaId, long rut, long actividadEconomicaId) {
+        CronogramaAE cronogramaAE = new CronogramaAE();
+        try {
+            cronogramaAE = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getCronogramaAEfindByCronogramaIdByRutByActividadEconomicaId(cronogramaId, rut, actividadEconomicaId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return cronogramaAE;
+    }
+
+    /**
+     * Obtiene todos los períodos válidos.
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return Lista de string con los períodos.
+     */
+    public List<String> getAllPeriodos() {
+        List<String> lista = new ArrayList<String>();
+        try {
+            lista = ((EnvioRilesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_RILES, EnvioRilesFacadeRemote.class)).getAllPeriodos();
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene el modelo {@link com.siss.dto.amb.Certificado Certificado} que contiene la informacion necesaria para generar
+     * el certifiado de cumplimiento para la empresa-planta-punto en un período determinado.
+     * @param paramEmpresaID Identificador de la empresa.
+     * @param paramPlantaID Identificador de la actividad económica.
+     * @param paramPuntoID Identificador del punto de descarga de la empresa.
+     * @param paramPeriodo Lista de string con los períodos seleccionados.
+     * @see com.siss.dto.amb.Certificado
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return El modelo {@link com.siss.dto.amb.Certificado Certificado} necesario para generar los certificados de cumplimiento.
+     */
+    public Certificado getCertificadoCumplimiento(
+            Integer paramEmpresaID, Integer paramPlantaID, Integer paramPuntoID,
+            String paramPeriodo) {
+        Certificado certificado = null;
+        try {
+            certificado = ((EnvioRilesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_RILES, EnvioRilesFacadeRemote.class)).getCertificadoCumplimiento(paramEmpresaID, paramPlantaID,
+                    paramPuntoID, paramPeriodo);
+
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return certificado;
+    }
+
+    /**
+     * Obtiene el modelo {@link com.siss.dto.amb.Certificado Certificado} que contiene la informacion necesaria para generar
+     * los diferentes certifiados para la empresa-planta-punto en un período determinado.
+     * @param paramEmpresaID Identificador de la empresa.
+     * @param paramPlantaID Identificador de la actividad económica.
+     * @param paramPuntoID Identificador del punto de descarga de la empresa.
+     * @param paramPeriodo Lista de string con los períodos seleccionados
+     * @param paramTipoControl Tipo de control.
+     * @param paramTipoMuestreo Tipo Muestreo.
+     * @param paramEstadoEnvio Estado Envio.
+     * @param paramEstadoDescarga Estado Descarga.
+     * @see com.siss.dto.amb.Certificado
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return El modelo {@link com.siss.dto.amb.Certificado Certificado} necesario para generar los certificados.
+     */
+    public Certificado getCertificado(
+            Integer paramEmpresaID, Integer paramPlantaID, Integer paramPuntoID,
+            String paramPeriodo, Integer paramTipoControl,
+            Integer paramTipoMuestreo, Integer paramEstadoEnvio, Integer paramEstadoDescarga) {
+        Certificado certificado = null;
+        try {
+            certificado = ((EnvioRilesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_RILES, EnvioRilesFacadeRemote.class)).getCertificado(paramEmpresaID, paramPlantaID,
+                    paramPuntoID, paramPeriodo, paramTipoControl,
+                    paramTipoMuestreo, paramEstadoEnvio, paramEstadoDescarga);
+
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return certificado;
+    }
+
+    /**
+     * Obtiene una lista con los datos referentes a los certificados
+     * (CUMPLIMIENTO, AUTOCONTROL, REMUESTREO y CONTROL DIRECTO) asociados a los puntos de descarga por período.
+     * de cada empresa seleccionada
+     * @param empresasIdActividadesId String concatenado las diferentes IdEmpresa@idActividadEconomica. ej:1234567@1,1234567@2,987321741@1
+     * @param periodos Períodos seleccionados para obtener la data.
+     * @see com.siss.dto.amb.PeriodoEnvioCertificado
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return HashMap<[nombreEmpresa-nombrePlanta], [List<PeriodoEnvioCertificado>]>
+     */
+    public HashMap getPeriodoEnvioCertificado(String empresasIdActividadesId, String periodos) {
+        HashMap hash = null;
+        try {
+            hash = ((EnvioRilesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_RILES, EnvioRilesFacadeRemote.class)).getPeriodoEnvioCertificado(empresasIdActividadesId, periodos);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return hash;
+    }
+
+    /**
+     * Obtiene información sobre los puntos de descarga asociados a una empresa.
+     * @param empresaId Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @see com.siss.dto.amb.PtoDescarga
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return Lista con los {@link com.siss.dto.amb.PtoDescarga PtoDescarga} asociados a la empresa.
+     */
+    public List<PtoDescarga> getPtoDescargaInformacionGeneral(int empresaId, int actividadEconomicaId) {
+        List<PtoDescarga> lista = new ArrayList<PtoDescarga>();
+        try {
+            lista = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getPtoDescargaInformacionGeneral(empresaId, actividadEconomicaId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene información sobre la resolución de calificación ambiental (RCA) de la empresa especificada.
+     * @param empresaId Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @see com.siss.dto.amb.ActividadEconomica
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return Modelo {@link com.siss.dto.amb.ActividadEconomica ActividadEconomica} con la información de la resolución.
+     */
+    public ActividadEconomica getEIndustrialRca(int empresaId, int actividadEconomicaId) {
+        ActividadEconomica actividadEconomica = new ActividadEconomica();
+        try {
+            actividadEconomica = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getEIndustrialRca(empresaId, actividadEconomicaId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return actividadEconomica;
+    }
+
+    /**
+     * Obtiene la data de {@link com.siss.dto.amb.ActividadEconomica ActividadEconomica} asociada a la empresa.
+     * @param empresaId Identificador de la empresa.
+     * @param actividadEconomicaId Identificador de la actividad económica.
+     * @see com.siss.dto.amb.ActividadEconomica
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return Data de la {@link com.siss.dto.amb.ActividadEconomica ActividadEconomica} asociada a la empresa.
+     */
+    public ActividadEconomica getEIndustrialInformacion(int empresaId, int actividadEconomicaId) {
+        ActividadEconomica actividadEconomica = new ActividadEconomica();
+        try {
+            actividadEconomica = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getEIndustrialInformacion(empresaId, actividadEconomicaId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return actividadEconomica;
+    }
+
+    /**
+     * Elimina la asociación de un fiscalizador a las empresas seleccionadas.
+     * @param funcionarioId identificador del {@link com.siss.entity.mae.Funcionario Funcionario}.
+     * @param empresas String con la suma de idEmpresa@idActividadconomica ej:12345678@1,63952841@1
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     */
+    public void deleteAsociacionPlantaFiscalizador(Integer funcionarioId, String empresas) {
+        try {
+            ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).deleteAsociacionPlantaFiscalizador(funcionarioId, empresas);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * Crea la asociación de un fiscalizador a las empresas seleccionadas.
+     * @param funcionarioId identificador del {@link com.siss.entity.mae.Funcionario Funcionario}.
+     * @param empresas String con la suma de idEmpresa@idActividadconomica ej:12345678@1,63952841@1
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     */
+    public void agregaAsociacionPlantaFiscalizador(Integer funcionarioId, String empresas) {
+        try {
+            ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).agregaAsociacionPlantaFiscalizador(funcionarioId, empresas);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * Obtiene una lista con las empresas ({@link com.siss.dto.amb.ActividadEconomica ActividadEconomica}) que NO estén asociados
+     * al {@link com.siss.entity.mae.Funcionario Funcionario} dada una lista de comunas.
+     * @param comunas String concatenado con los id de las comunas. ej:24,63,35,2
+     * @param rpm Tipo de resolución por monitoreo, por defecto 7, TODOS
+     * @param funcionarioId Identificador del {@link com.siss.entity.mae.Funcionario Funcionario}.
+     * @see com.siss.dto.amb.ActividadEconomica
+     * @see com.siss.entity.mae.Funcionario
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return Lista con las {@link com.siss.dto.amb.ActividadEconomica ActividadEconomica} de las comunas seleccionadas
+     * y que no esten asignadas al {@link com.siss.entity.mae.Funcionario Funcionario}.
+     */
+    public List<ActividadEconomica> getEIndustrialSinFiscalizador(String comunas, Integer rpm, Integer funcionarioId) {
+        List<ActividadEconomica> lista = new ArrayList<ActividadEconomica>();
+        try {
+            lista = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getEIndustrialSinFiscalizador(comunas, rpm, funcionarioId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene una lista con las empresas ({@link com.siss.dto.amb.ActividadEconomica ActividadEconomica}) que SI estén asociados
+     * al {@link com.siss.entity.mae.Funcionario Funcionario} dada una lista de comunas.
+     * @param comunas String concatenado con los id de las comunas. ej:24,63,35,2
+     * @param rpm Tipo de resolución por monitoreo, por defecto 7, TODOS
+     * @param funcionarioId Identificador del {@link com.siss.entity.mae.Funcionario Funcionario}.
+     * @see com.siss.dto.amb.ActividadEconomica
+     * @see com.siss.entity.mae.Funcionario
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return Lista con las {@link com.siss.dto.amb.ActividadEconomica ActividadEconomica} de las comunas seleccionadas
+     * y que estan asignadas al {@link com.siss.entity.mae.Funcionario Funcionario}.
+     */
+    public List<ActividadEconomica> getEIndustrialConFiscalizador(String comunas, Integer rpm, Integer funcionarioId) {
+        List<ActividadEconomica> lista = new ArrayList<ActividadEconomica>();
+        try {
+            lista = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getEIndustrialConFiscalizador(comunas, rpm, funcionarioId);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene la lista con los {@link com.siss.entity.mae.Funcionario Funcionario} que pueden ser fiscalizadores.
+     * @see com.siss.entity.mae.Funcionario
+     * @see com.siss.ifacade.mae.FuncionariosFacadeRemote
+     * @return Lista con {@link com.siss.entity.mae.Funcionario Funcionario} que pueden ser fiscalizadores.
+     */
+    public List<Funcionario> getFuncionariosFiscalizadores() {
+        List<Funcionario> lista = new ArrayList<Funcionario>();
+        try {
+            lista = ((FuncionariosFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_FUNCIONARIOS, FuncionariosFacadeRemote.class)).getFuncionariosFiscalizadores();
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene todas las regiones ({@link com.siss.entity.mae.Region Region}) del país.
+     * @param pais Identificador del país. ej:1   => CHILE.
+     * @see com.siss.entity.mae.Region
+     * @see com.siss.ifacade.mae.RegionesFacadeRemote
+     * @return List<{@link com.siss.entity.mae.Region Region}> asociadas al país.
+     */
+    public List<Region> getRegionesByPais(String pais) {
+        List<Region> listaR = new ArrayList<Region>();
+        try {
+            listaR = ((RegionesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_REGIONES, RegionesFacadeRemote.class)).getRegionesByPais(Short.parseShort(pais));
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        }
+        return listaR;
+    }
+
+    /**
+     * Obtiene todas las comunas ({@link com.siss.entity.mae.Comuna Comuna}) de la región.
+     * @param idRegion Identificador de la región.
+     * @see com.siss.entity.mae.Comuna
+     * @see com.siss.ifacade.mae.RegionesFacadeRemote
+     * @return List<{@link com.siss.entity.mae.Comuna Comuna}> asociadas a la región.
+     */
+    public List<Comuna> getComunasByRegion(int idRegion) {
+        List<Comuna> listaC = new ArrayList<Comuna>();
+        try {
+            listaC = ((RegionesFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_REGIONES, RegionesFacadeRemote.class)).getComunasByRegion(idRegion);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        }
+        return listaC;
+    }
+
+    /**
+     * Obtiene una List<{@link com.siss.dto.amb.PtoDescarga PtoDescarga}> con las empresas
+     * asociadas a las comunas seleccionadas por {@link com.siss.entity.mae.Funcionario Funcionario} fiscalizador.
+     * @param funcionarioId Identificador del {@link com.siss.entity.mae.Funcionario Funcionario}.
+     * @param comunas String concatenado con los id de la comunas. ej:23,12,15,20
+     * @see com.siss.dto.amb.PtoDescarga
+     * @see com.siss.ifacade.amb.ActividadEconomicaFacadeRemote
+     * @return List<{@link com.siss.dto.amb.PtoDescarga PtoDescarga}> con las empresas asociadas al fiscalizador y las comunas.
+     */
+    public List<PtoDescarga> getEIAsignadosPorComuna(Integer funcionarioId, String comunas) {
+        List<PtoDescarga> lista = new ArrayList<PtoDescarga>();
+        try {
+            lista = ((ActividadEconomicaFacadeRemote) servicio.getRemoteHome(Constantes.FACADE_AMB, ActividadEconomicaFacadeRemote.class)).getEIAsignadosPorComuna(funcionarioId, comunas);
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        } catch (EJBException ex) {
+            throw new RuntimeException(ex);
+        } catch (EntityException ex){
+            throw new RuntimeException(ex);
+        }
+        return lista;
+    }
+}

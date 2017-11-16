@@ -1,0 +1,64 @@
+package com.siss.web.resource;
+
+/**
+ *
+ * @author hmoya
+ *
+ * La clase WebConstants es utilizada para evitar definiciones redundantes.
+ * 
+ */
+public class WebConstants {
+
+    public static String VALOR_INICIAL = "-1";
+    public static String STRING_VACIO = "";
+
+    public static String FORMATO_FECHA_1 = "dd-MM-yyyy";
+
+    public static String FACADE_REGIONES = "com.siss.ifacade.mae.RegionesFacadeRemote";
+    public static String FACADE_AMB = "com.siss.ifacade.amb.ActividadEconomicaFacadeRemote";
+    public static String FACADE_RILES = "com.siss.ifacade.riles.EnvioRilesFacadeRemote";
+    public static String FACADE_FUNCIONARIOS = "com.siss.ifacade.mae.FuncionariosFacadeRemote";
+
+    public static String BEAN_MENSAJES = "#{msgBean}";
+    public static String BEAN_USUARIOS = "#{userBean}";
+    public static String BEAN_CERTIFICADOS = "#{certifBean}";
+    public static String BEAN_REPORTE_CUMPLIMIENTO = "#{reporteCumplimientoBean}";
+    public static String BEAN_REPORTE_PARAMETROS = "#{reporteParametroBean}";
+    public static String BEAN_FISCALIZADOR = "#{fiscalEIBean}";
+
+    public static String REPORTE_INDUSTRIA = "REPORTE_INDUSTRIA";
+    public static String REPORTE_CUMPLIMIENTO = "REPORTE_CUMPLIMIENTO";
+    public static String REPORTE_PARAMETROS = "REPORTE_PARAMETROS";
+
+    public static String PDF = "PDF";
+    public static String MIME_PDF = "application/pdf";
+    public static String MIME_EXCEL = "application/vnd.ms-excel";
+    public static String GENERAR = "GENERAR";
+    public static String CERTIFICADO_EXCEL = "certificado.xls";
+    public static String CERTIFICADO_PDF = "certificado.pdf";
+
+    public static String BUNDLE_SRC = "com.siss.web.WebMessages";
+    public static String BUNDLE_ERROR = "Error";
+
+    public static String CERTIFICADO_DIRECTEMAR = "DIRECTEMAR";
+    public static String CERTIFICADO_SISS = "SISS";
+
+    public static String CERTIFICADO_NOMBRE = "Certificado";
+    public static String CERTIFICADO_NOMBRE_NO_DESCARGA_DIRECTEMAR = "CertificadoNoDescargaDirectemar";
+    public static String CERTIFICADO_NOMBRE_NO_DESCARGA_SISS = "CertificadoNoDescargaSiss";
+    public static String CERTIFICADO_NOMBRE_AUTOCONTROL = "CertificadoAutoControl";
+    public static String CERTIFICADO_NOMBRE_REMUESTREO = "Certificadoemuestreo";
+    public static String CERTIFICADO_NOMBRE_CUMPLIMIENTO = "CertificadoCumplimiento";
+    public static String CERTIFICADO_NOMBRE_CONTROLDIRECTO = "CertificadoControlDirecto";
+
+    public static String CERTIFICADO_XSL_NO_DESCARGA_DIRECTEMAR = "/xsl/CertificadoNoDescargaD.xsl";
+    public static String CERTIFICADO_XSL_NO_DESCARGA_SISS = "/xsl/CertificadoNoDescarga.xsl";
+    public static String CERTIFICADO_XLS = "/xsl/Certificado.xsl";
+    public static String CERTIFICADO_XLS_CUMPLIMIENTO = "/xsl/CertificadoCumplimiento.xsl";
+    public static String CERTIFICADO_XLS_CONTROLDIRECTO = "/xsl/CertificadoCD.xsl";
+
+    public static String REPORTE_XLS_FISCALIZADOR = "/xsl/FizcalizadorIndustriasExportExcel.xsl";
+    public static String REPORTE_XLS_CUMPLIMIENTO = "/xsl/ReporteCumplimientoExportExcel.xsl";
+    public static String REPORTE_XLS_PARAMETRO = "/xsl/ReporteParametroExportExcel.xsl";
+
+}

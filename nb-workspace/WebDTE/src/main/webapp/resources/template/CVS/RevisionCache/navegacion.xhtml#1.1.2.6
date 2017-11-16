@@ -1,0 +1,100 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <h:form id="userForm">
+        <table class="rellenoAplicacion" width="100%" border="0" cellpadding="5" cellspacing="0">
+            <tr>
+                <td align="left">
+                    <c:if test="#{!empty preMenu}">
+                        <h:outputText styleClass="nombreAplicacion" value="${preMenu}"/>
+                    </c:if>
+                </td>
+                <td class="barraInformacion"/>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan="2" class="separacion1"/>
+            </tr>
+        </table>
+        <c:if test="#{loginBean.logon}">
+            <table class="rellenoNavegacion" width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left">
+                        <table>
+                            <tr>
+                                <td>
+                                    <ice:menuBar id="menuBar" orientation="horizontal" keyboardNavigationEnabled="true" scrollableDivMode="true">
+                                        <ice:menuItem id="menuBarDOC" value="#{bundle.MenuNuevoDocumento}">
+                                            <ice:menuItem id="Ingresos1" value="#{bundle.TipoDocMemorandum}" actionListener="#{userBean.actionListener}">
+                                                <f:attribute name="menu" value="ingDocumento"/>
+                                                <f:attribute name="tipoDocumento" value="#{bundle.TipoDocMemorandum}"/>
+                                            </ice:menuItem>
+                                            <ice:menuItem id="Ingresos2" value="#{bundle.TipoDocOficio}" actionListener="#{userBean.actionListener}">
+                                                <f:attribute name="menu" value="ingDocumento"/>
+                                                <f:attribute name="tipoDocumento" value="#{bundle.TipoDocOficio}"/>
+                                            </ice:menuItem>
+                                            <ice:menuItem id="Ingresos3" value="#{bundle.TipoDocOficioRegional}" actionListener="#{userBean.actionListener}">
+                                                <f:attribute name="menu" value="ingDocumento"/>
+                                                <f:attribute name="tipoDocumento" value="#{bundle.TipoDocOficioRegional}"/>
+                                            </ice:menuItem>
+                                            <ice:menuItem id="Ingresos4" value="#{bundle.TipoDocResolucionExenta}" actionListener="#{userBean.actionListener}">
+                                                <f:attribute name="menu" value="ingDocumento"/>
+                                                <f:attribute name="tipoDocumento" value="#{bundle.TipoDocResolucionExenta}"/>
+                                            </ice:menuItem>
+                                            <ice:menuItem id="Ingresos5" value="#{bundle.TipoDocResolucionTomaRazon}" actionListener="#{userBean.actionListener}">
+                                                <f:attribute name="menu" value="ingDocumento"/>
+                                                <f:attribute name="tipoDocumento" value="#{bundle.TipoDocResolucionTomaRazon}"/>
+                                            </ice:menuItem>
+                                        </ice:menuItem>
+
+                                        <ice:menuItem id="Busqueda1" value="#{bundle.MenuBusquedaDocumento}" actionListener="#{buscarBean.actionListener}">
+                                            <f:attribute name="menu" value="busquedaDocumento"/>
+                                            <f:attribute name="xml" value="/busquedaDocumento/menu.xml"/>
+                                            <f:attribute name="target" value="busqueda"/>
+                                        </ice:menuItem>
+
+                                        <ice:menuItem id="Flujo1" value="#{bundle.MenuFlujoDocumento}">
+                                            <ice:menuItem id="a" value="#{bundle.MenuFlujoDocumentoAprobar}" actionListener="#{aprobarBean.actionListener}">
+                                                <f:attribute name="menu" value="porAprobar"/>
+                                                <f:attribute name="xml" value="/aprobar/menu.xml"/>
+                                                <f:attribute name="target" value="porAprobar"/>
+                                            </ice:menuItem>
+                                            <ice:menuItem id="b" value="#{bundle.MenuFlujoDocumentoFirmar}" actionListener="#{firmarBean.actionListener}">
+                                                <f:attribute name="menu" value="porFirmar"/>
+                                                <f:attribute name="xml" value="/firmar/menu.xml"/>
+                                                <f:attribute name="target" value="porFirmar"/>
+                                            </ice:menuItem>
+                                        </ice:menuItem>
+
+                                        <ice:menuItem id="Autor" value="#{bundle.MenuAutor}" actionListener="#{autorBean.actionListener}">
+                                            <f:attribute name="menu" value="documentoMod"/>
+                                        </ice:menuItem>
+
+                                        <ice:menuItem id="DocumentosSISS" value="#{bundle.MenuDocumentosSISS}" actionListener="#{vistaBean.actionListener}">
+                                            <f:attribute name="menu" value="vistaDocumento"/>
+                                        </ice:menuItem>
+                                    </ice:menuBar>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td align="right">
+                        <table>
+                            <tr>
+                                <td>
+                                    <ice:menuBar id="menuCerrarSesion" orientation="horizontal" keyboardNavigationEnabled="true">
+                                        <ice:menuItem rendered="#{loginBean.logon}" value="#{bundle.CerrarSesion}" action="#{userBean.logout}"/>
+                                    </ice:menuBar>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </c:if>
+    </h:form>
+
+</f:view>

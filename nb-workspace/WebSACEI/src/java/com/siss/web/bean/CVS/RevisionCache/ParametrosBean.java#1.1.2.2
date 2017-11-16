@@ -1,0 +1,945 @@
+package com.siss.web.bean;
+
+import com.icesoft.faces.component.ext.HtmlSelectManyListbox;
+import com.icesoft.faces.component.ext.HtmlSelectOneMenu;
+import com.siss.dto.riles.ReporteParametro;
+import com.siss.entity.amb.Parametro;
+import com.siss.entity.mae.Region;
+import com.siss.exception.EntityException;
+import com.siss.web.resource.WebConstants;
+import com.siss.web.FacesUtil;
+import com.siss.web.MensajesBean;
+import com.siss.web.UserBean;
+import com.siss.web.Util;
+import com.siss.web.util.UtilListas;
+import com.siss.web.delegate.amb.ActividadEconomicaDelegate;
+import com.siss.web.delegate.mae.FuncionariosDelegate;
+import com.siss.web.delegate.mae.RegionesDelegate;
+import com.siss.web.delegate.riles.EnvioRilesDelegate;
+import com.siss.web.model.CertificadosIceModel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+
+/**
+ *
+ * @author hmoya
+ *
+ * Bean encargado de mostrar la información de los parámetros químicos asociados a las empresas.
+ */
+public class ParametrosBean {
+
+    /**
+     * Constante que representa el nombre del bean de parámetros.
+     */
+    public static final String REPORTE_PARAMETROS = "REPORTE_PARAMETROS";
+
+    /**
+     * Elementos de menú asociados a los periodos finales.
+     */
+    protected List<SelectItem> periodos = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a los periodos iniciales.
+     */
+    protected List<SelectItem> periodosIniciales = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a las regiones.
+     */
+    protected List<SelectItem> regiones = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a las comunas.
+     */
+    protected List<SelectItem> comunas = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a las industrias.
+     */
+    protected List<SelectItem> industrias = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a los parámetros.
+     */
+    protected List<SelectItem> parametros = new ArrayList<SelectItem>();
+
+    /**
+     * Lista con los reportes obtenidos luego de la búsqueda.
+     */
+    protected List<CertificadosIceModel> reportes = new ArrayList<CertificadosIceModel>();
+    /**
+     * Periodo inicial seleccionado.
+     */
+    private String periodoInicial = WebConstants.VALOR_INICIAL;
+    /**
+     * Periodo final seleccionado.
+     */
+    private List<String> periodoFinal = null;
+    /**
+     * Identificador de la región seleccionada.
+     */
+    private Integer region = null;
+    /**
+     * String con la concatenación de las comunas. ej:21,23,41,52
+     */
+    private String combinacionComunas;
+    /**
+     * String con la concatenación de los identificadores de las empresas y los identificadores
+     * de las actividades económicas. ej: 1234567@1,9856712@1,9856712@2
+     */
+    private String combinacionEmpresasIdActividadesId;
+    /**
+     * String con la concatenación de los periodos seleccionados
+     */
+    private String combinacionPeriodos;
+    /**
+     * String con la concatenación de los parámetros químicos.
+     */
+    private String combinacionParametros;
+    /**
+     * Lista con los identificadores de las comunas seleccionadas.
+     */
+    private List<Integer> comuna = null;
+    /**
+     * Lista con los identificadores de las industrias seleccionadas.
+     */
+    private List<Integer> industria = null;
+    /**
+     * Lista con los identificadores de los parámetros seleccionadas.
+     */
+    private List<Integer> parametro = null;
+    /**
+     * Instancia del bean de mensajes.
+     */
+    private MensajesBean mensajes;
+    /**
+     * Bandera que indica si la(s) comuna(s) posee(n) industrias.
+     */
+    private boolean sinIndustrias = true;
+    /**
+     * Lista con las regiones.
+     */
+    private List<Region> listaRegiones = new ArrayList<Region>();
+
+    /**
+     * Elemento de menú asociado al componente de comuna y al SELECCIONE REGION.
+     */
+    private SelectItem seleccioneRegion;
+    /**
+     * Elemento de menú asociado al componente de industrias y al SELECCIONE COMUNA.
+     */
+    private SelectItem seleccioneComuna;
+    /**
+     * Elemento de menú asociado al componente de Periodos y al SELECCIONE AÑO.
+     */
+    private SelectItem seleccioneAnio;
+    /**
+     * Componente UI asociado a la lista de regiones.
+     */
+    private HtmlSelectOneMenu regionBinding;
+    /**
+     * Componente UI asociado a la lista de comunas.
+     */
+    private HtmlSelectManyListbox comunaBinding;
+    /**
+     * Componente UI asociado a la lista de industrias.
+     */
+    private HtmlSelectManyListbox industriaBinding;
+    /**
+     * Componente UI asociado a la lista de los parámetros.
+     */
+    private HtmlSelectManyListbox parametroBinding;
+    /**
+     * Árbol con los años y como hijos los respectivos periodos asociados al año.
+     */
+    private HashMap<String, List<SelectItem>> mapaPeriodos = new HashMap<String, List<SelectItem>>();
+
+    /**
+     * Contexto web.
+     */
+    private FacesContext facesContext;
+
+    /**
+     * Constructor de la clase.
+     * Se instancian el contexto web, el componente de región, comuna, industria, junto con la carga de los
+     * periodos, carga de las regiones y la carga de los parámetros.
+     * @see FacesContext
+     * @see HtmlSelectOneMenu
+     * @see HtmlSelectManyListbox
+     * @see FacesUtil#getManagedBeanExpression(javax.faces.context.FacesContext, java.lang.String, java.lang.Class)
+     * @see Util#getString(javax.faces.context.FacesContext, java.lang.String)
+     */
+    public ParametrosBean() {
+        facesContext = FacesContext.getCurrentInstance();
+        regionBinding = new HtmlSelectOneMenu();
+        comunaBinding = new HtmlSelectManyListbox();
+        industriaBinding = new HtmlSelectManyListbox();
+        
+        mensajes = (MensajesBean)FacesUtil.getManagedBeanExpression(facesContext, WebConstants.BEAN_MENSAJES, MensajesBean.class);
+        String regionName = Util.getString(facesContext, "SeleccionarRegion");
+        String comunaName = Util.getString(facesContext, "SeleccionarComuna");
+        String anioName = Util.getString(facesContext, "SeleccionarAnio");
+        seleccioneRegion = new SelectItem(WebConstants.VALOR_INICIAL, regionName);
+        seleccioneComuna = new SelectItem(WebConstants.VALOR_INICIAL, comunaName);
+        seleccioneAnio = new SelectItem(WebConstants.VALOR_INICIAL, anioName);
+
+        if (cargarPeriodos()) {
+            cargarRegiones("1");
+            cargarParametros();
+        }
+    }
+
+    /**
+     * Acción que realiza la búsqueda de las empresas que cumplen con los filtros de periodo inicial, periodo final,
+     * región, comunas, industrias y parámetros químicos. El resultado de la búsqueda es agrupada por empresa-planta-puntoDescarga,
+     * además permite la exportación a excel de el resultado de las empresas encontradas.
+     * @return String vacio.
+     * @see CertificadosIceModel
+     * @see InvocarEjb#getReporteParametrosInformados(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * @see ReporteParametro
+     */
+    public String buscarListaReportes() {
+        try {
+            if (validar()) {
+                reportes = new ArrayList<CertificadosIceModel>();
+                List<ReporteParametro> listaReportesParametro = ActividadEconomicaDelegate.getInstance().getReporteParametrosInformados(combinacionEmpresasIdActividadesId, combinacionParametros, combinacionPeriodos);
+                if (listaReportesParametro != null && listaReportesParametro.size() > 0) {
+                    HashMap<String, List<ReporteParametro>> mapa = new HashMap<String, List<ReporteParametro>>();
+                    for (ReporteParametro r : listaReportesParametro) {
+                        String clave = r.getDescripcionEmpresa().concat(" - ").concat(r.getDescripcionPlanta());
+                        if (!mapa.containsKey(clave)) {
+                            List<ReporteParametro> lista = new ArrayList<ReporteParametro>();
+                            lista.add(r);
+                            mapa.put(clave, lista);
+                        } else {
+                            List<ReporteParametro> lista = (List<ReporteParametro>)mapa.get(clave);
+                            lista.add(r);
+                            mapa.remove(clave);
+                            mapa.put(clave, lista);
+                        }
+                    }
+
+                    Iterator iterator = mapa.keySet().iterator();
+                    while (iterator.hasNext()) {
+                        String claveKey = String.valueOf(iterator.next());
+                        if (mapa.containsKey(claveKey)) {
+                            CertificadosIceModel certPlanta = new CertificadosIceModel();
+                            certPlanta.setClave(claveKey);
+                            List<ReporteParametro> listaCertParametro = (List<ReporteParametro>) mapa.get(claveKey);
+                            certPlanta.setListaReportesParametro(listaCertParametro);
+                            reportes.add(certPlanta);
+                        }
+                    }
+
+                    sinIndustrias = false;
+                }
+                else {
+                    Util.mostrarMensaje(Util.getString(facesContext, "BusquedaNoPeriodos"));
+                    reportes = new ArrayList<CertificadosIceModel>();
+                    sinIndustrias = true;
+                }
+            }
+        } catch (EntityException  ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return "";
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de los parámetros.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeParametro(ValueChangeEvent vce) {
+        try {
+            List<Integer> parametroChange = (List<Integer>) vce.getNewValue();
+            if (parametroChange != null && parametroChange.size() > 0) {
+                parametro = parametroChange;
+                this.combinacionParametros = UtilListas.arrayToString(parametroChange.iterator());
+            }
+            reportes = new ArrayList<CertificadosIceModel>();
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de las industrias.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeIndustria(ValueChangeEvent vce) {
+        try {
+            List<Integer> industriaChange = (List<Integer>) vce.getNewValue();
+            if (industriaChange != null && industriaChange.size() > 0) {
+                industria = industriaChange;
+                this.combinacionEmpresasIdActividadesId = UtilListas.arrayToString(industriaChange.iterator());
+            }
+            parametroBinding.setValue(new ArrayList<Integer>());
+            parametro = new ArrayList<Integer>();
+            reportes = new ArrayList<CertificadosIceModel>();
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de la región.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeRegion(ValueChangeEvent vce) {
+        try {
+            Integer regionChange = (Integer) vce.getNewValue();
+            region = regionChange;
+            if (cargarComunas(region)) {
+                this.combinacionComunas = WebConstants.STRING_VACIO;
+                industrias = new ArrayList<SelectItem>();
+                sinIndustrias = true;
+            }
+            if (comunaBinding != null) {
+                comunaBinding.setValue(new ArrayList<Integer>());
+            }
+            parametroBinding.setValue(new ArrayList<Integer>());
+            parametro = new ArrayList<Integer>();
+            reportes = new ArrayList<CertificadosIceModel>();
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de las comunas.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeComuna(ValueChangeEvent vce) {
+        try {
+            List<Integer> comunaChange = (List<Integer>) vce.getNewValue();
+            if (comunaChange != null && comunaChange.size() > 0) {
+                comuna = comunaChange;
+                this.combinacionComunas = UtilListas.arrayToString(comunaChange.iterator());
+                if (cargarIndustrias(this.combinacionComunas)) {
+                    sinIndustrias = false;
+                } else {
+                    sinIndustrias = true;
+                }
+            } else {
+                comunas = new ArrayList<SelectItem>();
+                comunas.add(seleccioneRegion);
+                industrias = new ArrayList<SelectItem>();
+                industrias.add(seleccioneComuna);
+            }
+            if (industriaBinding != null) {
+                industriaBinding.setValue(new ArrayList<Integer>());
+            }
+            parametroBinding.setValue(new ArrayList<Integer>());
+            parametro = new ArrayList<Integer>();
+            reportes = new ArrayList<CertificadosIceModel>();
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de los periodos iniciales.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changePeriodoInicial(ValueChangeEvent vce) {
+        try {
+            periodoInicial = (String) vce.getNewValue();
+            reportes = new ArrayList<CertificadosIceModel>();
+            comunas.clear();
+            comunas.add(seleccioneRegion);
+            industrias.clear();
+            industrias.add(seleccioneComuna);
+            regionBinding.setValue(new Integer(WebConstants.VALOR_INICIAL));
+            parametroBinding.setValue(new ArrayList<Integer>());
+            parametro = new ArrayList<Integer>();
+            if (mapaPeriodos.containsKey(periodoInicial)) {
+                periodos = mapaPeriodos.get(periodoInicial);
+            } else {
+                periodos = new ArrayList<SelectItem>();
+                periodos.add(seleccioneAnio);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de los periodos finales.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changePeriodoFinal(ValueChangeEvent vce) {
+        try {
+            periodoFinal = (List<String>) vce.getNewValue();
+            reportes = new ArrayList<CertificadosIceModel>();
+            comunas.clear();
+            comunas.add(seleccioneRegion);
+            industrias.clear();
+            industrias.add(seleccioneComuna);
+            regionBinding.setValue(new Integer(WebConstants.VALOR_INICIAL));
+            parametroBinding.setValue(new ArrayList<Integer>());
+            parametro = new ArrayList<Integer>();
+            if (periodoFinal != null && periodoFinal.size() > 0) {
+                this.combinacionPeriodos = UtilListas.arrayToString(periodoFinal.iterator());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Obtiene todas las industrias que pertenecen a las comunas seleccionadas.
+     * @param combinacionComunas Texto concatenado con los idEmpresa1@idActividadEonomica1, ..., etc.
+     * @return VERDADERO, si se cargaron las industrias, y FALSO, si no se cargaron.
+     */
+    private boolean cargarIndustrias(String combinacionComunas) {
+        boolean res = false;
+        try {
+            industria = new ArrayList<Integer>();
+            UserBean uBean = (UserBean)FacesUtil.getManagedBeanExpression(FacesContext.getCurrentInstance(), WebConstants.BEAN_USUARIOS, UserBean.class);
+            Integer idUsuario = FuncionariosDelegate.getInstance().getUsuarioId(uBean.getNombreUsuario());
+            industrias = UtilListas.cargarIndustrias(ActividadEconomicaDelegate.getInstance().getEIndustrialConFiscalizador(combinacionComunas, 7, idUsuario));
+            if (industrias != null && !industrias.isEmpty()) {
+                res = true;
+            }
+            this.combinacionEmpresasIdActividadesId = "";
+        } catch (EntityException  ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todas las comunas que pertenecen a la región seleccionada.
+     * @param idRegion Número con el identificador de la región.
+     * @return VERDADERO, si se cargaron las comunas, y FALSO, si no se cargaron.
+     */
+    private boolean cargarComunas(int idRegion) {
+        boolean res = false;
+        try {
+            comuna = new ArrayList<Integer>();
+            comunas = UtilListas.cargarComunas(RegionesDelegate.getInstance().getComunasByRegion(idRegion));
+            this.combinacionComunas = "";
+            res = true;
+        } catch (EntityException  ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todas las regiones que pertenecen a la región seleccionada.
+     * @param pais Número con el identificador de la región.
+     * @return VERDADERO, si se cargaron las comunas, y FALSO, si no se cargaron.
+     */
+    private boolean cargarRegiones(String pais) {
+        boolean res = false;
+        try {
+            region = null;
+            listaRegiones.clear();
+            listaRegiones = RegionesDelegate.getInstance().getRegionesByPais(Short.parseShort(pais));
+            regiones = UtilListas.cargarRegiones(listaRegiones);
+            res = true;
+        } catch (EntityException  ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todas los parámetros químicos existentes.
+     * @return VERDADERO, si se cargaron los parámetros, y FALSO, si no se cargaron.
+     */
+    private boolean cargarParametros() {
+        boolean res = false;
+        try {
+            parametro = new ArrayList<Integer>();
+            parametros.clear();
+            List<Parametro> listaParam = ActividadEconomicaDelegate.getInstance().getParametrosMuestreadosByAll();
+            parametros = UtilListas.cargarParametros(listaParam);
+            res = true;
+        } catch (EntityException  ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todos los periodos existentes.
+     * @return VERDADERO, si se cargaron los periodos, y FALSO, si no se cargaron.
+     */
+    private boolean cargarPeriodos() {
+        boolean res = false;
+        periodoInicial = WebConstants.VALOR_INICIAL;
+        periodoFinal = new ArrayList<String>();
+        periodos = new ArrayList<SelectItem>();
+        periodosIniciales = new ArrayList<SelectItem>();
+        try {
+            List<String> listaStrPeriodo = EnvioRilesDelegate.getInstance().getAllPeriodos();
+            mapaPeriodos = UtilListas.cargarPeriodosMap(listaStrPeriodo);
+            List<String> p = new ArrayList<String>();
+            p.addAll(mapaPeriodos.keySet());
+            p = Util.sortPeriodos(p, false);
+            periodosIniciales = UtilListas.toSelectItemAnioPeriodo(p.iterator(), true);
+            periodos = new ArrayList<SelectItem>();
+            periodos.add(seleccioneAnio);
+            res = true;
+        } catch (EntityException  ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(ParametrosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene la lista con las comunas seleccionadas.
+     * @return Lista con los identificadores de las comunas seleccionadas.
+     */
+    public List<Integer> getComuna() {
+        return comuna;
+    }
+
+    /**
+     * Setea la lista con los identificadores de las comunas seleccionadas.
+     * @param comuna Lista con los identificadores de las comunas seleccionadas
+     */
+    public void setComuna(List<Integer> comuna) {
+        this.comuna = comuna;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las comunas.
+     * @return Lista con los elementos de menú correspondiente a las comunas.
+     */
+    public List<SelectItem> getComunas() {
+        return comunas;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a las comunas.
+     * @param comunas Lista con los elementos de menú correspondientes a las comunas.
+     */
+    public void setComunas(List<SelectItem> comunas) {
+        this.comunas = comunas;
+    }
+
+    /**
+     * Obtiene la lista con las industrias seleccionadas.
+     * @return Lista con los identificadores de las industrias seleccionadas.
+     */
+    public List<Integer> getIndustria() {
+        return industria;
+    }
+
+    /**
+     * Setea la lista con los identificadores de las industrias seleccionadas.
+     * @param industria Lista con los identificadores de las industrias seleccionadas.
+     */
+    public void setIndustria(List<Integer> industria) {
+        this.industria = industria;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las industrias.
+     * @return Lista con los elementos de menú correspondiente a las industrias.
+     */
+    public List<SelectItem> getIndustrias() {
+        return industrias;
+    }
+
+    /**
+     * Setea los elementos de menú correspondiente a las industrias.
+     * @param industrias Lista con los elementos de menú correspondiente a las industrias.
+     */
+    public void setIndustrias(List<SelectItem> industrias) {
+        this.industrias = industrias;
+    }
+
+    /**
+     * Obtiene el periodo inicial seleccionado.
+     * @return Periodo inicial seleccionado.
+     */
+    public String getPeriodoInicial() {
+        return periodoInicial;
+    }
+
+    /**
+     * Setea el periodo inicial seleccionado.
+     * @param periodoInicial Periodo inicial seleccionado.
+     */
+    public void setPeriodoInicial(String periodoInicial) {
+        this.periodoInicial = periodoInicial;
+    }
+
+    /**
+     * Obtiene el periodo final seleccionado.
+     * @return Periodo final seleccionado.
+     */
+    public List<String> getPeriodoFinal() {
+        return periodoFinal;
+    }
+
+    /**
+     * Setea el periodo final seleccionado.
+     * @param periodoFinal Periodo final seleccionado.
+     */
+    public void setPeriodoFinal(List<String> periodoFinal) {
+        this.periodoFinal = periodoFinal;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a los periodos.
+     * @return Lista con los elementos de menú correspondiente a los periodos.
+     */
+    public List<SelectItem> getPeriodos() {
+        return periodos;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a los periodos.
+     * @param periodos Lista con los elementos de menú correspondientes a los periodos.
+     */
+    public void setPeriodos(List<SelectItem> periodos) {
+        this.periodos = periodos;
+    }
+
+    /**
+     * Obtiene el identificador de la región seleccionada.
+     * @return Identificador de la región seleccionada.
+     */
+    public Integer getRegion() {
+        return region;
+    }
+
+    /**
+     * Setea el identificador de la región seleccionada.
+     * @param region Nuevo identificador de la región seleccionada.
+     */
+    public void setRegion(Integer region) {
+        this.region = region;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las regiones.
+     * @return Lista con los elementos de menú correspondiente a las regiones.
+     */
+    public List<SelectItem> getRegiones() {
+        return regiones;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a las regiones.
+     * @param regiones Lista con los elementos de menú correspondientes a las regiones.
+     */
+    public void setRegiones(List<SelectItem> regiones) {
+        this.regiones = regiones;
+    }
+
+    /**
+     * Método encargado de realizar la validación de los filtros para la búsqueda de los reportes.
+     * @return Boolean, Verdadero, si los filtros son válidos, false, si no son válidos.
+     */
+    private boolean validar() {
+        if (periodoFinal == null || periodoFinal.isEmpty()) {
+            Util.mostrarMensaje(Util.getString(facesContext, "ValidaFechaPeriodo"));
+            return false;
+        }
+        if (periodoInicial.isEmpty() || periodoInicial.equals(WebConstants.VALOR_INICIAL)) {
+            Util.mostrarMensaje(Util.getString(facesContext, "ValidaPeriodoInicial"));
+            return false;
+        }
+        if (region == null || region.intValue() < 0) {
+            Util.mostrarMensaje(Util.getString(facesContext, "ValidaRegion"));
+            return false;
+        }
+        if (comuna == null || comuna.isEmpty()) {
+            Util.mostrarMensaje(Util.getString(facesContext, "ValidaComuna"));
+            return false;
+        }
+        if (industria == null || industria.isEmpty()) {
+            Util.mostrarMensaje(Util.getString(facesContext, "ValidaIndustria"));
+            return false;
+        }
+        if (parametro == null || parametro.isEmpty()) {
+            Util.mostrarMensaje(Util.getString(facesContext, "ValidaParametro"));
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Retorna la concatenación con las comunas seleccionadas.
+     * @return La concatenación con las comunas seleccionadas.
+     */
+    public String getCombinacionComunas() {
+        return combinacionComunas;
+    }
+
+    /**
+     * Setea la concatenación con las comunas seleccionadas.
+     * @param combinacionComunas Concatenación con las comunas seleccionadas.
+     */
+    public void setCombinacionComunas(String combinacionComunas) {
+        this.combinacionComunas = combinacionComunas;
+    }
+
+    /**
+     * Retorna la concatenación con las empresas seleccionadas. ej:idEmpresa@idActividadEconomica : 2589634@1,2589634@2,6589654@1.
+     * @return La concatenación con las empresas seleccionadas.
+     */
+    public String getCombinacionEmpresasIdActividadesId() {
+        return combinacionEmpresasIdActividadesId;
+    }
+
+    /**
+     * Setea la concatenación con las empresas seleccionadas.
+     * @param combinacionEmpresasIdActividadesId String con la concatenación con las empresas seleccionadas.
+     */
+    public void setCombinacionEmpresasIdActividadesId(String combinacionEmpresasIdActividadesId) {
+        this.combinacionEmpresasIdActividadesId = combinacionEmpresasIdActividadesId;
+    }
+
+    /**
+     * Retorna el componente UI asociado al combo de región.
+     * @return componente UI asociado al combo de región.
+     * @see HtmlSelectOneMenu
+     */
+    public HtmlSelectOneMenu getRegionBinding() {
+        return regionBinding;
+    }
+
+    /**
+     * Setea el componente UI asociado al combo de región.
+     * @param regionBinding El componente UI asociado al combo de región.
+     */
+    public void setRegionBinding(HtmlSelectOneMenu regionBinding) {
+        this.regionBinding = regionBinding;
+    }
+
+    /**
+     * Retorna un boolean indicando si se encontraron industrias en las comunas seleccionadas.
+     * @return boolean indicando si se encontraron industrias en las comunas seleccionadas.
+     */
+    public boolean isSinIndustrias() {
+        return sinIndustrias;
+    }
+
+    /**
+     * Setea un boolean indicando si se encontraron industrias en las comunas seleccionadas.
+     * @param sinIndustrias Boolean indicando si se encontraron industrias en las comunas seleccionadas.
+     */
+    public void setSinIndustrias(boolean sinIndustrias) {
+        this.sinIndustrias = sinIndustrias;
+    }
+
+    /**
+     * Retorna el componente UI asociado a la lista de las comunas.
+     * @return componente UI asociado a la lista de las comunas.
+     */
+    public HtmlSelectManyListbox getComunaBinding() {
+        return comunaBinding;
+    }
+
+    /**
+     * Setea el componente UI asociado a la lista de las comunas.
+     * @param comunaBinding Componente UI asociado a la lista de las comunas.
+     */
+    public void setComunaBinding(HtmlSelectManyListbox comunaBinding) {
+        this.comunaBinding = comunaBinding;
+    }
+
+    /**
+     * Retorna el componente UI asociado a la lista de las industrias.
+     * @return componente UI asociado a la lista de las industrias.
+     */
+    public HtmlSelectManyListbox getIndustriaBinding() {
+        return industriaBinding;
+    }
+
+    /**
+     * Setea el componente UI asociado a la lista de las industrias.
+     * @param industriaBinding Componente UI asociado a la lista de las industrias.
+     */
+    public void setIndustriaBinding(HtmlSelectManyListbox industriaBinding) {
+        this.industriaBinding = industriaBinding;
+    }
+
+    /**
+     * Retorna la lista con las regiones.
+     * @return Lista con las regiones.
+     * @see Region
+     */
+    public List<Region> getListaRegiones() {
+        return listaRegiones;
+    }
+
+    /**
+     * Retorna la lista con las regiones.
+     * @param listaRegiones Lista con las regiones.
+     * @see Region
+     */
+    public void setListaRegiones(List<Region> listaRegiones) {
+        this.listaRegiones = listaRegiones;
+    }
+
+    /**
+     * Obtiene la lista con los identificadores de los parámetros seleccionados.
+     * @return Lista con los identificadores de los parámetros seleccionados.
+     */
+    public List<Integer> getParametro() {
+        return parametro;
+    }
+
+    /**
+     * Setea la lista con los identificadores de los parámetros seleccionados.
+     * @param parametro Lista con los identificadores de los parámetros seleccionados.
+     */
+    public void setParametro(List<Integer> parametro) {
+        this.parametro = parametro;
+    }
+
+    /**
+     * Retorna el componente UI asociado a la lista de los parámetros.
+     * @return componente UI asociado a la lista de los parámetros.
+     */
+    public HtmlSelectManyListbox getParametroBinding() {
+        return parametroBinding;
+    }
+
+    /**
+     * Setea el componente UI asociado a la lista de los parámetros.
+     * @param parametroBinding componente UI asociado a la lista de los parámetros.
+     */
+    public void setParametroBinding(HtmlSelectManyListbox parametroBinding) {
+        this.parametroBinding = parametroBinding;
+    }
+
+    /**
+     * Retorna la lista con los elementos de menú asociados a los parámetros químicos.
+     * @return Lista con los elementos de menú asociados a los parámetros químicos.
+     */
+    public List<SelectItem> getParametros() {
+        return parametros;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú asociados a los parámetros químicos.
+     * @param parametros Lista con los elementos de menú asociados a los parámetros químicos.
+     */
+    public void setParametros(List<SelectItem> parametros) {
+        this.parametros = parametros;
+    }
+
+    /**
+     * Retorna la lista con los reportes de las empresas seleccionadas.
+     * @return Lista con los reportes de las empresas seleccionadas.
+     */
+    public List<CertificadosIceModel> getReportes() {
+        return reportes;
+    }
+
+    /**
+     * Setea la lista con los reportes de las empresas seleccionadas.
+     * @param reportes Lista con los reportes de las empresas seleccionadas.
+     */
+    public void setReportes(List<CertificadosIceModel> reportes) {
+        this.reportes = reportes;
+    }
+
+    /**
+     * Retorna lista con los elementos de menú asociados a los periodos iniciales.
+     * @return Lista con los elementos de menú asociados a los periodos iniciales.
+     */
+    public List<SelectItem> getPeriodosIniciales() {
+        return periodosIniciales;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú asociados a los periodos iniciales.
+     * @param periodosIniciales Lista con los elementos de menú asociados a los periodos iniciales.
+     */
+    public void setPeriodosIniciales(List<SelectItem> periodosIniciales) {
+        this.periodosIniciales = periodosIniciales;
+    }
+
+}

@@ -1,0 +1,37 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core">
+
+    <h:form id="formBotones">
+	<table class="logo" width="100%" border="0" cellpadding="0" cellspacing="0">
+            <colgroup class="colEncabezadoIzq"/>
+            <tr>
+                <td/>
+                <td align="right">
+                    <table>
+                        <tr>
+                            <td>
+                                <c:if test="#{loginBean.logon}">
+                                    <h:outputText styleClass="nombreUsuario" value="#{bundle.Funcionario} #{userBean.nombreUsuario}"/>
+                                </c:if>
+                            </td>
+                            <td class="margenRellenoInicial"/>
+                            <td>
+                                <h:commandLink styleClass="MenuAuxiliar" action="#" value="#{bundle.Ayuda}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="margenRellenoInicial"/>
+            </tr>
+            <tr class="seccionTitulo">
+                <td/>
+                <td align="right" valign="bottom" class="tituloSistema">
+                    <h:outputText value="#{bundle.SistemaCorrespondencia}"/>
+                </td>
+                <td class="margenRellenoInicial"/>
+            </tr>
+        </table>
+    </h:form>
+
+</f:view>

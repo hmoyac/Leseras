@@ -1,0 +1,58 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ice:form id="formMainPopup">
+        <table width="#{msgBean.widthPanel}">
+            <tr>
+                <td>
+                    <ice:panelPopup
+                        visible="#{!empty facesContext.maximumSeverity}"
+                        autoCentre="true"
+                        draggable="false"
+                        id="pnMessages"
+                        modal="true">
+
+                        <f:facet name="header" >
+                            <ice:panelGroup>
+                                <table width="100%">
+                                    <colgroup class="colMensIzq"/>
+                                    <colgroup class="colMensCen"/>
+                                    <colgroup class="colMensDer"/>
+                                    <tr>
+                                        <td align="left">
+                                            <img src="#{initParam['RESOURCE_CONTEXT']}/images/iconos/#{msgBean.imagen}" alt="#{msgBean.titulo}" class="Img16x16" />
+                                        </td>
+                                        <td align="left">
+                                            <ice:outputText value="#{msgBean.titulo}" styleClass="titulo3" />
+                                        </td>
+                                        <td align="right">
+                                            <ice:commandButton alt="#{bundle.Cerrar}" type="button" styleClass="PanelBoton" image="#{initParam['RESOURCE_CONTEXT']}/css/rime/css-images/cal_off.gif" actionListener="#{msgBean.hidePopupRecurso}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="body">
+                            <ice:panelGroup>
+                                <table width="#{msgBean.widthPanel}">
+                                    <tr>
+                                        <td align="left" class="textoGeneral">
+                                            <ice:messages id="messages" showSummary="true" showDetail="false"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <br/>
+                                            <ice:commandButton type="submit" styleClass="Boton" actionListener="#{msgBean.hidePopupRecurso}" value="#{bundle.Cerrar}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ice:panelGroup>
+                        </f:facet>
+                    </ice:panelPopup>
+                </td>
+            </tr>
+        </table>
+    </ice:form>
+
+</f:view>

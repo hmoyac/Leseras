@@ -1,0 +1,904 @@
+package com.siss.web.bean;
+
+import com.icesoft.faces.component.ext.HtmlSelectManyListbox;
+import com.icesoft.faces.component.ext.HtmlSelectOneMenu;
+import com.siss.dto.riles.Certificado;
+import com.siss.dto.riles.CertificadoDetalleFrecuencia;
+import com.siss.dto.riles.CertificadoDetalleLimite;
+import com.siss.dto.riles.PeriodoEnvioCertificado;
+import com.siss.exception.EntityException;
+import com.siss.web.resource.WebConstants;
+import com.siss.web.FacesUtil;
+import com.siss.web.MensajesBean;
+import com.siss.web.UserBean;
+import com.siss.web.Util;
+import com.siss.web.util.UtilListas;
+import com.siss.web.UtileriaWebBean;
+import com.siss.web.delegate.amb.ActividadEconomicaDelegate;
+import com.siss.web.delegate.mae.FuncionariosDelegate;
+import com.siss.web.delegate.mae.RegionesDelegate;
+import com.siss.web.delegate.riles.EnvioRilesDelegate;
+import com.siss.web.modelo.CertificadosIceModel;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+
+/**
+ *
+ * @author hmoya
+ *
+ * Bean encargado de la generación de los certificados. El usuario debe seleccionar un rango de periodos,
+ * una region, un grupo de comunas y un grupo de industrias, entonces la aplicación desplegará la data
+ * de las empresas seleccionadas, agrupadas por empresa-planta-punto, mostrando si la empresa posee
+ * certificados para cada periodo. Alguno de los certificados son CUMPLIMIENTO, NO DESCARGA(SISS/IRECTEMAR),
+ * AUTOCONTROL, CONTROLDIRECTO, todos los certificados son generados en formato pdf.
+ */
+public class CertificadosBean {
+
+    /**
+     * Elementos de menú asociados a los periodos.
+     */
+    protected List<SelectItem> periodos = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a las regiones.
+     */
+    protected List<SelectItem> regiones = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a las comunas.
+     */
+    protected List<SelectItem> comunas = new ArrayList<SelectItem>();
+    /**
+     * Elementos de menú asociados a las industrias.
+     */
+    protected List<SelectItem> industrias = new ArrayList<SelectItem>();
+    /**
+     * Lista que almacena todos los certificados obtenidos al alicar los filtros de búsqueda.
+     */
+    protected List<CertificadosIceModel> certificados = new ArrayList<CertificadosIceModel>();
+    /**
+     * Variable que almacena el periodo seleccionado.
+     */
+    private List<Integer> periodo = null;
+    /**
+     * Variable que almacena la región seleccionada.
+     */
+    private Integer region = null;
+    /**
+     * Variable que almacena la concatenación de los periodos seleccionados.
+     */
+    private String combinacionPeriodos;
+    /**
+     * Variable que almacena la concatenación de las comunas seleccionadas.
+     */
+    private String combinacionComunas;
+    /**
+     * Variable que almacena la concatenación de los empresas (idEmpresa@idActividadEconomica) seleccionadas.
+     */
+    private String combinacionEmpresasIdActividadesId;
+    /**
+     * Variable que almacena las comunas seleccionadas.
+     */
+    private List<Integer> comuna = null;
+    /**
+     * Variable que almacena las industrias seleccionadas.
+     */
+    private List<Integer> industria = null;
+    /**
+     * Instancia al managed bean de mensajes emergentes.
+     */
+    private MensajesBean mensajes;
+    /**
+     * Variable que representa si la comuna posee industrias.
+     */
+    private boolean sinIndustrias = true;
+
+    /**
+     * Modelo específico para la generación de documentos pdf
+     */
+    private Certificado certificado = null;
+
+
+    /**
+     * Elementos de menú asociados la selección de la región.
+     */
+    private SelectItem seleccioneRegion;
+    /**
+     * Elementos de menú asociados la selección de la comuna.
+     */
+    private SelectItem seleccioneComuna;
+    /**
+     * Elementos de menú asociados que la comuna no tiene industrias asociadas.
+     */
+    private SelectItem industriaSinRegistros;
+    /**
+     * Binding al componente de región.
+     */
+    private HtmlSelectOneMenu regionBinding;
+    /**
+     * Binding al componente de comuna.
+     */
+    private HtmlSelectManyListbox comunaBinding;
+    /**
+     * Binding al componente de industria.
+     */
+    private HtmlSelectManyListbox industriaBinding;
+
+    /**
+     * Variable que almacena el contexto de la aplicación web.
+     */
+    private FacesContext facesContext;
+
+    /**
+     * Constructor de la clase.
+     */
+    public CertificadosBean() {
+        regionBinding = new HtmlSelectOneMenu();
+        comunaBinding = new HtmlSelectManyListbox();
+        industriaBinding = new HtmlSelectManyListbox();
+        if (cargarPeriodos()) {
+            cargarRegiones("1");
+        }
+        facesContext = FacesContext.getCurrentInstance();
+        mensajes = (MensajesBean)FacesUtil.getManagedBeanExpression(facesContext, WebConstants.BEAN_MENSAJES, MensajesBean.class);
+
+        String regionName = Util.getString(facesContext, "SeleccionarRegion");
+        String comunaName = Util.getString(facesContext, "SeleccionarComuna");
+        String sinIndustriaName = Util.getString(facesContext, "IndustriaSinRegistros");
+        seleccioneRegion = new SelectItem(new Integer(WebConstants.VALOR_INICIAL), regionName.toUpperCase());
+        seleccioneComuna = new SelectItem(new Integer(WebConstants.VALOR_INICIAL), comunaName.toUpperCase());
+        industriaSinRegistros = new SelectItem(new Integer(WebConstants.VALOR_INICIAL), sinIndustriaName.toUpperCase());
+        comunas.clear();
+        comunas.add(seleccioneRegion);
+        industrias.clear();
+        industrias.add(seleccioneComuna);
+    }
+
+    /**
+     * Acción que realiza la búsqueda de los certificados,
+     * aplicando los filtros de periodos, región, comunas e industrias,
+     * @see InvocarEjb#getPeriodoEnvioCertificado(java.lang.String, java.lang.String)
+     * @return String vacio
+     */
+    public String buscarCertificados() {
+        try {
+            certificados = new ArrayList<CertificadosIceModel>();
+            HashMap hashMap = EnvioRilesDelegate.getInstance().getPeriodoEnvioCertificado(combinacionEmpresasIdActividadesId, combinacionPeriodos);
+            if (hashMap != null && hashMap.keySet().iterator() != null) {
+                Iterator iterator = hashMap.keySet().iterator();
+                while (iterator.hasNext()) {
+                    String claveKey = String.valueOf(iterator.next());
+                    if (hashMap.containsKey(claveKey)) {
+                        CertificadosIceModel certPlanta = new CertificadosIceModel();
+                        certPlanta.setClave(claveKey);
+                        List<PeriodoEnvioCertificado> listaCertificados = (List<PeriodoEnvioCertificado>) hashMap.get(claveKey);
+                        certPlanta.setListaCertificados(listaCertificados);
+                        certificados.add(certPlanta);
+                    }
+                }
+            }
+            if (certificados != null && certificados.size() > 0) {
+                certificados = sort(certificados, true);
+                sinIndustrias = false;
+            }
+            else {
+                Util.mostrarMensaje(Util.getString(facesContext, "BusquedaNoPeriodos"));
+                certificados = new ArrayList<CertificadosIceModel>();
+                sinIndustrias = true;
+            }
+
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return "";
+    }
+
+    /**
+     * Obtiene el modelo {@link com.siss.dto.amb.Certificado Certificado} que contiene la informacion necesaria para generar
+     * el certifiado de cumplimiento para la empresa-planta-punto en un período determinado.
+     * @param parametroEmpresaID Identificador de la empresa.
+     * @param parametroPlantaID Identificador de la actividad económica.
+     * @param parametroPuntoID Identificador del punto de descarga de la empresa.
+     * @param parametroPeriodo Lista de string con los períodos seleccionados.
+     * @see InvocarEjb#getCertificadoCumplimiento(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String) 
+     * @see com.siss.ifacade.riles.EnvioRilesFacadeRemote
+     * @return El modelo {@link com.siss.dto.amb.Certificado Certificado} necesario para generar los certificados de cumplimiento.
+     */
+    public Certificado cargarCertificadoCumplimiento(
+            Integer parametroEmpresaID, Integer parametroPlantaID, Integer parametroPuntoID,
+            String parametroPeriodo) {
+
+        Certificado certif = null;
+        try {
+            certif = EnvioRilesDelegate.getInstance().getCertificadoCumplimiento(
+                    parametroEmpresaID, parametroPlantaID, parametroPuntoID,
+                    parametroPeriodo);
+            if (certif != null && certif.getParametrosLimite().isEmpty()) {
+                certif.getParametrosLimite().add(new CertificadoDetalleLimite(WebConstants.STRING_VACIO, WebConstants.STRING_VACIO, "SIN INCUMPLIMIENTO", WebConstants.STRING_VACIO, WebConstants.STRING_VACIO, WebConstants.STRING_VACIO));
+            }
+            if (certif != null && certif.getParametrosFrecuencia().isEmpty()) {
+                certif.getParametrosFrecuencia().add(new CertificadoDetalleFrecuencia(WebConstants.STRING_VACIO, WebConstants.STRING_VACIO, WebConstants.STRING_VACIO, WebConstants.STRING_VACIO));
+            }
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return certif;
+    }
+
+    /**
+     * Obtiene el modelo {@link com.siss.dto.amb.Certificado Certificado} que contiene la informacion necesaria para generar
+     * los diferentes certifiados para la empresa-planta-punto en un período determinado.
+     * @param parametroEmpresaID Identificador de la empresa.
+     * @param parametroPlantaID Identificador de la actividad económica.
+     * @param parametroPuntoID Identificador del punto de descarga de la empresa.
+     * @param parametroPeriodo Lista de string con los períodos seleccionados
+     * @param parametroTipoControl Tipo de control.
+     * @param parametroTipoMuestreo Tipo Muestreo.
+     * @param parametroEstadoEnvio Estado Envio.
+     * @param parametroEstadoDescarga Estado Descarga.
+     * @see InvocarEjb#getCertificado(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @return El modelo {@link com.siss.dto.amb.Certificado Certificado} necesario para generar los certificados.
+     */
+    public Certificado cargarCertificado(
+            Integer parametroEmpresaID, Integer parametroPlantaID, Integer parametroPuntoID,
+            String parametroPeriodo, Integer parametroTipoControl,
+            Integer parametroTipoMuestreo, Integer parametroEstadoEnvio,
+            Integer parametroEstadoDescarga) {
+
+        Certificado certif = null;
+        try {
+            certif = EnvioRilesDelegate.getInstance().getCertificado(
+                    parametroEmpresaID, parametroPlantaID, parametroPuntoID,
+                    parametroPeriodo, parametroTipoControl, parametroTipoMuestreo,
+                    parametroEstadoEnvio, parametroEstadoDescarga);
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return certif;
+    }
+
+    /**
+     * Método encargado de transformar el modelo Certificado a una representación en memoria en formato de xml.
+     * @param certificado Modelo con la data necesaria para generar el pdf
+     * @return Puntero de memoria con la representación en formato xml.
+     */
+    public ByteArrayOutputStream jaxb(Certificado certificado) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            JAXBContext contexto = JAXBContext.newInstance(Certificado.class);
+            Marshaller marshaller = contexto.createMarshaller();
+            marshaller.marshal(certificado, out);
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return out;
+    }
+
+    /**
+     * Retorna el nombre del archivo según los parámetros especificados.
+     * @param estadoDescarga Representativo a si la empresa realiza descarga o no.
+     * @param tipo Referente al estado descarga NO DESCARGA, DIRECTEMAR O SISS.
+     * @param tipoMuestreo Referente a muestreo o remuestreo.
+     * @param periodo Periodo para el que se generaraá el certificado.
+     * @param tipoCertificado Referente a el tipo de certificado.
+     * @return El nombre del archivo de certificado.
+     */
+    public String cargarNombre(int estadoDescarga, String tipo, int tipoMuestreo, String periodo, int tipoCertificado) {
+        String nombre = WebConstants.CERTIFICADO_NOMBRE;
+        switch (tipoCertificado) {
+            case 0:
+                if (estadoDescarga == 0 && tipo.compareToIgnoreCase(WebConstants.CERTIFICADO_DIRECTEMAR) == 0) {
+                    nombre = WebConstants.CERTIFICADO_NOMBRE_NO_DESCARGA_DIRECTEMAR;
+                }
+                else {
+                    if (estadoDescarga == 0 && tipo.compareToIgnoreCase(WebConstants.CERTIFICADO_SISS) == 0) {
+                        nombre = WebConstants.CERTIFICADO_NOMBRE_NO_DESCARGA_SISS;
+                    }
+                    else {
+                        if (estadoDescarga == 1 && tipoMuestreo == 0) {
+                            nombre = WebConstants.CERTIFICADO_NOMBRE_AUTOCONTROL;
+                        }
+                        else {
+                            if (estadoDescarga == 1 && tipoMuestreo == 1) {
+                                nombre = WebConstants.CERTIFICADO_NOMBRE_REMUESTREO;
+                            }
+                            else {
+                                nombre = WebConstants.CERTIFICADO_NOMBRE;
+                            }
+                        }
+                    }
+                }
+                break;
+            case 1:
+                nombre = WebConstants.CERTIFICADO_NOMBRE_CUMPLIMIENTO;
+                break;
+            case 2:
+                nombre = WebConstants.CERTIFICADO_NOMBRE_CONTROLDIRECTO;
+                break;
+            default:
+                nombre = WebConstants.CERTIFICADO_NOMBRE;
+        }
+        nombre = nombre.concat(periodo.concat(".").concat(WebConstants.PDF));
+        return nombre;
+    }
+
+    /**
+     * Retorna la ruta del archivo xsl necesario para generar el certificado pdf.
+     * @param tipo Referente al estado descarga NO DESCARGA, DIRECTEMAR O SISS.
+     * @param estadoDescarga Representativo a si la empresa realiza descarga o no.
+     * @param tipoCertificado Referente a el tipo de certificado.
+     * @return Ruta del xsl necesario para generar el pdf.
+     */
+    public String getXsl(String tipo, Integer estadoDescarga, int tipoCertificado) {
+        String xsl = "";
+        try {
+            switch (tipoCertificado) {
+                case 0: //AUTOCONTROL-REMUESTREO
+                    if (estadoDescarga != null && estadoDescarga.intValue() == 0 && tipo != null && tipo.length() > 0) {
+                        if (estadoDescarga.intValue() == 0 && tipo.equalsIgnoreCase(WebConstants.CERTIFICADO_DIRECTEMAR)) {
+                            xsl = WebConstants.CERTIFICADO_XSL_NO_DESCARGA_DIRECTEMAR;
+                        }
+                        else {
+                            if (estadoDescarga.intValue() == 0 && tipo.equalsIgnoreCase(WebConstants.CERTIFICADO_SISS)) {
+                                xsl = WebConstants.CERTIFICADO_XSL_NO_DESCARGA_SISS;
+                            }
+                            else {
+                                xsl = WebConstants.CERTIFICADO_XLS;
+                            }
+                        }
+                    }
+                    else {
+                        xsl = WebConstants.CERTIFICADO_XLS;
+                    }
+                    break;
+                case 1: //CUMPLIMIENTO
+                    xsl = WebConstants.CERTIFICADO_XLS_CUMPLIMIENTO;
+                    break;
+                case 2: //CONTROL DIRECTO
+                    xsl = WebConstants.CERTIFICADO_XLS_CONTROLDIRECTO;
+                    break;
+
+            }
+            xsl = UtileriaWebBean.getContextoUrl(xsl).toString();
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return xsl;
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de las industrias.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeIndustria(ValueChangeEvent vce) {
+        try {
+            List<Integer> industriaChange = (List<Integer>) vce.getNewValue();
+            if (industriaChange != null && industriaChange.size() > 0) {
+                industria = industriaChange;
+                this.combinacionEmpresasIdActividadesId = UtilListas.arrayToString(industriaChange.iterator());
+            }
+            certificados = new ArrayList<CertificadosIceModel>();
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de la región.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeRegion(ValueChangeEvent vce) {
+        try {
+            Integer regionChange = (Integer) vce.getNewValue();
+            region = regionChange;
+            if (cargarComunas(region)) {
+                this.combinacionComunas = "";
+                industrias = new ArrayList<SelectItem>();
+                industrias.add(seleccioneComuna);
+                sinIndustrias = true;
+            }
+                if (comunaBinding != null) {
+                    comunaBinding.setValue(new ArrayList<Integer>());
+                }
+            certificados = new ArrayList<CertificadosIceModel>();
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de las comunas.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changeComuna(ValueChangeEvent vce) {
+        try {
+            List<Integer> comunaChange = (List<Integer>) vce.getNewValue();
+            if (comunaChange != null && comunaChange.size() > 0) {
+                comuna = comunaChange;
+                this.combinacionComunas = UtilListas.arrayToString(comunaChange.iterator());
+                if (cargarIndustrias(this.combinacionComunas)) {
+                    sinIndustrias = false;
+                } else {
+                    sinIndustrias = true;
+                }
+            }
+            if (industriaBinding != null) {
+                industriaBinding.setValue(new ArrayList<Integer>());
+            }
+            certificados = new ArrayList<CertificadosIceModel>();
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Método gatillado cuando se cambia la selección de los periodos.
+     * @param vce ValueChangeEvent
+     * @see ValueChangeEvent
+     */
+    public void changePeriodo(ValueChangeEvent vce) {
+        try {
+            List<Integer> periodoChange = (List<Integer>) vce.getNewValue();
+            if (periodoChange != null && periodoChange.size() > 0) {
+                periodo = periodoChange;
+                this.combinacionPeriodos = UtilListas.arrayToString(periodoChange.iterator());
+            }
+            regionBinding.setValue(new Integer(WebConstants.VALOR_INICIAL));
+            certificados = new ArrayList<CertificadosIceModel>();
+            comunas = new ArrayList<SelectItem>();
+            comunas.add(seleccioneRegion);
+            industrias = new ArrayList<SelectItem>();
+            industrias.add(seleccioneComuna);
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+    }
+
+    /**
+     * Obtiene todas las industrias que pertenecen a las comunas seleccionadas.
+     * @param combinacionComunas Texto concatenado con los idEmpresa1@idActividadEonomica1, ..., etc.
+     * @return VERDADERO, si se cargaron las industrias, y FALSO, si no se cargaron.
+     */
+    private boolean cargarIndustrias(String combinacionComunas) {
+        boolean res = false;
+        try {
+            industria = new ArrayList<Integer>();
+            UserBean uBean = (UserBean)FacesUtil.getManagedBeanExpression(FacesContext.getCurrentInstance(), "#{userBean}", UserBean.class);
+            Integer idUsuario = FuncionariosDelegate.getInstance().getUsuarioId(uBean.getNombreUsuario());
+            industriaBinding.setValue(new ArrayList<Integer>());
+            industrias = UtilListas.cargarIndustrias(ActividadEconomicaDelegate.getInstance().getEIndustrialConFiscalizador(combinacionComunas, 7, idUsuario));
+            if (industrias != null && !industrias.isEmpty()) {
+                res = true;
+            } else {
+                industrias.clear();
+                industrias.add(industriaSinRegistros);
+            }
+            this.combinacionEmpresasIdActividadesId = "";
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todas las comunas que pertenecen a la región seleccionada.
+     * @param idRegion Número con el identificador de la región.
+     * @return VERDADERO, si se cargaron las comunas, y FALSO, si no se cargaron.
+     */
+    private boolean cargarComunas(int idRegion) {
+        boolean res = false;
+        try {
+            comuna = new ArrayList<Integer>();
+            comunas = UtilListas.cargarComunas(RegionesDelegate.getInstance().getComunasByRegion(idRegion));
+            this.combinacionComunas = "";
+            industrias.clear();
+            industriaBinding.setValue(new ArrayList<Integer>());
+            industrias.add(seleccioneComuna);
+            res = true;
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todas las regiones que pertenecen a la región seleccionada.
+     * @param pais Número con el identificador de la región.
+     * @return VERDADERO, si se cargaron las comunas, y FALSO, si no se cargaron.
+     */
+    private boolean cargarRegiones(String pais) {
+        boolean res = false;
+        try {
+            region = null;
+            regiones = UtilListas.cargarRegiones(RegionesDelegate.getInstance().getRegionesByPais(Short.parseShort(pais)));
+            comunaBinding.setValue(new ArrayList<Integer>());
+            comunas.clear();
+            comunas.add(seleccioneRegion);
+            industriaBinding.setValue(new ArrayList<Integer>());
+            industrias.clear();
+            industrias.add(seleccioneComuna);
+            res = true;
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene todos los periodos existentes.
+     * @return VERDADERO, si se cargaron los periodos, y FALSO, si no se cargaron.
+     */
+    private boolean cargarPeriodos() {
+        boolean res = false;
+        periodo = new ArrayList<Integer>();
+        periodos = new ArrayList<SelectItem>();
+        try {
+            periodos = UtilListas.cargarPeriodos(EnvioRilesDelegate.getInstance().getAllPeriodos());
+            res = true;
+        } catch (EntityException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_WARN);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.WARNING, Util.getText(ex));
+        } catch (EJBException ex) {
+            String msjDialog = Util.getString(FacesContext.getCurrentInstance(), "ErrorInternoAplicacion") + "<br>" +
+                    Util.getString(FacesContext.getCurrentInstance(), "ErrorPeristente");
+            Util.errorExeption(msjDialog, "Error", FacesMessage.SEVERITY_FATAL);
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, Util.getText(ex));
+        } catch (Exception ex) {
+            Logger.getLogger(CertificadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mostrarError(ex);
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene la lista con las comunas seleccionadas.
+     * @return Lista con los identificadores de las comunas seleccionadas.
+     */
+    public List<Integer> getComuna() {
+        return comuna;
+    }
+
+    /**
+     * Setea la lista con los identificadores de las comunas seleccionadas.
+     * @param comuna Lista con los identificadores de las comunas seleccionadas
+     */
+    public void setComuna(List<Integer> comuna) {
+        this.comuna = comuna;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las comunas.
+     * @return Lista con los elementos de menú correspondiente a las comunas.
+     */
+    public List<SelectItem> getComunas() {
+        return comunas;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a las comunas.
+     * @param comunas Lista con los elementos de menú correspondientes a las comunas.
+     */
+    public void setComunas(List<SelectItem> comunas) {
+        this.comunas = comunas;
+    }
+
+    /**
+     * Obtiene la lista con las industrias seleccionadas.
+     * @return Lista con los identificadores de las industrias seleccionadas.
+     */
+    public List<Integer> getIndustria() {
+        return industria;
+    }
+
+    /**
+     * Setea la lista con los identificadores de las industrias seleccionadas.
+     * @param industria Lista con los identificadores de las industrias seleccionadas.
+     */
+    public void setIndustria(List<Integer> industria) {
+        this.industria = industria;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las industrias.
+     * @return Lista con los elementos de menú correspondiente a las industrias.
+     */
+    public List<SelectItem> getIndustrias() {
+        return industrias;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a las industrias.
+     * @param industrias Lista con los elementos de menú correspondientes a las industrias.
+     */
+    public void setIndustrias(List<SelectItem> industrias) {
+        this.industrias = industrias;
+    }
+
+    /**
+     * Obtiene la lista con los periodos seleccionadas.
+     * @return Lista con los identificadores de los periodos seleccionados.
+     */
+    public List<Integer> getPeriodo() {
+        return periodo;
+    }
+
+    /**
+     * Setea la lista con los identificadores de los periodos seleccionados.
+     * @param periodo Lista con los identificadores de los periodos seleccionados.
+     */
+    public void setPeriodo(List<Integer> periodo) {
+        this.periodo = periodo;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a los periodos.
+     * @return Lista con los elementos de menú correspondiente a los periodos.
+     */
+    public List<SelectItem> getPeriodos() {
+        return periodos;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a los periodos.
+     * @param periodos Lista con los elementos de menú correspondientes a los periodos.
+     */
+    public void setPeriodos(List<SelectItem> periodos) {
+        this.periodos = periodos;
+    }
+
+    /**
+     * Obtiene el identificador de la región seleccionada.
+     * @return Identificador de la región seleccionada.
+     */
+    public Integer getRegion() {
+        return region;
+    }
+
+    /**
+     * Setea el identificador de la región seleccionada.
+     * @param region Nuevo identificador de la región seleccionada.
+     */
+    public void setRegion(Integer region) {
+        this.region = region;
+    }
+
+    /**
+     * Obtiene los elementos de menú correspondiente a las regiones.
+     * @return Lista con los elementos de menú correspondiente a las regiones.
+     */
+    public List<SelectItem> getRegiones() {
+        return regiones;
+    }
+
+    /**
+     * Setea la lista con los elementos de menú correspondientes a las regiones.
+     * @param regiones Lista con los elementos de menú correspondientes a las regiones.
+     */
+    public void setRegiones(List<SelectItem> regiones) {
+        this.regiones = regiones;
+    }
+
+    /**
+     * Obtiene la lista con los registros necesarios para desplegar en la tabla principal,
+     * y que permite la generación de los diferentes certificados, entre ellos: CUMPLIMIENTO,
+     * NO DESCARGA(SISS/DIRECTEMAR), AUTOCONTROL, CONTROLDIRECTO. Además ayuda a la creación de las
+     * exportaciones de datos.
+     * @return Lista con el modelo necesario para mostrar si posee certificados una empresa en un periodo determinado.
+     * @see CertificadosIceModel
+     * @see List
+     */
+    public List<CertificadosIceModel> getCertificados() {
+        return certificados;
+    }
+
+    /**
+     * Setea una lista con el modelo de datos que permite verificar si existen certificados para las empresas y periodo seleccionado.
+     * @param certificados Lista con el modelo de datos que permite verificar si existen certificados para las empresas y periodo seleccionado.
+     * @see CertificadosIceModel
+     * @see List
+     */
+    public void setCertificados(List<CertificadosIceModel> certificados) {
+        this.certificados = certificados;
+    }
+
+    /**
+     * Método de ordenamiento de una lista, el ordenamiento se produce dado un nombre de un campo del modelo de datos,
+     * y un boolean indicando si es ascendente o descendente.
+     * @param lista Lista a ordenar.
+     * @param ascending Tipo de ordenamiento.
+     * @return Lista ordenada por nombre de rut-planta-punto.
+     * @see CertificadosIceModel
+     * @see Comparator
+     * @see Collections#sort(java.util.List, java.util.Comparator) 
+     */
+    protected List<CertificadosIceModel> sort(List<CertificadosIceModel> lista, final boolean ascending) {
+        Comparator comparator = new Comparator() {
+
+            @Override
+            public int compare(Object o1, Object o2) {
+                CertificadosIceModel c1 = (CertificadosIceModel) o1;
+                CertificadosIceModel c2 = (CertificadosIceModel) o2;
+                return ascending ? c1.getClave().compareTo(c2.getClave()) : c2.getClave().compareTo(c1.getClave());
+            }
+        };
+        Collections.sort(lista, comparator);
+        return lista;
+    }
+
+    /**
+     * Obtiene el modelo de certificado asociado a una empresa-planta-punto y periodo.
+     * Este modelo contiene la información necesaria para generar el certificado en formato pdf.
+     * @return La información necesaria para generar el certificado en formato pdf.
+     * @see Certificado
+     */
+    public Certificado getCertificado() {
+        return certificado;
+    }
+
+    /**
+     * Setea el modelo de certificado asociado a una empresa-planta-punto y periodo.
+     * Este modelo contiene la información necesaria para generar el certificado en formato pdf.
+     * @param certificado Modelo de datos
+     * @see Certificado
+     */
+    public void setCertificado(Certificado certificado) {
+        this.certificado = certificado;
+    }
+
+    /**
+     * Retorna el componente UI asociado al combo de región.
+     * @return componente UI asociado al combo de región.
+     * @see HtmlSelectOneMenu
+     */
+    public HtmlSelectOneMenu getRegionBinding() {
+        return regionBinding;
+    }
+
+    /**
+     * Setea el componente UI asociado al combo de región.
+     * @param regionBinding El componente UI asociado al combo de región.
+     */
+    public void setRegionBinding(HtmlSelectOneMenu regionBinding) {
+        this.regionBinding = regionBinding;
+    }
+
+    /**
+     * Obtiene el valor de la bandera que indica si una comuna posee industrias, si no posee, entonces en la lista de las industrias
+     * aparece el texto, COMUNA NO POSEE INDUSTRIAS.
+     * @return Boolean representando si la comuna posee industrias.
+     */
+    public boolean isSinIndustrias() {
+        return sinIndustrias;
+    }
+
+    /**
+     * Setea el valor de la bandera que indica si una comuna posee industrias.
+     * @param sinIndustrias Boolean representando si la comuna posee industrias.
+     */
+    public void setSinIndustrias(boolean sinIndustrias) {
+        this.sinIndustrias = sinIndustrias;
+    }
+
+    /**
+     * Retorna el componente UI asociado a la lista de las comunas.
+     * @return componente UI asociado a la lista de las comunas.
+     */
+    public HtmlSelectManyListbox getComunaBinding() {
+        return comunaBinding;
+    }
+
+    /**
+     * Setea el componente UI asociado a la lista de las comunas.
+     * @param comunaBinding Componente UI asociado a la lista de las comunas.
+     */
+    public void setComunaBinding(HtmlSelectManyListbox comunaBinding) {
+        this.comunaBinding = comunaBinding;
+    }
+
+    /**
+     * Retorna el componente UI asociado a la lista de las industrias.
+     * @return componente UI asociado a la lista de las industrias.
+     */
+    public HtmlSelectManyListbox getIndustriaBinding() {
+        return industriaBinding;
+    }
+
+    /**
+     * Setea el componente UI asociado a la lista de las industrias.
+     * @param industriaBinding Componente UI asociado a la lista de las industrias.
+     */
+    public void setIndustriaBinding(HtmlSelectManyListbox industriaBinding) {
+        this.industriaBinding = industriaBinding;
+    }
+
+
+}

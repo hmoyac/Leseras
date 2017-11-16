@@ -1,0 +1,226 @@
+package com.siss.web;
+
+import com.siss.dto.amb.ActividadEconomica;
+import com.siss.entity.amb.Parametro;
+import com.siss.entity.mae.Comuna;
+import com.siss.entity.mae.Funcionario;
+import com.siss.entity.mae.Region;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import javax.faces.model.SelectItem;
+
+/**
+ *
+ * @author hmoya
+ *
+ * Utileria encargada de gestionar los datos que deben ser transformados a listas de menú.
+ */
+public class UtilListas {
+
+    public static HashMap<String, List<SelectItem>> cargarPeriodosMap(List<String> lista) throws Exception {
+        HashMap<String, List<SelectItem>> mapa = new HashMap<String, List<SelectItem>>();
+        Iterator<String> it = lista.iterator();
+        while (it.hasNext()) {
+            String periodo = String.valueOf(it.next());
+            String periodoAnio = periodo.substring(0, 4);
+            String periodoFormateado = periodo.substring(0, 4).concat(" - ").concat(periodo.substring(4, 6));
+            
+            if (mapa.containsKey(periodoAnio)) {
+                List<SelectItem> periodos = mapa.get(periodoAnio);
+                periodos.add(new SelectItem(periodo, periodoFormateado));
+            } else {
+                List<SelectItem> periodos = new ArrayList<SelectItem>();
+                periodos.add(new SelectItem(periodo, periodoFormateado));
+                mapa.put(periodoAnio, periodos);
+            }
+        }
+        return mapa;
+    }
+
+    /**
+     * Obtiene los periodos transformados a SelectItem para ser asociados a un HtmlSelectOneMenu u otro componente.
+     * @param lista Lista de String con los periodos
+     * @see SelectItem
+     * @return List<SelectItem> con los periodos.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static List<SelectItem> cargarPeriodos(List<String> lista) throws Exception {
+        List<SelectItem> periodos = new ArrayList<SelectItem>();
+        if (lista != null && lista.size() > 0) {
+            periodos = toSelectItem(lista.iterator());
+        }
+        return periodos;
+    }
+
+    /**
+     * transforma la Lista de funcionarios a lista de SelectItem.
+     * @param lista Lista de Funcionarios fiscalizadores.
+     * @see SelectItem
+     * @see Funcionario
+     * @return Lista de los periodos transformados a elementos de menú, por su nombre e id.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static List<SelectItem> cargarFiscalizadores(List<Funcionario> lista) throws Exception {
+        List<SelectItem> fiscalizadores = new ArrayList<SelectItem>();
+        if (lista != null && lista.size() > 0) {
+            fiscalizadores = toSelectItem(lista.iterator());
+        }
+        return fiscalizadores;
+    }
+
+    /**
+     * Transforma una lista de empresas a un lista de elementos de menú.
+     * @param lista Lista de empresas.
+     * @see SelectItem
+     * @see ActividadEconomica
+     * @return Lista de empresas representadas como elementos de menú, con el nombre y el id.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static List<SelectItem> cargarIndustrias(List<ActividadEconomica> lista) throws Exception {
+        List<SelectItem> industrias = new ArrayList<SelectItem>();
+        if (lista != null && lista.size() > 0) {
+            List<SelectItem> itemsIndustria = toSelectItem(lista.iterator());
+            industrias.addAll(itemsIndustria);
+        }
+        return industrias;
+    }
+
+    /**
+     * Transforma la lista de comunas a una lista de elementos de menú.
+     * @param lista Lista con las comunas.
+     * @see SelectItem
+     * @see Comuna
+     * @return Lista de elementos de menú, con el nombre e id de la comuna.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static List<SelectItem> cargarComunas(List<Comuna> lista) throws Exception {
+        List<SelectItem> comunas = new ArrayList<SelectItem>();
+        if (lista != null && lista.size() > 0) {
+            comunas = UtilListas.toSelectItem(lista.iterator());
+
+        }
+        return comunas;
+    }
+
+    /**
+     * Transforma la lista de Regiones a una lista de elementos de menú.
+     * @param lista Lista con las regiones.
+     * @see SelectItem
+     * @see Region
+     * @return Lista de elementos de menú, con el nombre e id de la región.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static List<SelectItem> cargarRegiones(List<Region> lista) throws Exception {
+        List<SelectItem> regiones = new ArrayList<SelectItem>();
+        if (lista != null && lista.size() > 0) {
+            regiones = toSelectItem(lista.iterator());
+        }
+        return regiones;
+    }
+
+    /**
+     * Transforma la lista de parámetros a una lista de elementos de menú.
+     * @param lista Lista con los parámetros.
+     * @see SelectItem
+     * @see Parametro
+     * @return Lista de elementos de menú, con el nombre e id del Parametro.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static List<SelectItem> cargarParametros(List<Parametro> lista) throws Exception {
+        List<SelectItem> parametros = new ArrayList<SelectItem>();
+        if (lista != null && lista.size() > 0) {
+            parametros = toSelectItem(lista.iterator());
+        }
+        return parametros;
+    }
+
+    /**
+     * Transforma una elemento de iteración a una lista de elementos de menú.
+     * @param iter Iterator asociado a la lista.
+     * @see SelectItem
+     * @see ActividadEconomica
+     * @see Comuna
+     * @see Region
+     * @see Funcionario
+     * @see Parametro
+     * @return Lista de elementos de menú, con el nombre e id del tipo asociado.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static ArrayList<SelectItem> toSelectItem(Iterator iter) throws Exception {
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        while (iter.hasNext()) {
+            Object obj = iter.next();
+            if (obj instanceof ActividadEconomica) {
+                ActividadEconomica i = (ActividadEconomica) obj;
+                String id = String.valueOf(i.getEmpresaId()).concat("@").concat(String.valueOf(i.getActividadEconomicaId()));
+                items.add(new SelectItem(id, i.getActividadEconomica()));
+            } else if (obj instanceof Comuna) {
+                Comuna i = (Comuna) obj;
+                items.add(new SelectItem(i.getComunaId(), i.getComuna()));
+            } else if (obj instanceof Region) {
+                Region i = (Region) obj;
+                items.add(new SelectItem(i.getRegionId(), i.getRegion()));
+            } else if (obj instanceof Funcionario) {
+                Funcionario i = (Funcionario) obj;
+                String name = i.getNatural().getPaterno().concat(" ").concat(
+                        i.getNatural().getMaterno()).concat(" ").concat(
+                        i.getNatural().getNombre());
+                items.add(new SelectItem(i.getFuncionarioId(), name.toUpperCase()));
+            } else if (obj instanceof Parametro) {
+                Parametro param = (Parametro) obj;
+                items.add(new SelectItem(param.getParametroId(), param.getParametro().toUpperCase()));
+            } else { //Instancia de un array de string
+                String periodo = String.valueOf(obj);
+                String periodoFormateado = periodo.substring(0, 4).concat("-").concat(periodo.substring(4, 6));
+                items.add(new SelectItem(String.valueOf(obj), periodoFormateado));
+            }
+        }
+        return items;
+    }
+
+    /**
+     * Transforma una elemento de iteración a una lista de elementos de menú.
+     * @param iter Iterator asociado a la lista.
+     * @param onlyYears Verdadero si sólo se desean mostrar los años.
+     * @see SelectItem
+     * @return Lista de elementos de menú, con el año asociado al periodo.
+     * @throws Exception Gatilla una excepción.
+     */
+    public static ArrayList<SelectItem> toSelectItemAnioPeriodo(Iterator iter, boolean onlyYears) throws Exception {
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        while (iter.hasNext()) {
+            Object obj = iter.next();
+            String periodo = String.valueOf(obj);
+            String periodoFormateado = "";
+            if (onlyYears) {
+                periodoFormateado = periodo.substring(0, 4);
+            } else {
+                periodoFormateado = periodo.substring(0, 4).concat("-").concat(periodo.substring(4, 6));
+            }
+            items.add(new SelectItem(String.valueOf(obj), periodoFormateado));
+        }
+        return items;
+    }
+
+    /**
+     * Transforma un elemento de iteración, list.iterator a un string separado por comas.
+     * @param iterator Iteración asociada a una lista.
+     * @return Texto con los valores cncatenados y separados por coma.
+     */
+    public static String arrayToString(Iterator iterator) {
+        String items = "";
+        if (iterator != null) {
+            int cont = 0;
+            while (iterator.hasNext()) {
+                if (cont > 0) {
+                    items = items.concat(",");
+                }
+                items = items.concat(String.valueOf(iterator.next()));
+                cont = cont + 1;
+            }
+        }
+        return items;
+    }
+}
